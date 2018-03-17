@@ -85,26 +85,26 @@ describe("FormInput", () => {
 
   describe("Validate", () => {
     let formObserver;
+    const message = "empty";
     const props = {
       id: "item1",
-      label: "Item1"
+      label: "Item1",
+      validator(value) {
+        const messages = [];
+        if (value.length === 0) {
+          messages.push(message);
+        }
+        return messages;
+      }
     };
     beforeEach(() => {
       formObserver = new FormObserver(["item1"]);
     });
 
     it("validator", () => {
-      const message = "empty";
       const wrapper = shallow(FormInput, {
         propsData: {
           ...props,
-          validator(value) {
-            const messages = [];
-            if (value.length === 0) {
-              messages.push(message);
-            }
-            return messages;
-          },
           formObserver
         }
       });
@@ -119,17 +119,9 @@ describe("FormInput", () => {
     });
 
     it("FormObserver", () => {
-      const message = "empty";
       const wrapper = shallow(FormInput, {
         propsData: {
           ...props,
-          validator(value) {
-            const messages = [];
-            if (value.length === 0) {
-              messages.push(message);
-            }
-            return messages;
-          },
           formObserver
         }
       });
@@ -140,6 +132,38 @@ describe("FormInput", () => {
       input.trigger("input");
 
       expect(formObserver.hasError).toBeFalsy();
+    });
+
+    it("dirty attr, 入力が一度されてからエラー表示を行う", () => {
+      const wrapper = shallow(FormInput, {
+        propsData: {
+          ...props,
+          formObserver,
+          dirty: "",
+          validator(value) {
+            const messages = [];
+            if (value.length > 0) {
+              messages.push("入力禁止");
+            }
+            return messages;
+          }
+        }
+      });
+
+      const input = wrapper.find("input");
+      const messages = wrapper.find("ul");
+
+      input.element.value = "a";
+      input.trigger("input");
+
+      expect.assertions(4);
+      expect(input.classes()).not.toContain("has-error");
+      expect(messages.isVisible()).toBeFalsy();
+
+      input.element.value = "aa";
+      input.trigger("input");
+      expect(input.classes()).toContain("has-error");
+      expect(messages.isVisible()).toBeTruthy();
     });
   });
 });

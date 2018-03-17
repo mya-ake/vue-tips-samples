@@ -13,7 +13,7 @@
       }"
       v-on:input="handleInput"
     >
-    <ul>
+    <ul v-show="hasError">
       <li
         v-for="(message, index) in messages"
         v-bind:key="`message-${index}`"
@@ -64,12 +64,21 @@ export default {
         return value instanceof FormObserver;
       },
       required: true
+    },
+    dirty: {
+      type: String
     }
   },
 
   data() {
     return {
-      messages: []
+      messages: [],
+      hasAttr: {
+        dirty: typeof this.dirty === "string"
+      },
+      state: {
+        dirty: false
+      }
     };
   },
 
@@ -80,6 +89,15 @@ export default {
 
     hasError() {
       return this.messages.length > 0;
+    },
+
+    validatable() {
+      if (this.hasAttr.dirty) {
+        if (this.state.dirty === false) {
+          return false;
+        }
+      }
+      return true;
     }
   },
 
@@ -88,9 +106,13 @@ export default {
       const value = evt.target.value;
       this.$emit("input", value);
       this.validate(value);
+      this.state.dirty = true;
     },
 
     validate(value) {
+      if (this.validatable === false) {
+        return;
+      }
       this.messages = this.validator(value);
       this.notify();
     },
