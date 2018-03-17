@@ -37,6 +37,6 @@ describe("FormObserver", () => {
     formObserver.setResult(names[0], true);
     formObserver.setResult(names[1], false);
 
-    expect(formObserver.hasError).toBeFalsy();
+    expect(formObserver.hasError).toBeTruthy();
   });
 });

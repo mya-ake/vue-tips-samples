@@ -12,7 +12,7 @@ export class FormObserver {
     if (result === true) {
       this.hasError = this._hasErrorResults();
     } else {
-      this.hasError = false;
+      this.hasError = true;
     }
   }
 
