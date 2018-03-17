@@ -39,4 +39,11 @@ describe("FormObserver", () => {
 
     expect(formObserver.hasError).toBeTruthy();
   });
+
+  it("1つがfalseでもう1つがtrue", () => {
+    formObserver.setResult(names[0], false);
+    formObserver.setResult(names[1], true);
+
+    expect(formObserver.hasError).toBeTruthy();
+  });
 });
