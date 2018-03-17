@@ -1,4 +1,4 @@
-import { FormObserver } from "@/lib/FormObserver";
+import { FormObserver } from "@/lib";
 
 describe("FormObserver", () => {
   const names = ["item1", "item2"];

@@ -8,6 +8,9 @@
       v-bind:name="nameAttr"
       v-bind:placeholder="placeholder"
       v-bind:required="required"
+      v-bind:class="{
+        'has-error': hasError
+      }"
       v-on:input="handleInput"
     >
     <ul>
@@ -20,6 +23,8 @@
 </template>
 
 <script>
+import { FormObserver } from "@/lib";
+
 export default {
   props: {
     type: {
@@ -53,6 +58,12 @@ export default {
       default() {
         return [];
       }
+    },
+    formObserver: {
+      validator(value) {
+        return value instanceof FormObserver;
+      },
+      required: true
     }
   },
 
@@ -65,6 +76,10 @@ export default {
   computed: {
     nameAttr() {
       return this.name || this.id;
+    },
+
+    hasError() {
+      return this.messages.length > 0;
     }
   },
 
@@ -77,6 +92,11 @@ export default {
 
     validate(value) {
       this.messages = this.validator(value);
+      this.notify();
+    },
+
+    notify() {
+      this.formObserver.setResult(this.nameAttr, !this.hasError);
     }
   }
 };

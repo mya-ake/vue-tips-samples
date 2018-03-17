@@ -1,13 +1,15 @@
 import { shallow } from "@vue/test-utils";
 
 import { FormInput } from "@/components";
+import { FormObserver } from "@/lib";
 
 describe("FormInput", () => {
   describe("Initialize", () => {
     it("only requred", () => {
       const props = {
         id: "search",
-        label: "Search"
+        label: "Search",
+        formObserver: new FormObserver(["search"])
       };
       const wrapper = shallow(FormInput, {
         propsData: props
@@ -17,7 +19,6 @@ describe("FormInput", () => {
       const input = wrapper.find("input");
 
       expect.assertions(6);
-
       expect(label.text()).toBe(props.label);
       expect(label.attributes().for).toBe(input.attributes().id);
       expect(input.attributes().name).toBe(props.id);
@@ -34,7 +35,8 @@ describe("FormInput", () => {
         label: "Search",
         value: "keyword",
         placeholder: "e.g. vue.js",
-        required: ""
+        required: "",
+        formObserver: new FormObserver(["search"])
       };
       const wrapper = shallow(FormInput, {
         propsData: props
@@ -44,7 +46,6 @@ describe("FormInput", () => {
       const input = wrapper.find("input");
 
       expect.assertions(8);
-
       expect(label.text()).toBe(props.label);
       expect(label.attributes().for).toBe(input.attributes().id);
       expect(input.attributes().name).toBe(props.name);
@@ -61,7 +62,8 @@ describe("FormInput", () => {
     beforeEach(() => {
       const props = {
         id: "item1",
-        label: "Item1"
+        label: "Item1",
+        formObserver: new FormObserver(["item1"])
       };
       wrapper = shallow(FormInput, {
         propsData: props
@@ -76,17 +78,20 @@ describe("FormInput", () => {
       input.trigger("input");
 
       expect.assertions(2);
-
       expect(wrapper.emitted().input).toHaveLength(1);
       expect(wrapper.emitted().input[0]).toEqual([inputText]);
     });
   });
 
   describe("Validate", () => {
+    let formObserver;
     const props = {
       id: "item1",
       label: "Item1"
     };
+    beforeEach(() => {
+      formObserver = new FormObserver(["item1"]);
+    });
 
     it("validator", () => {
       const message = "empty";
@@ -99,12 +104,42 @@ describe("FormInput", () => {
               messages.push(message);
             }
             return messages;
-          }
+          },
+          formObserver
         }
       });
 
-      wrapper.find("input").trigger("input");
+      const input = wrapper.find("input");
+
+      input.trigger("input");
+
+      expect.assertions(2);
       expect(wrapper.find("li").text()).toBe(message);
+      expect(input.classes()).toContain("has-error");
+    });
+
+    it("FormObserver", () => {
+      const message = "empty";
+      const wrapper = shallow(FormInput, {
+        propsData: {
+          ...props,
+          validator(value) {
+            const messages = [];
+            if (value.length === 0) {
+              messages.push(message);
+            }
+            return messages;
+          },
+          formObserver
+        }
+      });
+
+      const input = wrapper.find("input");
+
+      input.element.value = "test value";
+      input.trigger("input");
+
+      expect(formObserver.hasError).toBeFalsy();
     });
   });
 });
