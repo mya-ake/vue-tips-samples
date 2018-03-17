@@ -134,7 +134,7 @@ describe("FormInput", () => {
       expect(formObserver.hasError).toBeFalsy();
     });
 
-    it("dirty attr, 入力が一度されてからエラー表示を行う", () => {
+    it("dirty attr, 入力が一度されてからバリデーションを行う", () => {
       const wrapper = shallow(FormInput, {
         propsData: {
           ...props,
@@ -162,6 +162,43 @@ describe("FormInput", () => {
 
       input.element.value = "aa";
       input.trigger("input");
+      expect(input.classes()).toContain("has-error");
+      expect(messages.isVisible()).toBeTruthy();
+    });
+
+    it("Touched attr, inputのフォーカスが離れてからバリデーションを行う", async () => {
+      const wrapper = shallow(FormInput, {
+        propsData: {
+          ...props,
+          formObserver,
+          touched: "",
+          validator(value) {
+            const messages = [];
+            if (value.length > 0) {
+              messages.push("入力禁止");
+            }
+            return messages;
+          }
+        }
+      });
+
+      const input = wrapper.find("input");
+      const messages = wrapper.find("ul");
+
+      input.element.value = "a";
+      input.trigger("input");
+
+      expect.assertions(6);
+      expect(input.classes()).not.toContain("has-error");
+      expect(messages.isVisible()).toBeFalsy();
+
+      input.element.value = "aa";
+      input.trigger("input");
+      expect(input.classes()).not.toContain("has-error");
+      expect(messages.isVisible()).toBeFalsy();
+
+      input.element.value = "aa"; // blurをトリガする前にもう一度いれないとイベント発火時に空になってしまう模様
+      input.trigger("blur");
       expect(input.classes()).toContain("has-error");
       expect(messages.isVisible()).toBeTruthy();
     });

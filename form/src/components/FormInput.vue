@@ -2,6 +2,7 @@
   <div>
     <label v-bind:for="id">{{ label }}</label>
     <input
+      ref="input"
       v-bind:type="type"
       v-bind:id="id"
       v-bind:value="value"
@@ -12,6 +13,7 @@
         'has-error': hasError
       }"
       v-on:input="handleInput"
+      v-on:blur="handleBlur"
     >
     <ul v-show="hasError">
       <li
@@ -67,6 +69,9 @@ export default {
     },
     dirty: {
       type: String
+    },
+    touched: {
+      type: String
     }
   },
 
@@ -74,10 +79,12 @@ export default {
     return {
       messages: [],
       hasAttr: {
-        dirty: typeof this.dirty === "string"
+        dirty: typeof this.dirty === "string",
+        touched: typeof this.touched === "string"
       },
       state: {
-        dirty: false
+        dirty: false,
+        touched: false
       }
     };
   },
@@ -97,16 +104,26 @@ export default {
           return false;
         }
       }
+      if (this.hasAttr.touched) {
+        if (this.state.touched === false) {
+          return false;
+        }
+      }
       return true;
     }
   },
 
   methods: {
-    handleInput(evt) {
-      const value = evt.target.value;
+    handleInput() {
+      const value = this.$refs.input.value;
       this.$emit("input", value);
       this.validate(value);
       this.state.dirty = true;
+    },
+
+    handleBlur() {
+      this.state.touched = true;
+      this.validate(this.$refs.input.value);
     },
 
     validate(value) {
