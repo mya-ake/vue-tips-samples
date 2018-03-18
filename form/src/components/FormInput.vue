@@ -72,6 +72,15 @@ export default {
     },
     touched: {
       type: String
+    },
+    initialValidate: {
+      type: String
+    }
+  },
+
+  mounted() {
+    if (this.hasAttr.initialValidate) {
+      this.validate(this.value);
     }
   },
 
@@ -80,7 +89,8 @@ export default {
       messages: [],
       hasAttr: {
         dirty: typeof this.dirty === "string",
-        touched: typeof this.touched === "string"
+        touched: typeof this.touched === "string",
+        initialValidate: typeof this.initialValidate === "string"
       },
       state: {
         dirty: false,
@@ -117,19 +127,21 @@ export default {
     handleInput() {
       const value = this.$refs.input.value;
       this.$emit("input", value);
-      this.validate(value);
+
+      if (this.validatable) {
+        this.validate(value);
+      }
       this.state.dirty = true;
     },
 
     handleBlur() {
       this.state.touched = true;
-      this.validate(this.$refs.input.value);
+      if (this.validatable) {
+        this.validate(this.$refs.input.value);
+      }
     },
 
     validate(value) {
-      if (this.validatable === false) {
-        return;
-      }
       this.messages = this.validator(value);
       this.notify();
     },

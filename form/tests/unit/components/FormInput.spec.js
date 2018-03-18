@@ -1,3 +1,4 @@
+import Vue from "vue";
 import { shallow } from "@vue/test-utils";
 
 import { FormInput } from "@/components";
@@ -54,6 +55,34 @@ describe("FormInput", () => {
       expect(input.attributes().required).not.toBeUndefined();
       expect(input.element.value).toBe(props.value);
       expect(wrapper.findAll("li").wrappers).toHaveLength(0);
+    });
+
+    it("validate", async () => {
+      const message = "入力禁止";
+      const props = {
+        id: "search",
+        label: "Search",
+        value: "a",
+        formObserver: new FormObserver(["search"]),
+        initialValidate: "",
+        validator(value) {
+          const messages = [];
+          if (value.length > 0) {
+            messages.push(message);
+          }
+          return messages;
+        }
+      };
+      const wrapper = shallow(FormInput, {
+        propsData: props
+      });
+
+      const input = wrapper.find("input");
+
+      await Vue.nextTick();
+      expect.assertions(2);
+      expect(wrapper.find("li").text()).toBe(message);
+      expect(input.classes()).toContain("has-error");
     });
   });
 
