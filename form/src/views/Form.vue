@@ -1,9 +1,59 @@
 <template>
-  <div>Form</div>
+  <div>
+    <h1>お問い合わせ</h1>
+
+    <form v-on:submit.prevent="handleSubmit">
+      <form-input
+        id="email"
+        label="メールアドレス"
+        type="email"
+        v-model="models.email.value"
+        v-bind:formItem="models.email"
+        v-bind:formObserver="formObserver"
+        dirty
+        touched
+      />
+      <button
+        type="submit"
+        v-bind:disabled="formObserver.hasError"
+      >確認画面へ</button>
+    </form>
+  </div>
 </template>
 
 <script>
-export default {};
+import { FormInput } from "@/components";
+import { FormObserver } from "@/lib";
+import { EmailFormItem } from "@/models";
+
+export default {
+  data() {
+    return {
+      models: {
+        email: new EmailFormItem("")
+      },
+      formObserver: new FormObserver(["email"])
+    };
+  },
+
+  methods: {
+    handleSubmit() {
+      const formValues = Object.entries(this.models).reduce(
+        (obj, [key, formItem]) => {
+          obj[key] = formItem.value;
+          return obj;
+        },
+        {}
+      );
+      console.log(formValues);
+      this.$router.push("/confirm");
+    }
+  },
+
+  components: {
+    FormInput
+  }
+};
 </script>
 
 <style lang="scss" scoped>
