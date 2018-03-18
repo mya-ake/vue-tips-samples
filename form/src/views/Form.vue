@@ -28,10 +28,16 @@ import { EmailFormItem } from "@/models";
 
 export default {
   data() {
+    const storeValues = this.$store.state.form.formValues;
+    const models = {};
+    if (storeValues !== null) {
+      models.email = new EmailFormItem(storeValues.email);
+    } else {
+      models.email = new EmailFormItem("");
+    }
+
     return {
-      models: {
-        email: new EmailFormItem("")
-      },
+      models,
       formObserver: new FormObserver(["email"])
     };
   },
@@ -45,7 +51,7 @@ export default {
         },
         {}
       );
-      console.log(formValues);
+      this.$store.commit("form/setFormValues", formValues);
       this.$router.push("/confirm");
     }
   },
