@@ -4,6 +4,22 @@ import { shallow } from "@vue/test-utils";
 import { FormInput } from "@/components";
 import { FormObserver } from "@/lib";
 
+class InputProcess {
+  constructor(wrapper) {
+    this._wrapper = wrapper;
+    this._input = this._wrapper.find("input");
+    this._count = 0;
+  }
+
+  async input(value) {
+    this._input.element.value = value; // 入力
+    this._input.trigger("input"); // inputイベント発火
+    this._wrapper.vm.value = this._wrapper.emitted().input[this._count][0]; // 親のv-modelから値が返ってくる
+    this._count++;
+    await Vue.nextTick();
+  }
+}
+
 describe("FormInput", () => {
   describe("Initialize", () => {
     it("only requred", () => {
@@ -130,40 +146,21 @@ describe("FormInput", () => {
       formObserver = new FormObserver(["item1"]);
     });
 
-    it("validator", () => {
+    it("FormObserver", async () => {
       const wrapper = shallow(FormInput, {
         propsData: {
           ...props,
           formObserver
         }
       });
+      const inputProcess = new InputProcess(wrapper);
 
-      const input = wrapper.find("input");
-
-      input.trigger("input");
-
-      expect.assertions(2);
-      expect(wrapper.find("li").text()).toBe(message);
-      expect(input.classes()).toContain("has-error");
-    });
-
-    it("FormObserver", () => {
-      const wrapper = shallow(FormInput, {
-        propsData: {
-          ...props,
-          formObserver
-        }
-      });
-
-      const input = wrapper.find("input");
-
-      input.element.value = "test value";
-      input.trigger("input");
+      await inputProcess.input("test value");
 
       expect(formObserver.hasError).toBeFalsy();
     });
 
-    it("dirty attr, 入力が一度されてからバリデーションを行う", () => {
+    it("dirty attr, 入力が一度されてからバリデーションを行う", async () => {
       const wrapper = shallow(FormInput, {
         propsData: {
           ...props,
@@ -179,18 +176,18 @@ describe("FormInput", () => {
         }
       });
 
+      const inputProcess = new InputProcess(wrapper);
       const input = wrapper.find("input");
       const messages = wrapper.find("ul");
 
-      input.element.value = "a";
-      input.trigger("input");
+      await inputProcess.input("a");
 
       expect.assertions(4);
       expect(input.classes()).not.toContain("has-error");
       expect(messages.isVisible()).toBeFalsy();
 
-      input.element.value = "aa";
-      input.trigger("input");
+      await inputProcess.input("aa");
+
       expect(input.classes()).toContain("has-error");
       expect(messages.isVisible()).toBeTruthy();
     });
@@ -211,23 +208,23 @@ describe("FormInput", () => {
         }
       });
 
+      const inputProcess = new InputProcess(wrapper);
       const input = wrapper.find("input");
       const messages = wrapper.find("ul");
 
-      input.element.value = "a";
-      input.trigger("input");
+      await inputProcess.input("a");
 
       expect.assertions(6);
       expect(input.classes()).not.toContain("has-error");
       expect(messages.isVisible()).toBeFalsy();
 
-      input.element.value = "aa";
-      input.trigger("input");
+      await inputProcess.input("aa");
+
       expect(input.classes()).not.toContain("has-error");
       expect(messages.isVisible()).toBeFalsy();
 
-      input.element.value = "aa"; // blurをトリガする前にもう一度いれないとイベント発火時に空になってしまう模様
       input.trigger("blur");
+
       expect(input.classes()).toContain("has-error");
       expect(messages.isVisible()).toBeTruthy();
     });

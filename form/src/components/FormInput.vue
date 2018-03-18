@@ -2,7 +2,6 @@
   <div>
     <label v-bind:for="id">{{ label }}</label>
     <input
-      ref="input"
       v-bind:type="type"
       v-bind:id="id"
       v-bind:value="value"
@@ -80,7 +79,7 @@ export default {
 
   mounted() {
     if (this.hasAttr.initialValidate) {
-      this.validate(this.value);
+      this.validate();
     }
   },
 
@@ -123,26 +122,30 @@ export default {
     }
   },
 
-  methods: {
-    handleInput() {
-      const value = this.$refs.input.value;
-      this.$emit("input", value);
-
+  watch: {
+    value() {
       if (this.validatable) {
-        this.validate(value);
+        this.validate();
       }
       this.state.dirty = true;
+    }
+  },
+
+  methods: {
+    handleInput(evt) {
+      const value = evt.currentTarget.value;
+      this.$emit("input", value);
     },
 
     handleBlur() {
       this.state.touched = true;
       if (this.validatable) {
-        this.validate(this.$refs.input.value);
+        this.validate();
       }
     },
 
-    validate(value) {
-      this.messages = this.validator(value);
+    validate() {
+      this.messages = this.validator(this.value);
       this.notify();
     },
 
