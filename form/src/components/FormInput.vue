@@ -38,7 +38,7 @@ export default {
     },
     value: {
       type: String,
-      default: ""
+      required: true
     },
     label: {
       type: String,

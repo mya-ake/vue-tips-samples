@@ -26,6 +26,7 @@ describe("FormInput", () => {
       const props = {
         id: "search",
         label: "Search",
+        value: "a",
         formObserver: new FormObserver(["search"])
       };
       const wrapper = shallow(FormInput, {
@@ -40,7 +41,7 @@ describe("FormInput", () => {
       expect(label.attributes().for).toBe(input.attributes().id);
       expect(input.attributes().name).toBe(props.id);
       expect(input.attributes().type).toBe("text");
-      expect(input.element.value).toBe("");
+      expect(input.element.value).toBe(props.value);
       expect(wrapper.findAll("li").wrappers).toHaveLength(0);
     });
 
@@ -108,6 +109,7 @@ describe("FormInput", () => {
       const props = {
         id: "item1",
         label: "Item1",
+        value: "",
         formObserver: new FormObserver(["item1"])
       };
       wrapper = shallow(FormInput, {
@@ -134,6 +136,7 @@ describe("FormInput", () => {
     const props = {
       id: "item1",
       label: "Item1",
+      value: "",
       validator(value) {
         const messages = [];
         if (value.length === 0) {
