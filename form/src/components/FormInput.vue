@@ -25,6 +25,7 @@
 
 <script>
 import { FormObserver } from "@/lib";
+import { BaseFormItem } from "@/models";
 
 export default {
   props: {
@@ -36,9 +37,10 @@ export default {
       type: String,
       required: true
     },
-    value: {
-      type: String,
-      required: true
+    formItem: {
+      validator(value) {
+        return value instanceof BaseFormItem;
+      }
     },
     label: {
       type: String,
@@ -53,12 +55,6 @@ export default {
     },
     required: {
       type: String
-    },
-    validator: {
-      type: Function,
-      default() {
-        return [];
-      }
     },
     formObserver: {
       validator(value) {
@@ -99,6 +95,14 @@ export default {
   },
 
   computed: {
+    value() {
+      return this.formItem.value;
+    },
+
+    validator() {
+      return this.formItem.validator;
+    },
+
     nameAttr() {
       return this.name || this.id;
     },

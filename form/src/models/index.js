@@ -1,1 +1,1 @@
-export { EmailFormItem } from "./forms/items";
+export { BaseFormItem, EmailFormItem } from "./forms/items";
