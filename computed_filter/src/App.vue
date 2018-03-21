@@ -11,6 +11,7 @@
 
     <section>
       <h2>filter</h2>
+      <filter-example/>
     </section>
 
   </section>
@@ -18,9 +19,12 @@
 
 <script>
 import ComputedExample from "./components/ComputedExample";
+import FilterExample from "./components/FilterExample";
+
 export default {
   components: {
-    ComputedExample
+    ComputedExample,
+    FilterExample
   }
 };
 </script>
