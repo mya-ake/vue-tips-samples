@@ -9,12 +9,12 @@
       v-bind:placeholder="placeholder"
       v-bind:required="required"
       v-bind:class="{
-        'has-error': hasError
+        'has-error': showError
       }"
       v-on:input="handleInput"
       v-on:blur="handleBlur"
     >
-    <ul v-show="hasError">
+    <ul v-show="showError">
       <li
         v-for="(message, index) in messages"
         v-bind:key="`message-${index}`"
@@ -88,7 +88,7 @@ export default {
         initialValidate: typeof this.initialValidate === "string"
       },
       state: {
-        dirty: false,
+        dirtyCount: 0,
         touched: false
       }
     };
@@ -111,27 +111,36 @@ export default {
       return this.messages.length > 0;
     },
 
-    validatable() {
+    isDirty() {
+      return this.state.dirtyCount > 1;
+    },
+
+    isTouched() {
+      return this.state.touched;
+    },
+
+    attrValidationConditions() {
       if (this.hasAttr.dirty) {
-        if (this.state.dirty === false) {
+        if (this.isDirty === false) {
           return false;
         }
       }
       if (this.hasAttr.touched) {
-        if (this.state.touched === false) {
+        if (this.isTouched === false) {
           return false;
         }
       }
       return true;
+    },
+
+    showError() {
+      return this.hasError && this.attrValidationConditions;
     }
   },
 
   watch: {
     value() {
-      if (this.validatable) {
-        this.validate();
-      }
-      this.state.dirty = true;
+      this.validate();
     }
   },
 
@@ -139,13 +148,12 @@ export default {
     handleInput(evt) {
       const value = evt.currentTarget.value;
       this.$emit("input", value);
+      this.state.dirtyCount++;
     },
 
     handleBlur() {
       this.state.touched = true;
-      if (this.validatable) {
-        this.validate();
-      }
+      this.validate();
     },
 
     validate() {
