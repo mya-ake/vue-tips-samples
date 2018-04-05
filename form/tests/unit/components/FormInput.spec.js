@@ -2,7 +2,6 @@ import Vue from "vue";
 import { shallow } from "@vue/test-utils";
 
 import { FormInput } from "@/components";
-import { FormObserver } from "@/lib";
 import { BaseFormItem } from "@/models";
 
 class InputProcess {
@@ -51,8 +50,7 @@ describe("FormInput", () => {
       const props = {
         id: "search",
         label: "Search",
-        formItem: new BaseFormItem("a"),
-        formObserver: new FormObserver(["search"])
+        formItem: new BaseFormItem("a")
       };
       const wrapper = shallow(FormInput, {
         propsData: props
@@ -78,8 +76,7 @@ describe("FormInput", () => {
         label: "Search",
         placeholder: "e.g. vue.js",
         required: "",
-        formItem: new BaseFormItem("keyword"),
-        formObserver: new FormObserver(["search"])
+        formItem: new BaseFormItem("keyword")
       };
       const wrapper = shallow(FormInput, {
         propsData: props
@@ -99,12 +96,11 @@ describe("FormInput", () => {
       expect(wrapper.findAll("li").wrappers).toHaveLength(0);
     });
 
-    it("validate", async () => {
+    it("initial validate", async () => {
       const props = {
         id: "search",
         label: "Search",
         formItem: new EmptyFormItem("a"),
-        formObserver: new FormObserver(["search"]),
         initialValidate: ""
       };
       const wrapper = shallow(FormInput, {
@@ -114,23 +110,23 @@ describe("FormInput", () => {
       const input = wrapper.find("input");
 
       await Vue.nextTick();
-      expect.assertions(2);
+      expect.assertions(3);
       expect(wrapper.find("li").text()).toBe(
         EmptyFormItem.MESSAGES.INPUT_PROHIBITION
       );
       expect(input.classes()).toContain("has-error");
+      expect(wrapper.emitted().notify).toHaveLength(1);
     });
   });
 
   describe("Events", () => {
     let wrapper;
+    const props = {
+      id: "item1",
+      label: "Item1",
+      formItem: new BaseFormItem("")
+    };
     beforeEach(() => {
-      const props = {
-        id: "item1",
-        label: "Item1",
-        formItem: new BaseFormItem(""),
-        formObserver: new FormObserver(["item1"])
-      };
       wrapper = shallow(FormInput, {
         propsData: props
       });
@@ -147,39 +143,31 @@ describe("FormInput", () => {
       expect(wrapper.emitted().input).toHaveLength(1);
       expect(wrapper.emitted().input[0]).toEqual([inputText]);
     });
+
+    it("notify", async () => {
+      const inputProcess = new InputProcess(wrapper);
+      await inputProcess.input("test value");
+
+      expect.assertions(2);
+      expect(wrapper.emitted().notify).toHaveLength(1);
+      expect(wrapper.emitted().notify[0][0]).toEqual({
+        name: props.id,
+        hasError: true
+      });
+    });
   });
 
   describe("Validate", () => {
-    let formObserver;
     const props = {
       id: "item1",
       label: "Item1"
     };
-    beforeEach(() => {
-      formObserver = new FormObserver(["item1"]);
-    });
-
-    it("FormObserver", async () => {
-      const wrapper = shallow(FormInput, {
-        propsData: {
-          ...props,
-          formItem: new StringFormItem(""),
-          formObserver
-        }
-      });
-      const inputProcess = new InputProcess(wrapper);
-
-      await inputProcess.input("test value");
-
-      expect(formObserver.hasError).toBeFalsy();
-    });
 
     it("dirty attr, 入力が一度されてからバリデーションを行う", async () => {
       const wrapper = shallow(FormInput, {
         propsData: {
           ...props,
           formItem: new EmptyFormItem(""),
-          formObserver,
           dirty: ""
         }
       });
@@ -205,7 +193,6 @@ describe("FormInput", () => {
         propsData: {
           ...props,
           formItem: new EmptyFormItem(""),
-          formObserver,
           touched: ""
         }
       });

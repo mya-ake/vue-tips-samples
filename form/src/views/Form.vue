@@ -9,7 +9,7 @@
         type="email"
         v-model="models.email.value"
         v-bind:formItem="models.email"
-        v-bind:formObserver="formObserver"
+        v-on:notify="handleNotify"
         dirty
         touched
       />
@@ -53,6 +53,10 @@ export default {
       );
       this.$store.commit("form/setFormValues", formValues);
       this.$router.push("/confirm");
+    },
+
+    handleNotify({ name, hasError }) {
+      this.formObserver.setResult(name, hasError);
     }
   },
 

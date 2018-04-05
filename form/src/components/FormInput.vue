@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import { FormObserver } from "@/lib";
 import { BaseFormItem } from "@/models";
 
 export default {
@@ -55,12 +54,6 @@ export default {
     },
     required: {
       type: String
-    },
-    formObserver: {
-      validator(value) {
-        return value instanceof FormObserver;
-      },
-      required: true
     },
     dirty: {
       type: String
@@ -162,7 +155,7 @@ export default {
     },
 
     notify() {
-      this.formObserver.setResult(this.nameAttr, !this.hasError);
+      this.$emit("notify", { name: this.nameAttr, hasError: !this.hasError });
     }
   }
 };
