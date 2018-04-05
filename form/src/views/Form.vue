@@ -56,7 +56,7 @@ export default {
     },
 
     handleNotify({ name, hasError }) {
-      this.formObserver.setResult(name, hasError);
+      this.formObserver.setResult(name, !hasError);
     }
   },
 

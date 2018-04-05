@@ -124,7 +124,7 @@ describe("FormInput", () => {
     const props = {
       id: "item1",
       label: "Item1",
-      formItem: new BaseFormItem("")
+      formItem: new EmptyFormItem("")
     };
     beforeEach(() => {
       wrapper = shallow(FormInput, {
