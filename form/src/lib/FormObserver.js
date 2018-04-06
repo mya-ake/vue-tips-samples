@@ -14,6 +14,7 @@ export class FormObserver {
     } else {
       this.hasError = true;
     }
+    return this;
   }
 
   _initializeResults() {
