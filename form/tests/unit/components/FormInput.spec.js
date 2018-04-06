@@ -152,7 +152,7 @@ describe("FormInput", () => {
       expect(wrapper.emitted().notify).toHaveLength(1);
       expect(wrapper.emitted().notify[0][0]).toEqual({
         name: props.id,
-        hasError: true
+        result: false
       });
     });
   });

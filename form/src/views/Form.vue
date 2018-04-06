@@ -55,8 +55,8 @@ export default {
       this.$router.push("/confirm");
     },
 
-    handleNotify({ name, hasError }) {
-      this.formObserver.setResult(name, !hasError);
+    handleNotify({ name, result }) {
+      this.formObserver.setResult(name, result);
     }
   },
 

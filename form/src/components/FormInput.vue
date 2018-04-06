@@ -155,7 +155,7 @@ export default {
     },
 
     notify() {
-      this.$emit("notify", { name: this.nameAttr, hasError: this.hasError });
+      this.$emit("notify", { name: this.nameAttr, result: !this.hasError });
     }
   }
 };
