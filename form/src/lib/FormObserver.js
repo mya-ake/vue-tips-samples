@@ -1,6 +1,6 @@
 export class FormObserver {
   constructor(names = []) {
-    this.names = names;
+    this._names = names;
     this._results = {};
     this.hasError = true;
 
@@ -17,7 +17,7 @@ export class FormObserver {
   }
 
   _initializeResults() {
-    for (const name of this.names) {
+    for (const name of this._names) {
       this._results[name] = false;
     }
   }

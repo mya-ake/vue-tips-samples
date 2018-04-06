@@ -10,7 +10,7 @@ describe("FormObserver", () => {
   it("constructor", () => {
     expect.assertions(names.length * 2 + 2);
 
-    expect(formObserver.names).toBe(names);
+    expect(formObserver._names).toBe(names);
     expect(formObserver.hasError).toBeTruthy();
     Object.keys(formObserver._results).forEach(name => {
       expect(names.includes(name)).toBeTruthy();
