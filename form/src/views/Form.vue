@@ -26,6 +26,16 @@
         touched
         initialValidate
       />
+      <form-select
+        id="category"
+        label="カテゴリ"
+        v-model="form.category.value"
+        v-bind:formItem="form.category"
+        v-on:notify="handleNotify"
+        dirty
+        touched
+        initialValidate
+      />
       <form-input
         id="title"
         label="タイトル"
@@ -57,7 +67,7 @@
 </template>
 
 <script>
-import { FormInput, FormTextarea } from "@/components";
+import { FormInput, FormSelect, FormTextarea } from "@/components";
 import { FormObserver } from "@/lib";
 import { ContactForm } from "@/models";
 import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from "@/store/form";
@@ -88,6 +98,7 @@ export default {
 
   components: {
     FormInput,
+    FormSelect,
     FormTextarea
   }
 };

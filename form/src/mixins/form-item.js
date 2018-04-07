@@ -9,7 +9,8 @@ export const formItemMixin = {
     formItem: {
       validator(value) {
         return value instanceof BaseFormItem;
-      }
+      },
+      required: true
     },
     label: {
       type: String,
@@ -126,7 +127,7 @@ export const formItemMixin = {
     },
 
     validate() {
-      this.messages = this.validator(this.value);
+      this.messages = this.validator();
       this.notify();
     },
 
