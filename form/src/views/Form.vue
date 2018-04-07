@@ -28,7 +28,7 @@
       />
       <form-select
         id="category"
-        label="カテゴリ"
+        label="カテゴリ（必須）"
         v-model="form.category.value"
         v-bind:formItem="form.category"
         v-on:notify="handleNotify"
@@ -49,7 +49,7 @@
       />
       <form-textarea
         id="body"
-        label="お問い合わせ内容"
+        label="お問い合わせ内容（必須）"
         v-model.trim="form.body.value"
         v-bind:formItem="form.body"
         v-bind:maxlength="form.body.maxlength"

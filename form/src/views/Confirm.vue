@@ -6,6 +6,8 @@
       <p>{{ values.name }}</p>
       <p>メールアドレス</p>
       <p>{{ values.email }}</p>
+      <p>カテゴリ</p>
+      <p>{{ values.category }}</p>
       <p>タイトル</p>
       <p>{{ values.title }}</p>
       <p>お問い合わせ内容</p>
