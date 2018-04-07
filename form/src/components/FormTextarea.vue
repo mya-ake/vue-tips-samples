@@ -9,8 +9,9 @@
       v-bind:rows="rows"
       v-bind:placeholder="placeholder"
       v-bind:required="required"
-      class="input"
-      v-bind:class="{ 'has-error': showError }"
+      v-bind:class="{
+        'has-error': showError
+      }"
       v-on:input="handleInput"
       v-on:blur="handleBlur"
     ></textarea>
