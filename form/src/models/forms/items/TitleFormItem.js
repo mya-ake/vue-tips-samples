@@ -6,9 +6,14 @@ const MESSAGES = {
 };
 
 export class TitleFormItem extends BaseFormItem {
+  constructor(value) {
+    super(value);
+    this.maxlength = 33;
+  }
+
   validator() {
     const messages = [];
-    if (isExpectLength(this.value, { max: 32 }) === false) {
+    if (isExpectLength(this.value, { max: this.maxlength - 1 }) === false) {
       messages.push(MESSAGES.EXPECT_LENGTH);
     }
     return messages;

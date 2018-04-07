@@ -8,6 +8,11 @@ const MESSAGES = {
 };
 
 export class EmailFormItem extends BaseFormItem {
+  constructor(value) {
+    super(value);
+    this.maxlength = 129;
+  }
+
   validator() {
     const messages = [];
     if (isEmptyString(this.value)) {
@@ -16,7 +21,7 @@ export class EmailFormItem extends BaseFormItem {
     if (isEmail(this.value) === false) {
       messages.push(MESSAGES.INVALID_EMAIL);
     }
-    if (isExpectLength(this.value, { max: 128 }) === false) {
+    if (isExpectLength(this.value, { max: this.maxlength - 1 }) === false) {
       messages.push(MESSAGES.EXPECT_LENGTH);
     }
     return messages;

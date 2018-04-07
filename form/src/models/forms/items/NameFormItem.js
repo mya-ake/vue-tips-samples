@@ -7,12 +7,17 @@ const MESSAGES = {
 };
 
 export class NameFormItem extends BaseFormItem {
+  constructor(value) {
+    super(value);
+    this.maxlength = 17;
+  }
+
   validator() {
     const messages = [];
     if (isEmptyString(this.value)) {
       messages.push(MESSAGES.EMPTY);
     }
-    if (isExpectLength(this.value, { max: 16 }) === false) {
+    if (isExpectLength(this.value, { max: this.maxlength - 1 }) === false) {
       messages.push(MESSAGES.EXPECT_LENGTH);
     }
     return messages;

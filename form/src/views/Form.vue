@@ -4,14 +4,49 @@
 
     <form v-on:submit.prevent="handleSubmit">
       <form-input
-        id="email"
-        label="メールアドレス"
-        type="email"
-        v-model="models.email.value"
-        v-bind:formItem="models.email"
+        id="name"
+        label="お名前/所属（必須）"
+        v-model.trim="form.name.value"
+        v-bind:formItem="form.name"
+        v-bind:maxlength="form.name.maxlength"
         v-on:notify="handleNotify"
         dirty
         touched
+        initialValidate
+      />
+      <form-input
+        id="email"
+        label="メールアドレス（必須）"
+        type="email"
+        v-model.trim="form.email.value"
+        v-bind:formItem="form.email"
+        v-bind:maxlength="form.email.maxlength"
+        v-on:notify="handleNotify"
+        dirty
+        touched
+        initialValidate
+      />
+      <form-input
+        id="title"
+        label="タイトル"
+        v-model.trim="form.title.value"
+        v-bind:formItem="form.title"
+        v-bind:maxlength="form.title.maxlength"
+        v-on:notify="handleNotify"
+        dirty
+        touched
+        initialValidate
+      />
+      <form-textarea
+        id="body"
+        label="お問い合わせ内容"
+        v-model.trim="form.body.value"
+        v-bind:formItem="form.body"
+        v-bind:maxlength="form.body.maxlength"
+        v-on:notify="handleNotify"
+        dirty
+        touched
+        initialValidate
       />
       <button
         type="submit"
@@ -24,34 +59,25 @@
 <script>
 import { FormInput, FormTextarea } from "@/components";
 import { FormObserver } from "@/lib";
-import { EmailFormItem } from "@/models";
+import { ContactForm } from "@/models";
+import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from "@/store/form";
 
 export default {
   data() {
-    const storeValues = this.$store.state.form.formValues;
-    const models = {};
-    if (storeValues !== null) {
-      models.email = new EmailFormItem(storeValues.email);
-    } else {
-      models.email = new EmailFormItem("");
-    }
-
+    const storeValues = this.$store.getters[FORM_GETTER_TYPES.VALUES];
+    const form = new ContactForm(storeValues);
     return {
-      models,
-      formObserver: new FormObserver(["email"])
+      form,
+      formObserver: new FormObserver(form.propertyNames())
     };
   },
 
   methods: {
     handleSubmit() {
-      const formValues = Object.entries(this.models).reduce(
-        (obj, [key, formItem]) => {
-          obj[key] = formItem.value;
-          return obj;
-        },
-        {}
+      this.$store.commit(
+        FORM_MUTATION_TYPES.SET_VALUES,
+        this.form.properties()
       );
-      this.$store.commit("form/setFormValues", formValues);
       this.$router.push("/confirm");
     },
 
