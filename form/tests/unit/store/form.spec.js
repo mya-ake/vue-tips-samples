@@ -34,5 +34,16 @@ describe("Form Store", () => {
 
       expect(testState.values).toEqual(values);
     });
+
+    it("CLEAR_VALUES", () => {
+      testState.values = {
+        name: "test value name",
+        body: "test value body"
+      };
+
+      mutations.CLEAR_VALUES(testState);
+
+      expect(testState.values).toBeNull();
+    });
   });
 });

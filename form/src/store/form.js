@@ -6,7 +6,8 @@ const GETTER_TYPES = {
   VALUES: "VALUES"
 };
 const MUTATION_TYPES = {
-  SET_VALUES: "SET_VALUES"
+  SET_VALUES: "SET_VALUES",
+  CLEAR_VALUES: "CLEAR_VALUES"
 };
 
 export const FORM_GETTER_TYPES = buildModuleTypes({
@@ -37,5 +38,9 @@ export const getters = {
 export const mutations = {
   [MUTATION_TYPES.SET_VALUES](state, values) {
     state.values = values;
+  },
+
+  [MUTATION_TYPES.CLEAR_VALUES](state) {
+    state.values = null;
   }
 };

@@ -1,5 +1,8 @@
 <template>
-  <div>Complete</div>
+  <div>
+    <h1>Complete</h1>
+    <router-link to="/form">フォームへ</router-link>
+  </div>
 </template>
 
 <script>

@@ -1,11 +1,15 @@
 import { shallow, createLocalVue } from "@vue/test-utils";
+import VueRouter from "vue-router";
 import Vuex from "vuex";
 
 import Complete from "@/views/Complete";
 import * as formModule from "@/store/form";
 
 const localVue = createLocalVue();
+localVue.use(VueRouter);
 localVue.use(Vuex);
+
+const router = new VueRouter();
 
 describe("Complete view", () => {
   let store;
@@ -19,7 +23,7 @@ describe("Complete view", () => {
   });
 
   it("mount", () => {
-    const wrapper = shallow(Complete, { store, localVue });
+    const wrapper = shallow(Complete, { store, router, localVue });
     expect(wrapper.isVueInstance).toBeTruthy();
   });
 });

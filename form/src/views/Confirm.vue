@@ -14,7 +14,10 @@
       <p>{{ values.body }}</p>
     </div>
     <div>
-      <button v-on:click="handleClickSubmit">送信する</button>
+      <button
+        v-on:click="handleClickSubmit"
+        v-bind:disabled="!submittable"
+      >送信する</button>
       <router-link to="/form">戻る</router-link>
     </div>
   </div>
@@ -22,19 +25,46 @@
 
 <script>
 import { ContactForm } from "@/models";
-import { FORM_GETTER_TYPES } from "@/store/form";
+import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from "@/store/form";
 
 export default {
   data() {
     return {
-      values: this.$store.getters[FORM_GETTER_TYPES.VALUES]
+      values: this.$store.getters[FORM_GETTER_TYPES.VALUES],
+      status: {
+        submitting: false
+      }
     };
   },
 
+  computed: {
+    submittable() {
+      return this.status.submitting === false;
+    }
+  },
+
   methods: {
-    handleClickSubmit() {
+    async handleClickSubmit() {
       const requestBody = new ContactForm(this.values).buildRequestBody();
-      console.log(requestBody);
+      const result = await this.submit(requestBody);
+      // eslint-disable-next-line
+      console.log("result", result);
+      this.$store.commit(FORM_MUTATION_TYPES.CLEAR_VALUES);
+      this.$router.push("/complete");
+    },
+
+    submit(requestBody) {
+      this.status.submitting = true;
+      return new Promise(resolve => {
+        setTimeout(() => {
+          // eslint-disable-next-line
+          console.log('request body', requestBody);
+          this.status.submitting = false;
+          resolve({
+            message: "success"
+          });
+        }, 1000);
+      });
     }
   }
 };
