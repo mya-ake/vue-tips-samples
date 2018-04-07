@@ -1,3 +1,4 @@
+export { BaseForm, ContactForm } from "./forms";
 export {
   BaseFormItem,
   NameFormItem,
