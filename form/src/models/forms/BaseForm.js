@@ -8,6 +8,10 @@ export class BaseForm {
     }, {});
   }
 
+  propertyNames() {
+    return Object.keys(this);
+  }
+
   buildRequestBody() {
     return {
       ...this.properties()
