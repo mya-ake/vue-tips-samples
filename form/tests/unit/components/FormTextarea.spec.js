@@ -49,14 +49,18 @@ describe("FormTextarea", () => {
     it("only requred", () => {
       const props = {
         id: "textarea",
+        label: "Content",
         formItem: new BaseFormItem("a")
       };
       const wrapper = shallow(FormTextarea, {
         propsData: props
       });
 
+      const label = wrapper.find("label");
       const textarea = wrapper.find("textarea");
-      expect.assertions(3);
+
+      expect.assertions(4);
+      expect(label.text()).toBe(props.label);
       expect(textarea.attributes().name).toBe(props.id);
       expect(textarea.element.value).toBe(props.formItem.value);
       expect(wrapper.findAll("li").wrappers).toHaveLength(0);
@@ -66,6 +70,7 @@ describe("FormTextarea", () => {
       const props = {
         id: "textarea",
         name: "textarea-input",
+        label: "Content",
         placeholder: "e.g. vue.js",
         cols: 10,
         rows: 20,
@@ -76,9 +81,11 @@ describe("FormTextarea", () => {
         propsData: props
       });
 
+      const label = wrapper.find("label");
       const textarea = wrapper.find("textarea");
 
-      expect.assertions(7);
+      expect.assertions(8);
+      expect(label.text()).toBe(props.label);
       expect(textarea.attributes().name).toBe(props.name);
       expect(textarea.attributes().placeholder).toBe(props.placeholder);
       expect(textarea.attributes().cols).toBe(String(props.cols));
@@ -91,6 +98,7 @@ describe("FormTextarea", () => {
     it("validate", async () => {
       const props = {
         id: "textarea",
+        label: "Content",
         formItem: new EmptyFormItem("a"),
         initialValidate: ""
       };
@@ -113,6 +121,7 @@ describe("FormTextarea", () => {
     let wrapper;
     const props = {
       id: "item1",
+      label: "Content",
       formItem: new EmptyFormItem("")
     };
     beforeEach(() => {
@@ -148,7 +157,8 @@ describe("FormTextarea", () => {
 
   describe("Validate", () => {
     const props = {
-      id: "item1"
+      id: "item1",
+      label: "Content"
     };
 
     it("dirty attr, 入力が一度されてからバリデーションを行う", async () => {
