@@ -75,6 +75,7 @@ describe("FormTextarea", () => {
         cols: 10,
         rows: 20,
         required: "",
+        maxlength: 100,
         formItem: new BaseFormItem("keyword")
       };
       const wrapper = shallow(FormTextarea, {
@@ -84,13 +85,14 @@ describe("FormTextarea", () => {
       const label = wrapper.find("label");
       const textarea = wrapper.find("textarea");
 
-      expect.assertions(8);
+      expect.assertions(9);
       expect(label.text()).toBe(props.label);
       expect(textarea.attributes().name).toBe(props.name);
       expect(textarea.attributes().placeholder).toBe(props.placeholder);
       expect(textarea.attributes().cols).toBe(String(props.cols));
       expect(textarea.attributes().rows).toBe(String(props.rows));
       expect(textarea.attributes().required).not.toBeUndefined();
+      expect(textarea.attributes().maxlength).toBe(String(props.maxlength));
       expect(textarea.element.value).toBe(props.formItem.value);
       expect(wrapper.findAll("li").wrappers).toHaveLength(0);
     });

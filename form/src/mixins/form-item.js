@@ -25,6 +25,12 @@ export const formItemMixin = {
     required: {
       type: String
     },
+    maxlength: {
+      type: [String, Number],
+      validator(value) {
+        return isNaN(Number(value)) === false;
+      }
+    },
     dirty: {
       type: String
     },

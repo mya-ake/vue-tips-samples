@@ -9,6 +9,7 @@
       v-bind:rows="rows"
       v-bind:placeholder="placeholder"
       v-bind:required="required"
+      v-bind:maxlength="maxlength"
       v-bind:class="{
         'has-error': showError
       }"

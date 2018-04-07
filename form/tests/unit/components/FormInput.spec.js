@@ -76,6 +76,7 @@ describe("FormInput", () => {
         label: "Search",
         placeholder: "e.g. vue.js",
         required: "",
+        maxlength: 10,
         formItem: new BaseFormItem("keyword")
       };
       const wrapper = shallow(FormInput, {
@@ -85,13 +86,14 @@ describe("FormInput", () => {
       const label = wrapper.find("label");
       const input = wrapper.find("input");
 
-      expect.assertions(8);
+      expect.assertions(9);
       expect(label.text()).toBe(props.label);
       expect(label.attributes().for).toBe(input.attributes().id);
       expect(input.attributes().name).toBe(props.name);
       expect(input.attributes().type).toBe(props.type);
       expect(input.attributes().placeholder).toBe(props.placeholder);
       expect(input.attributes().required).not.toBeUndefined();
+      expect(input.attributes().maxlength).toBe(String(props.maxlength));
       expect(input.element.value).toBe(props.formItem.value);
       expect(wrapper.findAll("li").wrappers).toHaveLength(0);
     });
