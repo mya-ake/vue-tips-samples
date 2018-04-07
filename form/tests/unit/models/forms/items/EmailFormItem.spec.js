@@ -32,5 +32,18 @@ describe("EmailFormItem", () => {
       expect(messages).toHaveLength(1);
       expect(messages).toContain(EmailFormItem.MESSAGES.INVALID_EMAIL);
     });
+
+    it("too long", () => {
+      const domain = "@example.com";
+      email.value = Array(128 - domain.length + 1)
+        .fill("a")
+        .join("")
+        .concat(domain);
+      const messages = email.validator();
+
+      expect.assertions(2);
+      expect(messages).toHaveLength(1);
+      expect(messages).toContain(EmailFormItem.MESSAGES.EXPECT_LENGTH);
+    });
   });
 });

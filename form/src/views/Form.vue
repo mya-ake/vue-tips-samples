@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { FormInput } from "@/components";
+import { FormInput, FormTextarea } from "@/components";
 import { FormObserver } from "@/lib";
 import { EmailFormItem } from "@/models";
 
@@ -61,7 +61,8 @@ export default {
   },
 
   components: {
-    FormInput
+    FormInput,
+    FormTextarea
   }
 };
 </script>

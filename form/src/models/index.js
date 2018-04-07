@@ -1,1 +1,7 @@
-export { BaseFormItem, EmailFormItem } from "./forms/items";
+export {
+  BaseFormItem,
+  NameFormItem,
+  EmailFormItem,
+  TitleFormItem,
+  BodyFormItem
+} from "./forms/items";
