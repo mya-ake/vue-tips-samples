@@ -1,4 +1,4 @@
-import { BaseFormItem } from "./BaseFormItem";
+import { BaseSelectFormItem } from "./BaseSelectFormItem";
 import { isEmptyString } from "@/helpers/validators";
 
 const MESSAGES = {
@@ -6,7 +6,7 @@ const MESSAGES = {
   INVALID: "不正な操作が必要な行われました"
 };
 
-export class CategoryFormItem extends BaseFormItem {
+export class CategoryFormItem extends BaseSelectFormItem {
   constructor(value) {
     super(value);
     this.options = [
