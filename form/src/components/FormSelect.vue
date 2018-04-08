@@ -16,8 +16,8 @@
       <option 
         v-for="(option, index) in options"
         v-bind:key="`option-${index}`"
-        v-bind:value="option"
-      >{{ option }}</option>
+        v-bind:value="option.value"
+      >{{ option.text }}</option>
     </select>
     <ul v-show="showError">
       <li

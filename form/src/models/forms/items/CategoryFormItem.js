@@ -10,9 +10,18 @@ export class CategoryFormItem extends BaseSelectFormItem {
   constructor(value) {
     super(value);
     this.options = [
-      "サービスについて",
-      "採用について",
-      "その他（タイトルにご記入ください）"
+      {
+        text: "サービスについて",
+        value: "サービスについて"
+      },
+      {
+        text: "採用について",
+        value: "採用について"
+      },
+      {
+        text: "その他（タイトルにご記入ください）",
+        value: "その他（タイトルにご記入ください）"
+      }
     ];
   }
 
@@ -22,7 +31,7 @@ export class CategoryFormItem extends BaseSelectFormItem {
       messages.push(MESSAGES.EMPTY);
       return messages;
     }
-    if (this.options.includes(this.value) === false) {
+    if (this.options.some(option => this.value === option.value) === false) {
       messages.push(MESSAGES.INVALID);
     }
     return messages;

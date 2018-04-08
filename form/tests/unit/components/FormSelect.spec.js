@@ -25,7 +25,7 @@ class SelectProcess {
 class BasicSelectFormItem extends BaseSelectFormItem {
   constructor(value) {
     super(value);
-    this.options = ["test"];
+    this.options = [{ text: "test value", value: "test" }];
   }
 
   validator() {
@@ -34,7 +34,7 @@ class BasicSelectFormItem extends BaseSelectFormItem {
       messages.push(BasicSelectFormItem.MESSAGES.EMPTY);
       return messages;
     }
-    if (this.options.includes(this.value) === false) {
+    if (this.options.some(option => this.value === option.value) === false) {
       messages.push(BasicSelectFormItem.MESSAGES.INVALID);
     }
     return messages;

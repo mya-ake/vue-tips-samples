@@ -8,7 +8,7 @@ describe("CategoryFormItem", () => {
     });
 
     it("valid category", () => {
-      category.value = category.options[0];
+      category.value = category.options[0].value;
       const messages = category.validator();
 
       expect(messages).toHaveLength(0);
