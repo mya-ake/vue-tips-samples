@@ -12,7 +12,7 @@
         v-on:notify="handleNotify"
         dirty
         touched
-        initialValidate
+        InitialVerification
       />
       <form-input
         id="email"
@@ -24,7 +24,7 @@
         v-on:notify="handleNotify"
         dirty
         touched
-        initialValidate
+        InitialVerification
       />
       <form-select
         id="category"
@@ -34,7 +34,7 @@
         v-on:notify="handleNotify"
         dirty
         touched
-        initialValidate
+        InitialVerification
       />
       <form-input
         id="title"
@@ -45,7 +45,7 @@
         v-on:notify="handleNotify"
         dirty
         touched
-        initialValidate
+        InitialVerification
       />
       <form-textarea
         id="body"
@@ -56,7 +56,7 @@
         v-on:notify="handleNotify"
         dirty
         touched
-        initialValidate
+        InitialVerification
       />
       <button
         type="submit"

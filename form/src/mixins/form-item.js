@@ -38,13 +38,13 @@ export const formItemMixin = {
     touched: {
       type: String
     },
-    initialValidate: {
+    InitialVerification: {
       type: String
     }
   },
 
   mounted() {
-    if (this.hasAttr.initialValidate) {
+    if (this.hasAttr.InitialVerification) {
       this.validate();
     }
   },
@@ -55,7 +55,7 @@ export const formItemMixin = {
       hasAttr: {
         dirty: typeof this.dirty === "string",
         touched: typeof this.touched === "string",
-        initialValidate: typeof this.initialValidate === "string"
+        InitialVerification: typeof this.InitialVerification === "string"
       },
       state: {
         dirtyCount: 0,
