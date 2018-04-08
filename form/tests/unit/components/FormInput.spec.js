@@ -98,7 +98,7 @@ describe("FormInput", () => {
       expect(wrapper.findAll("li").wrappers).toHaveLength(0);
     });
 
-    it("initial validate", async () => {
+    it("initial validate, string", async () => {
       const props = {
         id: "search",
         label: "Search",
@@ -118,6 +118,49 @@ describe("FormInput", () => {
       );
       expect(input.classes()).toContain("has-error");
       expect(wrapper.emitted().notify).toHaveLength(1);
+    });
+
+    it("initial validate, boolean true", async () => {
+      const props = {
+        id: "search",
+        label: "Search",
+        formItem: new EmptyFormItem("a"),
+        initialValidation: true
+      };
+      const wrapper = shallow(FormInput, {
+        propsData: props
+      });
+
+      const input = wrapper.find("input");
+
+      await Vue.nextTick();
+      expect.assertions(3);
+      expect(wrapper.find("li").text()).toBe(
+        EmptyFormItem.MESSAGES.INPUT_PROHIBITION
+      );
+      expect(input.classes()).toContain("has-error");
+      expect(wrapper.emitted().notify).toHaveLength(1);
+    });
+
+    it("initial validate, boolean false", async () => {
+      const props = {
+        id: "search",
+        label: "Search",
+        formItem: new EmptyFormItem("a"),
+        initialValidation: false
+      };
+      const wrapper = shallow(FormInput, {
+        propsData: props
+      });
+
+      const input = wrapper.find("input");
+      const messages = wrapper.find("ul");
+
+      await Vue.nextTick();
+      expect.assertions(3);
+      expect(messages.isVisible()).toBeFalsy();
+      expect(input.classes()).not.toContain("has-error");
+      expect(wrapper.emitted().notify).toBeUndefined();
     });
   });
 

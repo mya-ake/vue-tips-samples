@@ -39,7 +39,7 @@ export const formItemMixin = {
       type: String
     },
     initialValidation: {
-      type: String
+      type: [String, Boolean]
     }
   },
 
@@ -55,7 +55,10 @@ export const formItemMixin = {
       hasAttr: {
         dirty: typeof this.dirty === "string",
         touched: typeof this.touched === "string",
-        initialValidation: typeof this.initialValidation === "string"
+        initialValidation:
+          typeof this.initialValidation === "boolean"
+            ? this.initialValidation
+            : typeof this.initialValidation === "string"
       },
       state: {
         dirtyCount: 0,
