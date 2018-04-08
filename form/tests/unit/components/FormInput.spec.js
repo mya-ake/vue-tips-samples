@@ -103,7 +103,7 @@ describe("FormInput", () => {
         id: "search",
         label: "Search",
         formItem: new EmptyFormItem("a"),
-        InitialVerification: ""
+        initialValidation: ""
       };
       const wrapper = shallow(FormInput, {
         propsData: props

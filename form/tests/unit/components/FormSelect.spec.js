@@ -99,7 +99,7 @@ describe("FormSelect", () => {
         id: "select",
         label: "Select",
         formItem: new BasicSelectFormItem("a"),
-        InitialVerification: ""
+        initialValidation: ""
       };
       const wrapper = shallow(FormSelect, {
         propsData: props

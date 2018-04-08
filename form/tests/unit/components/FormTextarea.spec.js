@@ -102,7 +102,7 @@ describe("FormTextarea", () => {
         id: "textarea",
         label: "Content",
         formItem: new EmptyFormItem("a"),
-        InitialVerification: ""
+        initialValidation: ""
       };
       const wrapper = shallow(FormTextarea, {
         propsData: props
