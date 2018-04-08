@@ -116,7 +116,7 @@ export const formItemMixin = {
 
   methods: {
     handleInput(evt) {
-      const value = evt.currentTarget.value;
+      const value = evt.target.value;
       this.$emit("input", value);
       this.state.dirtyCount++;
     },
