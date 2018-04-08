@@ -89,7 +89,7 @@ export const formItemMixin = {
       return this.state.touched;
     },
 
-    attrValidationConditions() {
+    attrShowErrorConditions() {
       if (this.hasAttr.dirty) {
         if (this.isDirty === false) {
           return false;
@@ -104,7 +104,7 @@ export const formItemMixin = {
     },
 
     showError() {
-      return this.hasError && this.attrValidationConditions;
+      return this.hasError && this.attrShowErrorConditions;
     }
   },
 
