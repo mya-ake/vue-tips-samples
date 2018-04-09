@@ -11,10 +11,13 @@ const createInitailFormState = () => {
 
 export default new Vuex.Store({
   state: {
-    values: createInitailFormState() // フォーム全体を１つのobjectで持つ
+    values: null // フォーム全体を１つのプロパティで持つ
   },
   getters: {
     values(state) {
+      if (state.values === null) {
+        return createInitailFormState();
+      }
       return state.values;
     }
   },
@@ -23,7 +26,7 @@ export default new Vuex.Store({
       state.values = values;
     },
     clearValues(state) {
-      state.values = createInitailFormState();
+      state.values = null;
     }
   }
 });

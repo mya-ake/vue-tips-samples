@@ -16,13 +16,18 @@
 
 <script>
 export default {
-  data() {
-    return {
-      values: this.$store.getters.values
-    };
+  computed: {
+    values() {
+      return this.$store.getters.values;
+    }
   },
   methods: {
-    handleClickSubmit() {}
+    handleClickSubmit() {
+      // eslint-disable-next-line
+      console.log(this.values);
+      this.$store.commit("clearValues");
+      this.$router.push("/form");
+    }
   }
 };
 </script>
