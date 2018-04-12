@@ -3,29 +3,77 @@ import VueI18n from "vue-i18n";
 import axios from "axios";
 
 import messageJa from "@/../public/locales/common/ja";
+import messageEn from "@/../public/locales/common/en";
 
 Vue.use(VueI18n);
 
-const allowLanguages = ["ja", "en"];
+/** 定数とか */
+const fallbackLocale = "ja";
+const allowedLanguages = ["ja", "en"];
 const categories = ["home", "about"];
 const localesLoadStatus = categories.reduce((status, category) => {
-  status[category] = allowLanguages.reduce((obj, language) => {
+  status[category] = allowedLanguages.reduce((obj, language) => {
     obj[language] = false;
     return obj;
   }, {});
   return status;
 }, {});
 
+/** functions */
+const allowLanguage = lang => {
+  return allowedLanguages.includes(lang);
+};
+
+const extractLanguage = () => {
+  if (typeof window === "undefined") {
+    return fallbackLocale;
+  }
+  const lang = window.location.pathname
+    .replace(/^\/|\/$/g, "")
+    .split("/")
+    .shift();
+  if (allowLanguage(lang) === false) {
+    return fallbackLocale;
+  }
+  return lang;
+};
+
+export const requestLocaleMessage = async (lang, category) => {
+  if (allowLanguage(lang) === false) {
+    return null;
+  }
+  if (typeof category !== "string") {
+    return null;
+  }
+  if (category in localesLoadStatus === false) {
+    return null;
+  }
+  if (localesLoadStatus[category][lang] === true) {
+    // 読み込み済み
+    return null;
+  }
+
+  const response = await axios
+    .get(`/locales/${category}/${lang}.json`)
+    .catch(error => error.response);
+
+  if (response.status !== 200) {
+    return null;
+  }
+  return response.data;
+};
+
 export const i18n = new VueI18n({
-  locale: "ja",
-  fallbackLocale: "ja",
+  locale: extractLanguage(),
+  fallbackLocale,
   messages: {
-    ja: messageJa
+    ja: messageJa,
+    en: messageEn
   }
 });
 
 export const setLang = lang => {
-  if (allowLanguages.includes(lang) === false) {
+  if (allowLanguage(lang) === false) {
     return;
   }
   i18n.locale = lang;
@@ -34,26 +82,16 @@ export const setLang = lang => {
 };
 
 export const loadLocaleMessage = async (lang, category) => {
-  if (allowLanguages.includes(lang) === false) {
-    return lang;
+  const message = await requestLocaleMessage(lang, category);
+  if (message === null) {
+    return;
   }
-  if (typeof category !== "string") {
-    return lang;
-  }
-  if (category in localesLoadStatus === false) {
-    return lang;
-  }
-  if (localesLoadStatus[category][lang] === true) {
-    // 読み込み済み
-    return lang;
-  }
+  localesLoadStatus[category][lang] = true;
 
-  const response = await axios
-    .get(`/locales/${category}/${lang}.json`)
-    .catch(error => error.response);
-  if (response.status !== 200) {
-    return lang;
-  }
-  i18n.setLocaleMessage(lang, response.data);
-  return lang;
+  // すでにあるものとマージさせる
+  const messages = {
+    ...i18n.messages[lang],
+    ...message
+  };
+  i18n.setLocaleMessage(lang, messages);
 };

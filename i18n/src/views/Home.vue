@@ -1,13 +1,14 @@
 <template>
-  <div class="home">
-    <h1 v-t="'home.title'"></h1>
+  <div>
+    <h1>{{ $t('home.title') }}</h1>
+
+    <div>
+      <dl>
+        <dt>$t</dt>
+        <dd>{{ $t('home.text') }}</dd>
+        <dt>v-t</dt>
+        <dd v-t="'home.text'"></dd>
+      </dl>
+    </div>
   </div>
 </template>
-
-<script>
-export default {
-  mounted() {
-    console.log(this.$i18n);
-  }
-};
-</script>
