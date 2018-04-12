@@ -14,17 +14,24 @@
       <filter-example/>
     </section>
 
+    <section>
+      <h2>Computed Form</h2>
+      <computed-form/>
+    </section>
+
   </section>
 </template>
 
 <script>
 import ComputedExample from "./components/ComputedExample";
 import FilterExample from "./components/FilterExample";
+import ComputedForm from "./components/ComputedForm";
 
 export default {
   components: {
     ComputedExample,
-    FilterExample
+    FilterExample,
+    ComputedForm
   }
 };
 </script>
