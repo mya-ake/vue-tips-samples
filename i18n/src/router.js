@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
-import Redirecter from "./views/Redirecter.vue";
+import { i18n } from "./i18n";
 
 Vue.use(Router);
 
@@ -40,7 +40,10 @@ const routesI18n = routes.map(route => {
 
 const mergedRoutes = routes
   .map(route => {
-    route.component = Redirecter;
+    delete route.component;
+    route.redirect = to => {
+      return `/${i18n.locale}${to.fullPath}`;
+    };
     return route;
   })
   .concat(routesI18n);
