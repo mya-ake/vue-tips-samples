@@ -61,6 +61,7 @@ const requestLocaleMessage = async (lang, category) => {
 };
 
 export const i18n = new VueI18n({
+  locale: fallbackLocale,
   fallbackLocale,
   messages: {}
 });
@@ -81,7 +82,7 @@ export const setLang = async lang => {
 export const loadLocaleMessage = async (lang, category) => {
   const message = await requestLocaleMessage(lang, category);
   if (message === null) {
-    return lang;
+    return;
   }
   localesLoadStatus[category][lang] = true;
 
@@ -91,5 +92,4 @@ export const loadLocaleMessage = async (lang, category) => {
     ...message
   };
   i18n.setLocaleMessage(lang, messages);
-  return lang;
 };

@@ -28,16 +28,14 @@ router.beforeEach(async (to, from, next) => {
 });
 
 // 最初の言語を決めるためにマウント前に言語ファイルを取りにいく
-const lang = extractLanguage();
-setLang(lang)
-  .then(() => {
-    loadLocaleMessage(lang, "common");
-  })
-  .then(() => {
-    new Vue({
-      router,
-      store,
-      i18n,
-      render: h => h(App)
-    }).$mount("#app");
-  });
+(async () => {
+  const lang = extractLanguage();
+  await setLang(lang);
+  await loadLocaleMessage(lang, "common");
+  new Vue({
+    router,
+    store,
+    i18n,
+    render: h => h(App)
+  }).$mount("#app");
+})();

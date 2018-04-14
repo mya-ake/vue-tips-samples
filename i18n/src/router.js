@@ -38,15 +38,14 @@ const routesI18n = routes.map(route => {
   };
 });
 
-const mergedRoutes = routes
-  .map(route => {
-    delete route.component;
-    route.redirect = to => {
-      return `/${i18n.locale}${to.fullPath}`;
-    };
-    return route;
-  })
-  .concat(routesI18n);
+routes.forEach(route => {
+  delete route.component;
+  route.redirect = to => {
+    return `/${i18n.locale}${to.fullPath}`;
+  };
+});
+
+const mergedRoutes = routes.concat(routesI18n);
 
 export default new Router({
   mode: "history",
@@ -54,7 +53,7 @@ export default new Router({
     ...mergedRoutes,
     {
       path: "*",
-      redirect: "/ja"
+      redirect: `/${i18n.fallbackLocale}`
     }
   ]
 });
