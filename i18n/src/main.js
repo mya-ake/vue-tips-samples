@@ -2,13 +2,19 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import { i18n, setLang, loadLocaleMessage } from "./i18n";
+import { i18n, allowLanguage, setLang, loadLocaleMessage } from "./i18n";
 
 Vue.config.productionTip = false;
 
 // 遷移時に必要な言語ファイルを取りにいく
 router.beforeEach(async (to, from, next) => {
   const lang = to.params.lang;
+
+  if (allowLanguage(lang) === false) {
+    next(`/${i18n.locale}`);
+    return;
+  }
+
   const { locale } = to.meta;
   setLang(lang);
   await loadLocaleMessage(lang, locale.category);

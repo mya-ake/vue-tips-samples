@@ -20,7 +20,7 @@ const localesLoadStatus = categories.reduce((status, category) => {
 }, {});
 
 /** functions */
-const allowLanguage = lang => {
+export const allowLanguage = lang => {
   return allowedLanguages.includes(lang);
 };
 
