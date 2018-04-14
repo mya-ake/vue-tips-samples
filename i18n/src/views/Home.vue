@@ -12,3 +12,12 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  beforeRouteUpdate(to, from, next) {
+    this.$forceUpdate();
+    next();
+  }
+};
+</script>

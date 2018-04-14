@@ -2,15 +2,12 @@ import Vue from "vue";
 import VueI18n from "vue-i18n";
 import axios from "axios";
 
-import messageJa from "@/../public/locales/common/ja";
-import messageEn from "@/../public/locales/common/en";
-
 Vue.use(VueI18n);
 
 /** 定数とか */
 const fallbackLocale = "ja";
 const allowedLanguages = ["ja", "en"];
-const categories = ["home", "about"];
+const categories = ["common", "home", "about"];
 const localesLoadStatus = categories.reduce((status, category) => {
   status[category] = allowedLanguages.reduce((obj, language) => {
     obj[language] = false;
@@ -24,7 +21,7 @@ export const allowLanguage = lang => {
   return allowedLanguages.includes(lang);
 };
 
-const extractLanguage = () => {
+export const extractLanguage = () => {
   if (typeof window === "undefined") {
     return fallbackLocale;
   }
@@ -38,7 +35,7 @@ const extractLanguage = () => {
   return lang;
 };
 
-export const requestLocaleMessage = async (lang, category) => {
+const requestLocaleMessage = async (lang, category) => {
   if (allowLanguage(lang) === false) {
     return null;
   }
@@ -64,18 +61,18 @@ export const requestLocaleMessage = async (lang, category) => {
 };
 
 export const i18n = new VueI18n({
-  locale: extractLanguage(),
   fallbackLocale,
-  messages: {
-    ja: messageJa,
-    en: messageEn
-  }
+  messages: {}
 });
 
-export const setLang = lang => {
+export const setLang = async lang => {
   if (allowLanguage(lang) === false) {
     return;
   }
+  if (lang === i18n.locale) {
+    return;
+  }
+  await loadLocaleMessage(lang, "common");
   i18n.locale = lang;
   axios.defaults.headers.common["Accept-Language"] = lang;
   document.querySelector("html").setAttribute("lang", lang);
@@ -84,7 +81,7 @@ export const setLang = lang => {
 export const loadLocaleMessage = async (lang, category) => {
   const message = await requestLocaleMessage(lang, category);
   if (message === null) {
-    return;
+    return lang;
   }
   localesLoadStatus[category][lang] = true;
 
@@ -94,4 +91,5 @@ export const loadLocaleMessage = async (lang, category) => {
     ...message
   };
   i18n.setLocaleMessage(lang, messages);
+  return lang;
 };
