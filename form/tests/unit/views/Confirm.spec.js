@@ -24,6 +24,6 @@ describe("Confirm view", () => {
 
   it("mount", () => {
     const wrapper = shallow(Confirm, { store, router, localVue });
-    expect(wrapper.isVueInstance).toBeTruthy();
+    expect(wrapper.isVueInstance()).toBe(true);
   });
 });

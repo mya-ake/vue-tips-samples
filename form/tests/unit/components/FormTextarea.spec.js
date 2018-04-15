@@ -180,12 +180,12 @@ describe("FormTextarea", () => {
 
       expect.assertions(4);
       expect(textarea.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       await textareaProcess.input("aa");
 
       expect(textarea.classes()).toContain("has-error");
-      expect(messages.isVisible()).toBeTruthy();
+      expect(messages.isVisible()).toBe(true);
     });
 
     it("Touched attr, inputのフォーカスが離れてからバリデーションを行う", async () => {
@@ -205,17 +205,17 @@ describe("FormTextarea", () => {
 
       expect.assertions(6);
       expect(textarea.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       await textareaProcess.input("aa");
 
       expect(textarea.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       textarea.trigger("blur");
 
       expect(textarea.classes()).toContain("has-error");
-      expect(messages.isVisible()).toBeTruthy();
+      expect(messages.isVisible()).toBe(true);
     });
   });
 });

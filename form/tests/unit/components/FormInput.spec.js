@@ -158,7 +158,7 @@ describe("FormInput", () => {
 
       await Vue.nextTick();
       expect.assertions(3);
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
       expect(input.classes()).not.toContain("has-error");
       expect(wrapper.emitted().notify).toBeUndefined();
     });
@@ -225,12 +225,12 @@ describe("FormInput", () => {
 
       expect.assertions(4);
       expect(input.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       await inputProcess.input("aa");
 
       expect(input.classes()).toContain("has-error");
-      expect(messages.isVisible()).toBeTruthy();
+      expect(messages.isVisible()).toBe(true);
     });
 
     it("Touched attr, inputのフォーカスが離れてからバリデーションを行う", async () => {
@@ -250,17 +250,17 @@ describe("FormInput", () => {
 
       expect.assertions(6);
       expect(input.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       await inputProcess.input("aa");
 
       expect(input.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       input.trigger("blur");
 
       expect(input.classes()).toContain("has-error");
-      expect(messages.isVisible()).toBeTruthy();
+      expect(messages.isVisible()).toBe(true);
     });
   });
 });

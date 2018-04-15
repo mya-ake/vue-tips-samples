@@ -178,12 +178,12 @@ describe("FormSelect", () => {
 
       expect.assertions(4);
       expect(select.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       await selectProcess.select("aa");
 
       expect(select.classes()).toContain("has-error");
-      expect(messages.isVisible()).toBeTruthy();
+      expect(messages.isVisible()).toBe(true);
     });
 
     it("Touched attr, selectのフォーカスが離れてからバリデーションを行う", async () => {
@@ -203,17 +203,17 @@ describe("FormSelect", () => {
 
       expect.assertions(6);
       expect(select.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       await selectProcess.select("");
 
       expect(select.classes()).not.toContain("has-error");
-      expect(messages.isVisible()).toBeFalsy();
+      expect(messages.isVisible()).toBe(false);
 
       select.trigger("blur");
 
       expect(select.classes()).toContain("has-error");
-      expect(messages.isVisible()).toBeTruthy();
+      expect(messages.isVisible()).toBe(true);
     });
   });
 });

@@ -4,7 +4,7 @@ describe("ContactForm", () => {
   describe("constructor", () => {
     it("basic", () => {
       const form = new ContactForm();
-      expect(form instanceof BaseForm).toBeTruthy();
+      expect(form instanceof BaseForm).toBe(true);
     });
 
     it("has initial values", () => {
@@ -29,7 +29,7 @@ describe("ContactForm", () => {
       const form = new ContactForm();
 
       const requestBody = form.buildRequestBody();
-      expect("contact" in requestBody).toBeTruthy();
+      expect("contact" in requestBody).toBe(true);
     });
   });
 });

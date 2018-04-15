@@ -24,6 +24,6 @@ describe("App view", () => {
 
   it("mount", () => {
     const wrapper = shallow(App, { store, router, localVue });
-    expect(wrapper.isVueInstance).toBeTruthy();
+    expect(wrapper.isVueInstance()).toBe(true);
   });
 });

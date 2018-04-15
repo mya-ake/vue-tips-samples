@@ -20,6 +20,6 @@ describe("Form view", () => {
 
   it("mount", () => {
     const wrapper = shallow(Form, { store, localVue });
-    expect(wrapper.isVueInstance).toBeTruthy();
+    expect(wrapper.isVueInstance()).toBe(true);
   });
 });

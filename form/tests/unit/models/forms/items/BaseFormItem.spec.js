@@ -5,7 +5,7 @@ describe("BaseFormItem", () => {
     const baseFormItem = new BaseFormItem("");
 
     expect.assertions(2);
-    expect("value" in baseFormItem).toBeTruthy();
-    expect("validator" in baseFormItem).toBeTruthy();
+    expect("value" in baseFormItem).toBe(true);
+    expect("validator" in baseFormItem).toBe(true);
   });
 });

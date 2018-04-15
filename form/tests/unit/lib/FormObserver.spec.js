@@ -11,10 +11,10 @@ describe("FormObserver", () => {
     expect.assertions(names.length * 2 + 2);
 
     expect(formObserver._names).toBe(names);
-    expect(formObserver.hasError).toBeTruthy();
+    expect(formObserver.hasError).toBe(true);
     Object.keys(formObserver._results).forEach(name => {
-      expect(names.includes(name)).toBeTruthy();
-      expect(formObserver._results[name]).toBeFalsy();
+      expect(names.includes(name)).toBe(true);
+      expect(formObserver._results[name]).toBe(false);
     });
   });
 
@@ -22,7 +22,7 @@ describe("FormObserver", () => {
     const targetName = names[0];
     formObserver.setResult(targetName, true);
 
-    expect(formObserver._results[targetName]).toBeTruthy();
+    expect(formObserver._results[targetName]).toBe(true);
   });
 
   it("全ての要素の結果がtrue", () => {
@@ -30,20 +30,20 @@ describe("FormObserver", () => {
       formObserver.setResult(name, true);
     }
 
-    expect(formObserver.hasError).toBeFalsy();
+    expect(formObserver.hasError).toBe(false);
   });
 
   it("1つがtrueでもう1つがfalse", () => {
     formObserver.setResult(names[0], true);
     formObserver.setResult(names[1], false);
 
-    expect(formObserver.hasError).toBeTruthy();
+    expect(formObserver.hasError).toBe(true);
   });
 
   it("1つがfalseでもう1つがtrue", () => {
     formObserver.setResult(names[0], false);
     formObserver.setResult(names[1], true);
 
-    expect(formObserver.hasError).toBeTruthy();
+    expect(formObserver.hasError).toBe(true);
   });
 });

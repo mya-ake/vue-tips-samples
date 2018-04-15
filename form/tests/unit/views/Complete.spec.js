@@ -24,6 +24,6 @@ describe("Complete view", () => {
 
   it("mount", () => {
     const wrapper = shallow(Complete, { store, router, localVue });
-    expect(wrapper.isVueInstance).toBeTruthy();
+    expect(wrapper.isVueInstance()).toBe(true);
   });
 });

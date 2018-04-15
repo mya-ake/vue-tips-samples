@@ -4,6 +4,6 @@ describe("BaseSelectFormItem", () => {
   it("has properties", () => {
     const baseSelectFormItem = new BaseSelectFormItem("");
 
-    expect("options" in baseSelectFormItem).toBeTruthy();
+    expect("options" in baseSelectFormItem).toBe(true);
   });
 });
