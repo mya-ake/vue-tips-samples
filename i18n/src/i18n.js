@@ -35,29 +35,22 @@ export const extractLanguage = () => {
   return lang;
 };
 
-const requestLocaleMessage = async (lang, category) => {
+const requestableLocaleMessage = (lang, category) => {
   if (allowLanguage(lang) === false) {
-    return null;
+    return false;
   }
   if (typeof category !== "string") {
-    return null;
+    return false;
   }
   if (category in localesLoadStatus === false) {
-    return null;
+    return false;
   }
   if (localesLoadStatus[category][lang] === true) {
     // 読み込み済み
-    return null;
+    return false;
   }
 
-  const response = await axios
-    .get(`/locales/${category}/${lang}.json`)
-    .catch(error => error.response);
-
-  if (response.status !== 200) {
-    return null;
-  }
-  return response.data;
+  return true;
 };
 
 export const i18n = new VueI18n({
@@ -80,16 +73,27 @@ export const setLang = async lang => {
 };
 
 export const loadLocaleMessage = async (lang, category) => {
-  const message = await requestLocaleMessage(lang, category);
-  if (message === null) {
+  const requestable = requestableLocaleMessage(lang, category);
+  if (requestable === false) {
     return;
   }
-  localesLoadStatus[category][lang] = true;
 
+  const response = await axios
+    .get(`/locales/${category}/${lang}.json`)
+    .catch(error => error.response);
+
+  if (response.status !== 200) {
+    // 細かくエラーハンドリングした方がいい
+    return;
+  }
+
+  const message = response.data;
   // すでにあるものとマージさせる
   const messages = {
     ...i18n.messages[lang],
     ...message
   };
   i18n.setLocaleMessage(lang, messages);
+
+  localesLoadStatus[category][lang] = true;
 };
