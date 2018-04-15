@@ -35,24 +35,6 @@ export const extractLanguage = () => {
   return lang;
 };
 
-const requestableLocaleMessage = (lang, category) => {
-  if (allowLanguage(lang) === false) {
-    return false;
-  }
-  if (typeof category !== "string") {
-    return false;
-  }
-  if (category in localesLoadStatus === false) {
-    return false;
-  }
-  if (localesLoadStatus[category][lang] === true) {
-    // 読み込み済み
-    return false;
-  }
-
-  return true;
-};
-
 export const i18n = new VueI18n({
   locale: fallbackLocale,
   fallbackLocale,
@@ -70,6 +52,24 @@ export const setLang = async lang => {
   i18n.locale = lang;
   axios.defaults.headers.common["Accept-Language"] = lang;
   document.querySelector("html").setAttribute("lang", lang);
+};
+
+const requestableLocaleMessage = (lang, category) => {
+  if (allowLanguage(lang) === false) {
+    return false;
+  }
+  if (typeof category !== "string") {
+    return false;
+  }
+  if (category in localesLoadStatus === false) {
+    return false;
+  }
+  if (localesLoadStatus[category][lang] === true) {
+    // 読み込み済み
+    return false;
+  }
+
+  return true;
 };
 
 export const loadLocaleMessage = async (lang, category) => {
