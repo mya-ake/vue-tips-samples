@@ -1,6 +1,3 @@
-import FormInput from "./FormInput";
-export { FormInput };
-import FormTextarea from "./FormTextarea";
-export { FormTextarea };
-import FormSelect from "./FormSelect";
-export { FormSelect };
+export { default as FormInput } from "./FormInput";
+export { default as FormTextarea } from "./FormTextarea";
+export { default as FormSelect } from "./FormSelect";

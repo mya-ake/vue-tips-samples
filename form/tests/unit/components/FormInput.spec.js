@@ -186,7 +186,7 @@ describe("FormInput", () => {
 
       expect.assertions(2);
       expect(wrapper.emitted().input).toHaveLength(1);
-      expect(wrapper.emitted().input[0]).toEqual([inputText]);
+      expect(wrapper.emitted().input[0][0]).toEqual(inputText);
     });
 
     it("notify", async () => {
@@ -202,7 +202,7 @@ describe("FormInput", () => {
     });
   });
 
-  describe("Validate", () => {
+  describe("Validation, props", () => {
     const props = {
       id: "item1",
       label: "Item1"
