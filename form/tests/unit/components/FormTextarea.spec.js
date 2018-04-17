@@ -163,12 +163,13 @@ describe("FormTextarea", () => {
       label: "Content"
     };
 
-    it("dirty attr, 入力が一度されてからバリデーションを行う", async () => {
+    it("dirty attr, 値が変更されてからバリデーションを行う", async () => {
       const wrapper = shallow(FormTextarea, {
         propsData: {
           ...props,
           formItem: new EmptyFormItem(""),
-          dirty: ""
+          dirty: "",
+          initialValidation: ""
         }
       });
 
@@ -176,13 +177,11 @@ describe("FormTextarea", () => {
       const textarea = wrapper.find("textarea");
       const messages = wrapper.find("ul");
 
-      await textareaProcess.input("a");
-
       expect.assertions(4);
       expect(textarea.classes()).not.toContain("has-error");
       expect(messages.isVisible()).toBe(false);
 
-      await textareaProcess.input("aa");
+      await textareaProcess.input("a");
 
       expect(textarea.classes()).toContain("has-error");
       expect(messages.isVisible()).toBe(true);

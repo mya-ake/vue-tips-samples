@@ -165,8 +165,9 @@ describe("FormSelect", () => {
       const wrapper = shallow(FormSelect, {
         propsData: {
           ...props,
-          formItem: new BasicSelectFormItem(""),
-          dirty: ""
+          formItem: new BasicSelectFormItem("a"),
+          dirty: "",
+          initialValidation: ""
         }
       });
 
@@ -174,13 +175,11 @@ describe("FormSelect", () => {
       const select = wrapper.find("select");
       const messages = wrapper.find("ul");
 
-      await selectProcess.select("test");
-
       expect.assertions(4);
       expect(select.classes()).not.toContain("has-error");
       expect(messages.isVisible()).toBe(false);
 
-      await selectProcess.select("aa");
+      await selectProcess.select("");
 
       expect(select.classes()).toContain("has-error");
       expect(messages.isVisible()).toBe(true);

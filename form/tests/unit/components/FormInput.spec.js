@@ -208,12 +208,13 @@ describe("FormInput", () => {
       label: "Item1"
     };
 
-    it("dirty attr, 入力が一度されてからバリデーションを行う", async () => {
+    it("dirty attr, 値が変更されてからバリデーションを行う", async () => {
       const wrapper = shallow(FormInput, {
         propsData: {
           ...props,
           formItem: new EmptyFormItem(""),
-          dirty: ""
+          dirty: "",
+          initialValidation: ""
         }
       });
 
@@ -221,13 +222,11 @@ describe("FormInput", () => {
       const input = wrapper.find("input");
       const messages = wrapper.find("ul");
 
-      await inputProcess.input("a");
-
       expect.assertions(4);
       expect(input.classes()).not.toContain("has-error");
       expect(messages.isVisible()).toBe(false);
 
-      await inputProcess.input("aa");
+      await inputProcess.input("a");
 
       expect(input.classes()).toContain("has-error");
       expect(messages.isVisible()).toBe(true);

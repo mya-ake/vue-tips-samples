@@ -61,7 +61,7 @@ export const formItemMixin = {
             : typeof this.initialValidation === "string"
       },
       state: {
-        dirtyCount: 0,
+        dirty: false,
         touched: false
       }
     };
@@ -85,7 +85,7 @@ export const formItemMixin = {
     },
 
     isDirty() {
-      return this.state.dirtyCount > 1;
+      return this.state.dirty;
     },
 
     isTouched() {
@@ -120,7 +120,7 @@ export const formItemMixin = {
   methods: {
     handleInput(evt) {
       this.$emit("input", evt.target.value);
-      this.state.dirtyCount++;
+      this.state.dirty = true;
     },
 
     handleBlur() {
