@@ -1,5 +1,5 @@
 <template>
-  <div class="form-textarea">
+  <div>
     <label v-bind:for="id">{{ label }}</label>
     <textarea
       v-model="model"
@@ -18,12 +18,10 @@
     ></textarea>
     <ul
       v-show="showError"
-      class="error-message-list"
     >
       <li
         v-for="(message, index) in messages"
         v-bind:key="`${id}-${index}`"
-        class="error-message-list__item"
       >{{ message }}</li>
     </ul>
   </div>
