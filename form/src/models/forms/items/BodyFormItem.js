@@ -7,7 +7,7 @@ const MESSAGES = {
 };
 
 export class BodyFormItem extends BaseFormItem {
-  constructor(value) {
+  constructor(value = "") {
     super(value);
     this.maxlength = 501;
   }

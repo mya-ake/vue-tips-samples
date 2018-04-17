@@ -7,7 +7,7 @@ const MESSAGES = {
 };
 
 export class CategoryFormItem extends BaseSelectFormItem {
-  constructor(value) {
+  constructor(value = "") {
     super(value);
     this.options = [
       {

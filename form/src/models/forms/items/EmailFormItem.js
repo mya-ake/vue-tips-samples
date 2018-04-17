@@ -8,7 +8,7 @@ const MESSAGES = {
 };
 
 export class EmailFormItem extends BaseFormItem {
-  constructor(value) {
+  constructor(value = "") {
     super(value);
     this.maxlength = 129;
   }
