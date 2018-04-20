@@ -1,14 +1,18 @@
 <template>
-  <div class="overlay" v-bind:aria-hidden="!show">
+  <div
+    v-bind:aria-hidden="!show"
+    v-on:click="handleClickOverlay"
+    class="overlay"
+  >
     <div class="modal">
       <header class="header">
-        <em class="header__text">ヘッダー</em>
+        <em class="header__text">{{ title }}</em>
       </header>
       <div class="body">
-        <p class="body__text">Modal text</p>
+        <p class="body__text">{{ message }}</p>
       </div>
       <footer class="footer">
-        <base-button v-on:click="handleClickClose">閉じる</base-button>
+        <base-button v-on:click="handleClickCloseButton">閉じる</base-button>
       </footer>
     </div>
   </div>
@@ -16,21 +20,34 @@
 
 <script>
 import { BaseButton } from "@/components";
+import { MODAL_ACTION_TYPES } from "@/store/modal";
 
 export default {
-  data() {
-    return {
-      show: true
-    };
+  computed: {
+    show() {
+      return this.$store.state.modal.show;
+    },
+
+    title() {
+      return this.$store.state.modal.title;
+    },
+
+    message() {
+      return this.$store.state.modal.message;
+    }
   },
 
   methods: {
-    handleClickClose() {
+    handleClickCloseButton() {
+      this.close();
+    },
+
+    handleClickOverlay() {
       this.close();
     },
 
     close() {
-      this.show = false;
+      this.$store.dispatch(MODAL_ACTION_TYPES.CLOSE);
     }
   },
 
