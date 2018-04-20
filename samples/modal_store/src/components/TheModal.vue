@@ -22,7 +22,24 @@
 import { BaseButton } from "@/components";
 import { MODAL_ACTION_TYPES } from "@/store/modal";
 
+const stopScroll = () => {
+  document.body.style.overflow = "hidden";
+};
+
+const releaseScroll = () => {
+  document.body.style.overflow = "";
+};
+
 export default {
+  mounted() {
+    window.addEventListener("popstate", this.handlePopstate);
+  },
+
+  beforeDestroy() {
+    this.close();
+    window.removeEventListener("popstate", this.handlePopstate);
+  },
+
   computed: {
     show() {
       return this.$store.state.modal.show;
@@ -37,12 +54,26 @@ export default {
     }
   },
 
+  watch: {
+    show(value) {
+      if (value === true) {
+        stopScroll();
+      } else {
+        releaseScroll();
+      }
+    }
+  },
+
   methods: {
     handleClickCloseButton() {
       this.close();
     },
 
     handleClickOverlay() {
+      this.close();
+    },
+
+    handlePopstate() {
       this.close();
     },
 
