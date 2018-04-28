@@ -9,6 +9,6 @@
 
 ### 4章 Vuexのtips
 
-Vuexを使ったモーダルの表示のサンプルコード
+Vuexを使ったモーダルの表示のサンプルコードです。
 
 [modal_store](https://github.com/mya-ake/vue-tips-samples/tree/master/samples/modal_store)
