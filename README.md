@@ -39,6 +39,8 @@
 
 - `npm`でなく`yarn`を使っています
   - `npm`でも動くとは思います
+- [vue-cli v3](https://github.com/vuejs/vue-cli)を利用しています
+  - ESLintは`ESLint + Prettier`です
 - Chromeで作業していたので他のブラウザの動作までは確認できていません
   - モダンブラウザなら動くはずです
   - モダンブラウザで動作していなさそうなブラウザがあった場合は[@mya_ake](https://twitter.com/mya_ake)までご連絡ください
