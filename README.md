@@ -1,8 +1,6 @@
 # vue-tips-samples
 [現場で使えるVue.js tips集](https://neko-note-help.booth.pm/items/828444)のサンプルコード
 
-⚠️更新中
-
 
 ## 章とフォルダ
 
