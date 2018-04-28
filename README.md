@@ -33,3 +33,14 @@
 ### 6章 vue-i18nのLazy loadingとvue-router
 
 - [i18n](https://github.com/mya-ake/vue-tips-samples/tree/master/i18n)
+
+
+## 注意
+
+- `npm`でなく`yarn`を使っています
+  - `npm`でも動くとは思います
+- Chromeで作業していたので他のブラウザの動作までは確認できていません
+  - モダンブラウザなら動くはずです
+  - モダンブラウザで動作していなさそうなブラウザがあった場合は[@mya_ake](https://twitter.com/mya_ake)までご連絡ください
+
+
