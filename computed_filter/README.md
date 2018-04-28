@@ -1,6 +1,6 @@
 # 1章 computedとfilter 
 
-computedとfilterの使い分けに関する賞のサンプルコードです。
+computedとfilterの使い分けに関する章のサンプルコードです。
 
 ## commands
 
