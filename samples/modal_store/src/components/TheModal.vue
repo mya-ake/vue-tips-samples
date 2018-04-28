@@ -1,7 +1,7 @@
 <template>
   <div
     v-bind:aria-hidden="!show"
-    v-on:click="handleClickOverlay"
+    v-on:click.self="handleClickOverlay"
     class="overlay"
   >
     <div class="modal">
