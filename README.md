@@ -1,6 +1,13 @@
 # vue-tips-samples
 [現場で使えるVue.js tips集](https://neko-note-help.booth.pm/items/828444)のサンプルコード
 
+## デモサイト
+
+このリポジトリのサンプルコードの動作を確認できるサイトを用意しました。
+動作を確認されたい方はデモサイトをご覧ください。
+
+[デモサイト](https://mya-ake.github.io/vue-tips-sample-demos/)
+
 
 ## 章とフォルダ
 
@@ -43,4 +50,6 @@
   - モダンブラウザなら動くはずです
   - モダンブラウザで動作していなさそうなブラウザがあった場合は[@mya_ake](https://twitter.com/mya_ake)までご連絡ください
 
+## 更新予定
 
+更新予定などはこのリポジトリの[issues](https://github.com/mya-ake/vue-tips-samples/issues)をご覧ください
