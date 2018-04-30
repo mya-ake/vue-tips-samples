@@ -50,7 +50,6 @@
   - モダンブラウザなら動くはずです
   - モダンブラウザで動作していなさそうなブラウザがあった場合は[@mya_ake](https://twitter.com/mya_ake)までご連絡ください
 
-
 ## 更新予定
 
 更新予定などはこのリポジトリの[issues](https://github.com/mya-ake/vue-tips-samples/issues)をご覧ください
