@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueI18n from "vue-i18n";
 import axios from "axios";
 
+import { baseUrl } from "./../vue.config";
+
 Vue.use(VueI18n);
 
 /** 定数とか */
@@ -79,7 +81,7 @@ export const loadLocaleMessage = async (lang, category) => {
   }
 
   const response = await axios
-    .get(`/locales/${category}/${lang}.json`)
+    .get(`${baseUrl}locales/${category}/${lang}.json`)
     .catch(error => error.response);
 
   if (response.status !== 200) {
