@@ -3,6 +3,11 @@
 vue-i18nのLazy loadingの実装をしている章のサンプルコードです。
 またLazy loadingする際にvue-routerのナビゲーションガードが深く関わったのでその実装もあります。
 
+## デモ
+
+[https://mya-ake.github.io/vue-tips-sample-demos/i18n/](https://mya-ake.github.io/vue-tips-sample-demos/i18n/)
+
+
 ## commands
 
 ### yarn

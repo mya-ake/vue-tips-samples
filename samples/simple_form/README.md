@@ -3,6 +3,10 @@
 [form](https://github.com/mya-ake/vue-tips-samples/tree/master/form)に至る前段階のサンプルコードです。
 2.6.1までの状態のコードです。
 
+## デモ
+
+[https://mya-ake.github.io/vue-tips-sample-demos/samples/simple_form/form](https://mya-ake.github.io/vue-tips-sample-demos/samples/simple_form/form)
+
 ## commands
 
 ### yarn
