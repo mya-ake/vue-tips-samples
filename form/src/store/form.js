@@ -3,7 +3,8 @@ import { ContactForm } from "@/models";
 
 const moduleName = "form";
 const GETTER_TYPES = {
-  VALUES: "VALUES"
+  VALUES: "VALUES",
+  IS_EMPTY: "IS_EMPTY"
 };
 const MUTATION_TYPES = {
   SET_VALUES: "SET_VALUES",
@@ -32,6 +33,9 @@ export const getters = {
       return new ContactForm().properties();
     }
     return state.values;
+  },
+  [GETTER_TYPES.IS_EMPTY](state) {
+    return state.values === null;
   }
 };
 

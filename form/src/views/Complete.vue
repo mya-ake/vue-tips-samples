@@ -6,7 +6,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  beforeRouteEnter(to, from, next) {
+    if (from.path !== "/confirm") {
+      next("/form");
+    }
+    next();
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -26,8 +26,16 @@
 <script>
 import { ContactForm } from "@/models";
 import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from "@/store/form";
+import store from "@/store";
 
 export default {
+  beforeRouteEnter(to, from, next) {
+    if (store.getters[FORM_GETTER_TYPES.IS_EMPTY]) {
+      next("/form");
+    }
+    next();
+  },
+
   data() {
     return {
       values: this.$store.getters[FORM_GETTER_TYPES.VALUES],
