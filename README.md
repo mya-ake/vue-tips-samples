@@ -29,6 +29,8 @@
 - [form](https://github.com/mya-ake/vue-tips-samples/tree/master/form)
 - [samples/modal_store](https://github.com/mya-ake/vue-tips-samples/tree/master/samples/modal_store)
   - UIの操作にストアを使う例
+- [vuex_transition_problem](https://github.com/mya-ake/vue-tips-samples/tree/master/samples/vuex_transition_problem)
+  - 遷移前に表示が変わる問題の例
 
 ### 5章 vue-test-utilsでなにをテストするか
 
