@@ -261,5 +261,35 @@ describe("FormInput", () => {
       expect(input.classes()).toContain("has-error");
       expect(messages.isVisible()).toBe(true);
     });
+
+    it("Touched after dirty attr, 値が変更された後にinputのフォーカスが離れてからバリデーションを行う", async () => {
+      const wrapper = shallow(FormInput, {
+        propsData: {
+          ...props,
+          formItem: new EmptyFormItem(""),
+          touchedAfterDirty: ""
+        }
+      });
+
+      const inputProcess = new InputProcess(wrapper);
+      const input = wrapper.find("input");
+      const messages = wrapper.find("ul");
+
+      expect.assertions(6);
+
+      input.trigger("blur");
+      expect(input.classes()).not.toContain("has-error");
+      expect(messages.isVisible()).toBe(false);
+
+      await inputProcess.input("a");
+
+      expect(input.classes()).not.toContain("has-error");
+      expect(messages.isVisible()).toBe(false);
+
+      input.trigger("blur");
+
+      expect(input.classes()).toContain("has-error");
+      expect(messages.isVisible()).toBe(true);
+    });
   });
 });
