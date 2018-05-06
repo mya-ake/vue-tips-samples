@@ -4,6 +4,12 @@
 
 [https://mya-ake.github.io/vue-tips-sample-demos/form/form](https://mya-ake.github.io/vue-tips-sample-demos/form/form)
 
+### バリデーション属性のデモ
+
+dirtyやtouchedなどバリデーションのタイミングを決める属性のデモ
+[https://mya-ake.github.io/vue-tips-sample-demos/form/samples/validation-attr](https://mya-ake.github.io/vue-tips-sample-demos/form/samples/validation-attr)
+
+
 ## 章と対象フォルダ
 
 ### 3章 フォーム実践編
