@@ -38,6 +38,9 @@ export const formItemMixin = {
     touched: {
       type: String
     },
+    touchedAfterDirty: {
+      type: String
+    },
     initialValidation: {
       type: [String, Boolean]
     }
@@ -55,6 +58,7 @@ export const formItemMixin = {
       hasAttr: {
         dirty: typeof this.dirty === "string",
         touched: typeof this.touched === "string",
+        touchedAfterDirty: typeof this.touchedAfterDirty === "string",
         initialValidation:
           typeof this.initialValidation === "boolean"
             ? this.initialValidation
@@ -62,7 +66,8 @@ export const formItemMixin = {
       },
       state: {
         dirty: false,
-        touched: false
+        touched: false,
+        touchedAfterDirty: false
       }
     };
   },
@@ -92,6 +97,10 @@ export const formItemMixin = {
       return this.state.touched;
     },
 
+    isTouchedAfterDirty() {
+      return this.state.touchedAfterDirty;
+    },
+
     attrShowErrorConditions() {
       if (this.hasAttr.dirty) {
         if (this.isDirty === false) {
@@ -100,6 +109,11 @@ export const formItemMixin = {
       }
       if (this.hasAttr.touched) {
         if (this.isTouched === false) {
+          return false;
+        }
+      }
+      if (this.hasAttr.touchedAfterDirty) {
+        if (this.isTouchedAfterDirty === false) {
           return false;
         }
       }
@@ -125,6 +139,9 @@ export const formItemMixin = {
 
     handleBlur() {
       this.state.touched = true;
+      if (this.isDirty) {
+        this.state.touchedAfterDirty = true;
+      }
       this.validate();
     },
 
