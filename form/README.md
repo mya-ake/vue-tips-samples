@@ -2,7 +2,7 @@
 
 ## デモ
 
-[https://mya-ake.github.io/vue-tips-sample-demos/form/form](https://mya-ake.github.io/vue-tips-sample-demos/form/form)
+[https://mya-ake.github.io/vue-tips-sample-demos/form](https://mya-ake.github.io/vue-tips-sample-demos/form)
 
 ### バリデーション属性のデモ
 
