@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { formItemMixin } from "@/mixins";
+import { formItemMixin } from '@/mixins';
 
 export default {
   mixins: [formItemMixin],
@@ -33,9 +33,9 @@ export default {
   props: {
     type: {
       type: String,
-      default: "text"
-    }
-  }
+      default: 'text',
+    },
+  },
 };
 </script>
 

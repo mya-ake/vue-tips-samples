@@ -1,30 +1,30 @@
-import { buildModuleTypes } from "@/helpers/store";
-import { ContactForm } from "@/models";
+import { buildModuleTypes } from '@/helpers/store';
+import { ContactForm } from '@/models';
 
-const moduleName = "form";
+const moduleName = 'form';
 const GETTER_TYPES = {
-  VALUES: "VALUES",
-  IS_EMPTY: "IS_EMPTY"
+  VALUES: 'VALUES',
+  IS_EMPTY: 'IS_EMPTY',
 };
 const MUTATION_TYPES = {
-  SET_VALUES: "SET_VALUES",
-  CLEAR_VALUES: "CLEAR_VALUES"
+  SET_VALUES: 'SET_VALUES',
+  CLEAR_VALUES: 'CLEAR_VALUES',
 };
 
 export const FORM_GETTER_TYPES = buildModuleTypes({
   moduleName,
-  types: GETTER_TYPES
+  types: GETTER_TYPES,
 });
 
 export const FORM_MUTATION_TYPES = buildModuleTypes({
   moduleName,
-  types: MUTATION_TYPES
+  types: MUTATION_TYPES,
 });
 
 export const namespaced = true;
 
 export const state = {
-  values: null
+  values: null,
 };
 
 export const getters = {
@@ -36,7 +36,7 @@ export const getters = {
   },
   [GETTER_TYPES.IS_EMPTY](state) {
     return state.values === null;
-  }
+  },
 };
 
 export const mutations = {
@@ -46,5 +46,5 @@ export const mutations = {
 
   [MUTATION_TYPES.CLEAR_VALUES](state) {
     state.values = null;
-  }
+  },
 };

@@ -1,13 +1,13 @@
-import { BaseForm } from "./BaseForm";
-import { EmailFormItem } from "./items";
+import { BaseForm } from './BaseForm';
+import { EmailFormItem } from './items';
 
 export class SampleForm extends BaseForm {
   constructor({
-    email = "",
-    emailDirty = "",
-    emailTouched = "",
-    emailTouechAndDirty = "",
-    emailTouchedAfterDirty = ""
+    email = '',
+    emailDirty = '',
+    emailTouched = '',
+    emailTouechAndDirty = '',
+    emailTouchedAfterDirty = '',
   } = {}) {
     super();
     this.email = new EmailFormItem(email);

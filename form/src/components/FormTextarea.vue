@@ -15,7 +15,7 @@
       }"
       v-on:input="handleInput"
       v-on:blur="handleBlur"
-    ></textarea>
+    />
     <ul
       v-show="showError"
     >
@@ -28,25 +28,27 @@
 </template>
 
 <script>
-import { formItemMixin } from "@/mixins";
+import { formItemMixin } from '@/mixins';
 
 export default {
   mixins: [formItemMixin],
 
   props: {
     cols: {
-      type: Number
+      type: Number,
+      default: 30,
     },
     rows: {
-      type: Number
-    }
+      type: Number,
+      default: 3,
+    },
   },
 
   data() {
     return {
-      model: this.formItem.value
+      model: this.formItem.value,
     };
-  }
+  },
 };
 </script>
 

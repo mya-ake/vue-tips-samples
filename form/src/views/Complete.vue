@@ -8,11 +8,11 @@
 <script>
 export default {
   beforeRouteEnter(to, from, next) {
-    if (from.path !== "/confirm") {
-      next("/form");
+    if (from.path !== '/confirm') {
+      next('/form');
     }
     next();
-  }
+  },
 };
 </script>
 

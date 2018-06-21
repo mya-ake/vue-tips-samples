@@ -1,1 +1,1 @@
-export { formItemMixin } from "./form-item";
+export { formItemMixin } from './form-item';

@@ -1,18 +1,18 @@
-import { BaseForm, ContactForm } from "@/models";
+import { BaseForm, ContactForm } from '@/models';
 
-describe("ContactForm", () => {
-  describe("constructor", () => {
-    it("basic", () => {
+describe('ContactForm', () => {
+  describe('constructor', () => {
+    it('basic', () => {
       const form = new ContactForm();
       expect(form instanceof BaseForm).toBe(true);
     });
 
-    it("has initial values", () => {
+    it('has initial values', () => {
       const initailValues = {
-        name: "test name",
-        email: "test@example.com",
-        title: "test title",
-        body: "test body"
+        name: 'test name',
+        email: 'test@example.com',
+        title: 'test title',
+        body: 'test body',
       };
       const form = new ContactForm(initailValues);
 
@@ -24,12 +24,12 @@ describe("ContactForm", () => {
     });
   });
 
-  describe("functions", () => {
-    it("buildRequestBody", () => {
+  describe('functions', () => {
+    it('buildRequestBody', () => {
       const form = new ContactForm();
 
       const requestBody = form.buildRequestBody();
-      expect("contact" in requestBody).toBe(true);
+      expect('contact' in requestBody).toBe(true);
     });
   });
 });

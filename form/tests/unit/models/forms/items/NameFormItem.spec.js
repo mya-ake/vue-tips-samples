@@ -1,21 +1,21 @@
-import { NameFormItem } from "@/models";
+import { NameFormItem } from '@/models';
 
-describe("NameFormItem", () => {
-  describe("validator", () => {
+describe('NameFormItem', () => {
+  describe('validator', () => {
     let name;
     beforeEach(() => {
-      name = new NameFormItem("");
+      name = new NameFormItem('');
     });
 
-    it("valid name", () => {
-      name.value = "test name";
+    it('valid name', () => {
+      name.value = 'test name';
       const messages = name.validator();
 
       expect(messages).toHaveLength(0);
     });
 
-    it("empty", () => {
-      name.value = "";
+    it('empty', () => {
+      name.value = '';
       const messages = name.validator();
 
       expect.assertions(2);
@@ -23,10 +23,10 @@ describe("NameFormItem", () => {
       expect(messages).toContain(NameFormItem.MESSAGES.EMPTY);
     });
 
-    it("too long", () => {
+    it('too long', () => {
       name.value = Array(17)
-        .fill("a")
-        .join("");
+        .fill('a')
+        .join('');
       const messages = name.validator();
 
       expect.assertions(2);

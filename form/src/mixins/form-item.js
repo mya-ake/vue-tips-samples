@@ -1,49 +1,49 @@
-import { BaseFormItem } from "@/models";
+import { BaseFormItem } from '@/models';
 
 export const formItemMixin = {
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     formItem: {
       validator(value) {
         return value instanceof BaseFormItem;
       },
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
-      type: String
+      type: String,
     },
     placeholder: {
       type: String,
-      default: ""
+      default: '',
     },
     required: {
-      type: String
+      type: String,
     },
     maxlength: {
       type: [String, Number],
       validator(value) {
         return isNaN(Number(value)) === false;
-      }
+      },
     },
     dirty: {
-      type: String
+      type: String,
     },
     touched: {
-      type: String
+      type: String,
     },
     touchedAfterDirty: {
-      type: String
+      type: String,
     },
     initialValidation: {
-      type: [String, Boolean]
-    }
+      type: [String, Boolean],
+    },
   },
 
   mounted() {
@@ -56,19 +56,19 @@ export const formItemMixin = {
     return {
       messages: [],
       hasAttr: {
-        dirty: typeof this.dirty === "string",
-        touched: typeof this.touched === "string",
-        touchedAfterDirty: typeof this.touchedAfterDirty === "string",
+        dirty: typeof this.dirty === 'string',
+        touched: typeof this.touched === 'string',
+        touchedAfterDirty: typeof this.touchedAfterDirty === 'string',
         initialValidation:
-          typeof this.initialValidation === "boolean"
+          typeof this.initialValidation === 'boolean'
             ? this.initialValidation
-            : typeof this.initialValidation === "string"
+            : typeof this.initialValidation === 'string',
       },
       state: {
         dirty: false,
         touched: false,
-        touchedAfterDirty: false
-      }
+        touchedAfterDirty: false,
+      },
     };
   },
 
@@ -122,18 +122,18 @@ export const formItemMixin = {
 
     showError() {
       return this.hasError && this.attrShowErrorConditions;
-    }
+    },
   },
 
   watch: {
     value() {
       this.validate();
-    }
+    },
   },
 
   methods: {
     handleInput(evt) {
-      this.$emit("input", evt.target.value);
+      this.$emit('input', evt.target.value);
       this.state.dirty = true;
     },
 
@@ -151,7 +151,7 @@ export const formItemMixin = {
     },
 
     notify() {
-      this.$emit("notify", { name: this.nameAttr, result: !this.hasError });
-    }
-  }
+      this.$emit('notify', { name: this.nameAttr, result: !this.hasError });
+    },
+  },
 };

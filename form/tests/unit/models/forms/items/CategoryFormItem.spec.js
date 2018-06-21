@@ -1,20 +1,20 @@
-import { CategoryFormItem } from "@/models";
+import { CategoryFormItem } from '@/models';
 
-describe("CategoryFormItem", () => {
-  describe("validator", () => {
+describe('CategoryFormItem', () => {
+  describe('validator', () => {
     let category;
     beforeEach(() => {
-      category = new CategoryFormItem("");
+      category = new CategoryFormItem('');
     });
 
-    it("valid category", () => {
+    it('valid category', () => {
       category.value = category.options[0].value;
       const messages = category.validator();
 
       expect(messages).toHaveLength(0);
     });
 
-    it("empty", () => {
+    it('empty', () => {
       const messages = category.validator();
 
       expect.assertions(2);
@@ -22,8 +22,8 @@ describe("CategoryFormItem", () => {
       expect(messages).toContain(CategoryFormItem.MESSAGES.EMPTY);
     });
 
-    it("invalid", () => {
-      category.value = "test";
+    it('invalid', () => {
+      category.value = 'test';
       const messages = category.validator();
 
       expect.assertions(2);

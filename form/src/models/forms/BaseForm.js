@@ -1,4 +1,4 @@
-import { BaseFormItem } from "./items";
+import { BaseFormItem } from './items';
 
 export class BaseForm {
   properties() {
@@ -14,7 +14,7 @@ export class BaseForm {
 
   buildRequestBody() {
     return {
-      ...this.properties()
+      ...this.properties(),
     };
   }
 }

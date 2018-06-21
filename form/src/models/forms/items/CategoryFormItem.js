@@ -1,27 +1,27 @@
-import { BaseSelectFormItem } from "./BaseSelectFormItem";
-import { isEmptyString } from "@/helpers/validators";
+import { BaseSelectFormItem } from './BaseSelectFormItem';
+import { isEmptyString } from '@/helpers/validators';
 
 const MESSAGES = {
-  EMPTY: "選択が必須の項目です",
-  INVALID: "不正な操作が必要な行われました"
+  EMPTY: '選択が必須の項目です',
+  INVALID: '不正な操作が必要な行われました',
 };
 
 export class CategoryFormItem extends BaseSelectFormItem {
-  constructor(value = "") {
+  constructor(value = '') {
     super(value);
     this.options = [
       {
-        text: "サービスについて",
-        value: "サービスについて"
+        text: 'サービスについて',
+        value: 'サービスについて',
       },
       {
-        text: "採用について",
-        value: "採用について"
+        text: '採用について',
+        value: '採用について',
       },
       {
-        text: "その他（タイトルにご記入ください）",
-        value: "その他（タイトルにご記入ください）"
-      }
+        text: 'その他（タイトルにご記入ください）',
+        value: 'その他（タイトルにご記入ください）',
+      },
     ];
   }
 

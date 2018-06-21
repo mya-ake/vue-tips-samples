@@ -1,14 +1,14 @@
-import { BaseFormItem } from "./BaseFormItem";
-import { isEmptyString, isEmail, isExpectLength } from "@/helpers/validators";
+import { BaseFormItem } from './BaseFormItem';
+import { isEmptyString, isEmail, isExpectLength } from '@/helpers/validators';
 
 const MESSAGES = {
-  EMPTY: "入力が必須の項目です",
-  INVALID_EMAIL: "メールアドレスを入力してください",
-  EXPECT_LENGTH: "128文字以内で入力してください"
+  EMPTY: '入力が必須の項目です',
+  INVALID_EMAIL: 'メールアドレスを入力してください',
+  EXPECT_LENGTH: '128文字以内で入力してください',
 };
 
 export class EmailFormItem extends BaseFormItem {
-  constructor(value = "") {
+  constructor(value = '') {
     super(value);
     this.maxlength = 129;
   }

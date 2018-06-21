@@ -1,1 +1,1 @@
-export { FormObserver } from "./FormObserver";
+export { FormObserver } from './FormObserver';

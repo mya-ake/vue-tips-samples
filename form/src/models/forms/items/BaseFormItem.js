@@ -1,7 +1,7 @@
 const MESSAGES = {};
 
 export class BaseFormItem {
-  constructor(value = "") {
+  constructor(value = '') {
     this.value = value;
   }
 

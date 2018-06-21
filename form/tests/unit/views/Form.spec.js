@@ -1,24 +1,24 @@
-import { shallow, createLocalVue } from "@vue/test-utils";
-import Vuex from "vuex";
+import { shallow, createLocalVue } from '@vue/test-utils';
+import Vuex from 'vuex';
 
-import Form from "@/views/Form";
-import * as formModule from "@/store/form";
+import Form from '@/views/Form';
+import * as formModule from '@/store/form';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe("Form view", () => {
+describe('Form view', () => {
   let store;
 
   beforeEach(() => {
     store = new Vuex.Store({
       modules: {
-        form: formModule
-      }
+        form: formModule,
+      },
     });
   });
 
-  it("mount", () => {
+  it('mount', () => {
     const wrapper = shallow(Form, { store, localVue });
     expect(wrapper.isVueInstance()).toBe(true);
   });

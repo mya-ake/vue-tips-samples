@@ -1,23 +1,23 @@
-import { TitleFormItem } from "@/models";
+import { TitleFormItem } from '@/models';
 
-describe("TitleFormItem", () => {
-  describe("validator", () => {
+describe('TitleFormItem', () => {
+  describe('validator', () => {
     let title;
     beforeEach(() => {
-      title = new TitleFormItem("");
+      title = new TitleFormItem('');
     });
 
-    it("valid title", () => {
-      title.value = "test title";
+    it('valid title', () => {
+      title.value = 'test title';
       const messages = title.validator();
 
       expect(messages).toHaveLength(0);
     });
 
-    it("too long", () => {
+    it('too long', () => {
       title.value = Array(33)
-        .fill("a")
-        .join("");
+        .fill('a')
+        .join('');
       const messages = title.validator();
 
       expect.assertions(2);

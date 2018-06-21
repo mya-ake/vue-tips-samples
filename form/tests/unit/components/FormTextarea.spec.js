@@ -1,19 +1,19 @@
-import Vue from "vue";
-import { shallow } from "@vue/test-utils";
+import Vue from 'vue';
+import { shallow } from '@vue/test-utils';
 
-import { FormTextarea } from "@/components";
-import { BaseFormItem } from "@/models";
+import { FormTextarea } from '@/components';
+import { BaseFormItem } from '@/models';
 
 class TextareaProcess {
   constructor(wrapper) {
     this._wrapper = wrapper;
-    this._textarea = this._wrapper.find("textarea");
+    this._textarea = this._wrapper.find('textarea');
     this._callCount = 0;
   }
 
   async input(value) {
     this._textarea.element.value = value; // 入力
-    this._textarea.trigger("input"); // inputイベント発火
+    this._textarea.trigger('input'); // inputイベント発火
     this._wrapper.vm.formItem.value = this._wrapper.emitted().input[
       this._callCount
     ][0]; // 親のv-modelから値が返ってくることを想定
@@ -31,7 +31,7 @@ class EmptyFormItem extends BaseFormItem {
     return messages;
   }
 }
-EmptyFormItem.MESSAGES.INPUT_PROHIBITION = "入力禁止";
+EmptyFormItem.MESSAGES.INPUT_PROHIBITION = '入力禁止';
 
 class StringFormItem extends BaseFormItem {
   validator() {
@@ -42,48 +42,48 @@ class StringFormItem extends BaseFormItem {
     return messages;
   }
 }
-StringFormItem.MESSAGES.EMPTY = "empty";
+StringFormItem.MESSAGES.EMPTY = 'empty';
 
-describe("FormTextarea", () => {
-  describe("Initialize", () => {
-    it("only requred", () => {
+describe('FormTextarea', () => {
+  describe('Initialize', () => {
+    it('only requred', () => {
       const props = {
-        id: "textarea",
-        label: "Content",
-        formItem: new BaseFormItem("a")
+        id: 'textarea',
+        label: 'Content',
+        formItem: new BaseFormItem('a'),
       };
       const wrapper = shallow(FormTextarea, {
-        propsData: props
+        propsData: props,
       });
 
-      const label = wrapper.find("label");
-      const textarea = wrapper.find("textarea");
+      const label = wrapper.find('label');
+      const textarea = wrapper.find('textarea');
 
       expect.assertions(4);
       expect(label.text()).toBe(props.label);
       expect(textarea.attributes().name).toBe(props.id);
       expect(textarea.element.value).toBe(props.formItem.value);
-      expect(wrapper.findAll("li").wrappers).toHaveLength(0);
+      expect(wrapper.findAll('li').wrappers).toHaveLength(0);
     });
 
-    it("basic props", () => {
+    it('basic props', () => {
       const props = {
-        id: "textarea",
-        name: "textarea-input",
-        label: "Content",
-        placeholder: "e.g. vue.js",
+        id: 'textarea',
+        name: 'textarea-input',
+        label: 'Content',
+        placeholder: 'e.g. vue.js',
         cols: 10,
         rows: 20,
-        required: "",
+        required: '',
         maxlength: 100,
-        formItem: new BaseFormItem("keyword")
+        formItem: new BaseFormItem('keyword'),
       };
       const wrapper = shallow(FormTextarea, {
-        propsData: props
+        propsData: props,
       });
 
-      const label = wrapper.find("label");
-      const textarea = wrapper.find("textarea");
+      const label = wrapper.find('label');
+      const textarea = wrapper.find('textarea');
 
       expect.assertions(9);
       expect(label.text()).toBe(props.label);
@@ -94,126 +94,126 @@ describe("FormTextarea", () => {
       expect(textarea.attributes().required).not.toBeUndefined();
       expect(textarea.attributes().maxlength).toBe(String(props.maxlength));
       expect(textarea.element.value).toBe(props.formItem.value);
-      expect(wrapper.findAll("li").wrappers).toHaveLength(0);
+      expect(wrapper.findAll('li').wrappers).toHaveLength(0);
     });
 
-    it("validate", async () => {
+    it('validate', async () => {
       const props = {
-        id: "textarea",
-        label: "Content",
-        formItem: new EmptyFormItem("a"),
-        initialValidation: ""
+        id: 'textarea',
+        label: 'Content',
+        formItem: new EmptyFormItem('a'),
+        initialValidation: '',
       };
       const wrapper = shallow(FormTextarea, {
-        propsData: props
+        propsData: props,
       });
 
-      const textarea = wrapper.find("textarea");
+      const textarea = wrapper.find('textarea');
 
       await Vue.nextTick();
       expect.assertions(2);
-      expect(wrapper.find("li").text()).toBe(
-        EmptyFormItem.MESSAGES.INPUT_PROHIBITION
+      expect(wrapper.find('li').text()).toBe(
+        EmptyFormItem.MESSAGES.INPUT_PROHIBITION,
       );
-      expect(textarea.classes()).toContain("has-error");
+      expect(textarea.classes()).toContain('has-error');
     });
   });
 
-  describe("Events", () => {
+  describe('Events', () => {
     let wrapper;
     const props = {
-      id: "item1",
-      label: "Content",
-      formItem: new EmptyFormItem("")
+      id: 'item1',
+      label: 'Content',
+      formItem: new EmptyFormItem(''),
     };
     beforeEach(() => {
       wrapper = shallow(FormTextarea, {
-        propsData: props
+        propsData: props,
       });
     });
 
-    it("input", () => {
-      const inputText = "test text";
+    it('input', () => {
+      const inputText = 'test text';
 
-      const textarea = wrapper.find("textarea");
+      const textarea = wrapper.find('textarea');
       textarea.element.value = inputText;
-      textarea.trigger("input");
+      textarea.trigger('input');
 
       expect.assertions(2);
       expect(wrapper.emitted().input).toHaveLength(1);
       expect(wrapper.emitted().input[0][0]).toBe(inputText);
     });
 
-    it("notify", async () => {
+    it('notify', async () => {
       const textareaProcess = new TextareaProcess(wrapper);
-      await textareaProcess.input("test value");
+      await textareaProcess.input('test value');
 
       expect.assertions(2);
       expect(wrapper.emitted().notify).toHaveLength(1);
       expect(wrapper.emitted().notify[0][0]).toEqual({
         name: props.id,
-        result: false
+        result: false,
       });
     });
   });
 
-  describe("Validate", () => {
+  describe('Validate', () => {
     const props = {
-      id: "item1",
-      label: "Content"
+      id: 'item1',
+      label: 'Content',
     };
 
-    it("dirty attr, 値が変更されてからバリデーションを行う", async () => {
+    it('dirty attr, 値が変更されてからバリデーションを行う', async () => {
       const wrapper = shallow(FormTextarea, {
         propsData: {
           ...props,
-          formItem: new EmptyFormItem(""),
-          dirty: "",
-          initialValidation: ""
-        }
+          formItem: new EmptyFormItem(''),
+          dirty: '',
+          initialValidation: '',
+        },
       });
 
       const textareaProcess = new TextareaProcess(wrapper);
-      const textarea = wrapper.find("textarea");
-      const messages = wrapper.find("ul");
+      const textarea = wrapper.find('textarea');
+      const messages = wrapper.find('ul');
 
       expect.assertions(4);
-      expect(textarea.classes()).not.toContain("has-error");
+      expect(textarea.classes()).not.toContain('has-error');
       expect(messages.isVisible()).toBe(false);
 
-      await textareaProcess.input("a");
+      await textareaProcess.input('a');
 
-      expect(textarea.classes()).toContain("has-error");
+      expect(textarea.classes()).toContain('has-error');
       expect(messages.isVisible()).toBe(true);
     });
 
-    it("Touched attr, inputのフォーカスが離れてからバリデーションを行う", async () => {
+    it('Touched attr, inputのフォーカスが離れてからバリデーションを行う', async () => {
       const wrapper = shallow(FormTextarea, {
         propsData: {
           ...props,
-          formItem: new EmptyFormItem(""),
-          touched: ""
-        }
+          formItem: new EmptyFormItem(''),
+          touched: '',
+        },
       });
 
       const textareaProcess = new TextareaProcess(wrapper);
-      const textarea = wrapper.find("textarea");
-      const messages = wrapper.find("ul");
+      const textarea = wrapper.find('textarea');
+      const messages = wrapper.find('ul');
 
-      await textareaProcess.input("a");
+      await textareaProcess.input('a');
 
       expect.assertions(6);
-      expect(textarea.classes()).not.toContain("has-error");
+      expect(textarea.classes()).not.toContain('has-error');
       expect(messages.isVisible()).toBe(false);
 
-      await textareaProcess.input("aa");
+      await textareaProcess.input('aa');
 
-      expect(textarea.classes()).not.toContain("has-error");
+      expect(textarea.classes()).not.toContain('has-error');
       expect(messages.isVisible()).toBe(false);
 
-      textarea.trigger("blur");
+      textarea.trigger('blur');
 
-      expect(textarea.classes()).toContain("has-error");
+      expect(textarea.classes()).toContain('has-error');
       expect(messages.isVisible()).toBe(true);
     });
   });

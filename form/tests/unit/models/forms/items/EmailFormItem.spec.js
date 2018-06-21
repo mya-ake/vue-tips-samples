@@ -1,21 +1,21 @@
-import { EmailFormItem } from "@/models";
+import { EmailFormItem } from '@/models';
 
-describe("EmailFormItem", () => {
-  describe("validator", () => {
+describe('EmailFormItem', () => {
+  describe('validator', () => {
     let email;
     beforeEach(() => {
-      email = new EmailFormItem("");
+      email = new EmailFormItem('');
     });
 
-    it("valid email", () => {
-      email.value = "test@example.com";
+    it('valid email', () => {
+      email.value = 'test@example.com';
       const messages = email.validator();
 
       expect(messages).toHaveLength(0);
     });
 
-    it("empty", () => {
-      email.value = "";
+    it('empty', () => {
+      email.value = '';
       const messages = email.validator();
 
       expect.assertions(3);
@@ -24,8 +24,8 @@ describe("EmailFormItem", () => {
       expect(messages).toContain(EmailFormItem.MESSAGES.INVALID_EMAIL);
     });
 
-    it("invalid email", () => {
-      email.value = "a";
+    it('invalid email', () => {
+      email.value = 'a';
       const messages = email.validator();
 
       expect.assertions(2);
@@ -33,11 +33,11 @@ describe("EmailFormItem", () => {
       expect(messages).toContain(EmailFormItem.MESSAGES.INVALID_EMAIL);
     });
 
-    it("too long", () => {
-      const domain = "@example.com";
+    it('too long', () => {
+      const domain = '@example.com';
       email.value = Array(128 - domain.length + 1)
-        .fill("a")
-        .join("")
+        .fill('a')
+        .join('')
         .concat(domain);
       const messages = email.validator();
 

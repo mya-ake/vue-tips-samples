@@ -1,12 +1,12 @@
-import { BaseFormItem } from "./BaseFormItem";
-import { isExpectLength } from "@/helpers/validators";
+import { BaseFormItem } from './BaseFormItem';
+import { isExpectLength } from '@/helpers/validators';
 
 const MESSAGES = {
-  EXPECT_LENGTH: "32文字以内で入力してください"
+  EXPECT_LENGTH: '32文字以内で入力してください',
 };
 
 export class TitleFormItem extends BaseFormItem {
-  constructor(value = "") {
+  constructor(value = '') {
     super(value);
     this.maxlength = 33;
   }

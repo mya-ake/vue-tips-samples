@@ -15,8 +15,8 @@
     </div>
     <div>
       <button
-        v-on:click="handleClickSubmit"
         v-bind:disabled="!submittable"
+        v-on:click="handleClickSubmit"
       >送信する</button>
       <router-link to="/form">戻る</router-link>
     </div>
@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import { ContactForm } from "@/models";
-import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from "@/store/form";
-import store from "@/store";
+import { ContactForm } from '@/models';
+import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from '@/store/form';
+import store from '@/store';
 
 export default {
   beforeRouteEnter(to, from, next) {
     if (store.getters[FORM_GETTER_TYPES.IS_EMPTY]) {
-      next("/form");
+      next('/form');
     }
     next();
   },
@@ -40,15 +40,15 @@ export default {
     return {
       values: this.$store.getters[FORM_GETTER_TYPES.VALUES],
       status: {
-        submitting: false
-      }
+        submitting: false,
+      },
     };
   },
 
   computed: {
     submittable() {
       return this.status.submitting === false;
-    }
+    },
   },
 
   methods: {
@@ -58,7 +58,7 @@ export default {
       // eslint-disable-next-line
       console.log("result", result);
       this.$store.commit(FORM_MUTATION_TYPES.CLEAR_VALUES);
-      this.$router.push("/complete");
+      this.$router.push('/complete');
     },
 
     submit(requestBody) {
@@ -69,12 +69,12 @@ export default {
           console.log('request body', requestBody);
           this.status.submitting = false;
           resolve({
-            message: "success"
+            message: 'success',
           });
         }, 1000);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -29,32 +29,30 @@
 </template>
 
 <script>
-import { formItemMixin } from "@/mixins";
-import { BaseSelectFormItem } from "@/models";
+import { formItemMixin } from '@/mixins';
+import { BaseSelectFormItem } from '@/models';
 
 export default {
   mixins: [formItemMixin],
 
   props: {
     formItem: {
-      validator(value) {
-        return value instanceof BaseSelectFormItem;
-      },
-      required: true
-    }
+      type: BaseSelectFormItem,
+      required: true,
+    },
   },
 
   data() {
     return {
-      model: this.formItem.value
+      model: this.formItem.value,
     };
   },
 
   computed: {
     options() {
       return this.formItem.options;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,19 +1,19 @@
-import { BaseForm } from "./BaseForm";
+import { BaseForm } from './BaseForm';
 import {
   NameFormItem,
   EmailFormItem,
   CategoryFormItem,
   TitleFormItem,
-  BodyFormItem
-} from "./items";
+  BodyFormItem,
+} from './items';
 
 export class ContactForm extends BaseForm {
   constructor({
-    name = "",
-    email = "",
-    category = "",
-    title = "",
-    body = ""
+    name = '',
+    email = '',
+    category = '',
+    title = '',
+    body = '',
   } = {}) {
     super();
     this.name = new NameFormItem(name);
@@ -26,8 +26,8 @@ export class ContactForm extends BaseForm {
   buildRequestBody() {
     return {
       contact: {
-        ...this.properties()
-      }
+        ...this.properties(),
+      },
     };
   }
 }
