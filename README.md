@@ -3,9 +3,9 @@
 
 ## このリポジトリについて
 
-僭越ながら現場で使えるVue.js tips集は商業版が刊行される運びとなりました。
+僭越ながら現場で使えるVue.js tips集は商業版が刊行される運びとなりました。
 そのためこのリポジトリはコードは商業版に向け更新されます。
-同人版のコードを確認されたい方は[doujinshiブランチ](https://github.com/mya-ake/vue-tips-samples/tree/doujinshi)をご覧ください。
+同人版のコードを確認されたい方は[doujinshiブランチ](https://github.com/mya-ake/vue-tips-samples/tree/doujinshi)をご覧ください。
 
 
 ## デモサイト
