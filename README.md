@@ -1,7 +1,7 @@
 # vue-tips-samples
 [現場で使えるVue.js tips集](https://neko-note-help.booth.pm/items/828444)のサンプルコード
 
-## このリポジトリは**同人誌**バージョンです
+## ※このリポジトリは**同人誌**バージョンです
 
 ## デモサイト
 
