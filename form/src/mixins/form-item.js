@@ -33,21 +33,21 @@ export const formItemMixin = {
       },
     },
     dirty: {
-      type: String,
+      type: Boolean,
     },
     touched: {
-      type: String,
+      type: Boolean,
     },
     touchedAfterDirty: {
-      type: String,
+      type: Boolean,
     },
     initialValidation: {
-      type: [String, Boolean],
+      type: Boolean,
     },
   },
 
   mounted() {
-    if (this.hasAttr.initialValidation) {
+    if (this.initialValidation) {
       this.validate();
     }
   },
@@ -55,15 +55,6 @@ export const formItemMixin = {
   data() {
     return {
       messages: [],
-      hasAttr: {
-        dirty: typeof this.dirty === 'string',
-        touched: typeof this.touched === 'string',
-        touchedAfterDirty: typeof this.touchedAfterDirty === 'string',
-        initialValidation:
-          typeof this.initialValidation === 'boolean'
-            ? this.initialValidation
-            : typeof this.initialValidation === 'string',
-      },
       state: {
         dirty: false,
         touched: false,
@@ -102,17 +93,17 @@ export const formItemMixin = {
     },
 
     attrShowErrorConditions() {
-      if (this.hasAttr.dirty) {
+      if (this.dirty) {
         if (this.isDirty === false) {
           return false;
         }
       }
-      if (this.hasAttr.touched) {
+      if (this.touched) {
         if (this.isTouched === false) {
           return false;
         }
       }
-      if (this.hasAttr.touchedAfterDirty) {
+      if (this.touchedAfterDirty) {
         if (this.isTouchedAfterDirty === false) {
           return false;
         }
