@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { shallow } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
 import { FormSelect } from '@/components';
 import { BaseSelectFormItem } from '@/models';
@@ -8,24 +8,34 @@ class SelectProcess {
   constructor(wrapper) {
     this._wrapper = wrapper;
     this._select = this._wrapper.find('select');
+    this._options = this._select.findAll('option');
     this._callCount = 0;
   }
 
   async select(value) {
-    this._select.element.value = value; // 入力
+    this._extractMatchValueOption(value).setSelected(); // 選択状態の更新
     this._select.trigger('input'); // inputイベント発火
-    this._wrapper.vm.formItem.value = this._wrapper.emitted().input[
-      this._callCount
-    ][0]; // 親のv-modelから値が返ってくることを想定
+    this._wrapper.setProps({
+      value: this._wrapper.emitted().input[this._callCount][0], // 親のv-modelから値が返ってくることを想定
+    });
     this._callCount++;
     await Vue.nextTick();
+  }
+
+  _extractMatchValueOption(value) {
+    return this._options
+      .filter(wrapper => wrapper.element.value === value)
+      .at(0);
   }
 }
 
 class BasicSelectFormItem extends BaseSelectFormItem {
   constructor(value) {
     super(value);
-    this.options = [{ text: 'test value', value: 'test' }];
+    this.options = [
+      { text: 'test value 1', value: 'test1' },
+      { text: 'test value 2', value: 'test2' },
+    ];
   }
 
   validator() {
@@ -48,12 +58,14 @@ BasicSelectFormItem.MESSAGES = {
 describe('FormSelect', () => {
   describe('Initialize', () => {
     it('only requred', () => {
+      const formItem = new BasicSelectFormItem('');
       const props = {
         id: 'select',
         label: 'Select',
-        formItem: new BasicSelectFormItem(''),
+        formItem,
+        value: formItem.value,
       };
-      const wrapper = shallow(FormSelect, {
+      const wrapper = shallowMount(FormSelect, {
         propsData: props,
       });
 
@@ -65,43 +77,45 @@ describe('FormSelect', () => {
       expect(label.attributes().for).toBe(select.attributes().id);
       expect(select.attributes().name).toBe(props.id);
       expect(select.element.value).toBe(props.formItem.value);
-      expect(wrapper.findAll('option').wrappers).toHaveLength(2);
+      expect(wrapper.findAll('option').wrappers).toHaveLength(3);
       expect(wrapper.findAll('li').wrappers).toHaveLength(0);
     });
 
     it('basic props', () => {
+      const formItem = new BasicSelectFormItem('');
       const props = {
         id: 'select',
         label: 'Select',
         name: 'select-name',
-        required: '',
-        formItem: new BasicSelectFormItem(''),
+        formItem,
+        value: formItem.value,
       };
-      const wrapper = shallow(FormSelect, {
+      const wrapper = shallowMount(FormSelect, {
         propsData: props,
       });
 
       const label = wrapper.find('label');
       const select = wrapper.find('select');
 
-      expect.assertions(7);
+      expect.assertions(6);
       expect(label.text()).toBe(props.label);
       expect(label.attributes().for).toBe(select.attributes().id);
       expect(select.attributes().name).toBe(props.name);
-      expect(select.attributes().required).not.toBeUndefined();
       expect(select.element.value).toBe(props.formItem.value);
-      expect(wrapper.findAll('option').wrappers).toHaveLength(2);
+      expect(wrapper.findAll('option').wrappers).toHaveLength(3);
       expect(wrapper.findAll('li').wrappers).toHaveLength(0);
     });
 
     it('initial validate', async () => {
+      const formItem = new BasicSelectFormItem('a');
       const props = {
         id: 'select',
         label: 'Select',
-        formItem: new BasicSelectFormItem('a'),
-        initialValidation: '',
+        formItem,
+        value: formItem.value,
+        initialValidation: true,
       };
-      const wrapper = shallow(FormSelect, {
+      const wrapper = shallowMount(FormSelect, {
         propsData: props,
       });
 
@@ -119,32 +133,37 @@ describe('FormSelect', () => {
 
   describe('Events', () => {
     let wrapper;
-    const props = {
-      id: 'item1',
-      label: 'Item1',
-      formItem: new BasicSelectFormItem(''),
+    let props;
+    const propsBuilder = () => {
+      const formItem = new BasicSelectFormItem('');
+      return {
+        id: 'item1',
+        label: 'Item1',
+        formItem,
+        value: formItem.value,
+      };
     };
     beforeEach(() => {
-      wrapper = shallow(FormSelect, {
+      props = propsBuilder();
+      wrapper = shallowMount(FormSelect, {
         propsData: props,
       });
     });
 
-    it('input', () => {
-      const inputText = 'test';
+    it('input', async () => {
+      const selectValue = 'test1';
 
-      const select = wrapper.find('select');
-      select.element.value = inputText;
-      select.trigger('input');
+      const selectProcess = new SelectProcess(wrapper);
+      await selectProcess.select(selectValue);
 
       expect.assertions(2);
       expect(wrapper.emitted().input).toHaveLength(1);
-      expect(wrapper.emitted().input[0][0]).toBe(inputText);
+      expect(wrapper.emitted().input[0][0]).toBe(selectValue);
     });
 
     it('notify', async () => {
       const selectProcess = new SelectProcess(wrapper);
-      await selectProcess.select('test');
+      await selectProcess.select('test1');
 
       expect.assertions(2);
       expect(wrapper.emitted().notify).toHaveLength(1);
@@ -162,12 +181,13 @@ describe('FormSelect', () => {
     };
 
     it('dirty attr, 選択が一度されてからバリデーションを行う', async () => {
-      const wrapper = shallow(FormSelect, {
+      const formItem = new BasicSelectFormItem('a');
+      const wrapper = shallowMount(FormSelect, {
         propsData: {
           ...props,
-          formItem: new BasicSelectFormItem('a'),
-          dirty: '',
-          initialValidation: '',
+          formItem,
+          value: formItem.value,
+          dirty: true,
         },
       });
 
@@ -186,11 +206,13 @@ describe('FormSelect', () => {
     });
 
     it('Touched attr, selectのフォーカスが離れてからバリデーションを行う', async () => {
-      const wrapper = shallow(FormSelect, {
+      const formItem = new BasicSelectFormItem('');
+      const wrapper = shallowMount(FormSelect, {
         propsData: {
           ...props,
-          formItem: new BasicSelectFormItem(''),
-          touched: '',
+          formItem,
+          value: formItem.value,
+          touched: true,
         },
       });
 
@@ -198,7 +220,7 @@ describe('FormSelect', () => {
       const select = wrapper.find('select');
       const messages = wrapper.find('ul');
 
-      await selectProcess.select('test');
+      await selectProcess.select('test1');
 
       expect.assertions(6);
       expect(select.classes()).not.toContain('has-error');

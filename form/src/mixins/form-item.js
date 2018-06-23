@@ -2,14 +2,16 @@ import { BaseFormItem } from '@/models';
 
 export const formItemMixin = {
   props: {
+    value: {
+      type: String,
+      required: true,
+    },
     id: {
       type: String,
       required: true,
     },
     formItem: {
-      validator(value) {
-        return value instanceof BaseFormItem;
-      },
+      type: BaseFormItem,
       required: true,
     },
     label: {
@@ -18,31 +20,23 @@ export const formItemMixin = {
     },
     name: {
       type: String,
-    },
-    placeholder: {
-      type: String,
       default: '',
-    },
-    required: {
-      type: String,
-    },
-    maxlength: {
-      type: [String, Number],
-      validator(value) {
-        return isNaN(Number(value)) === false;
-      },
     },
     dirty: {
       type: Boolean,
+      default: false,
     },
     touched: {
       type: Boolean,
+      default: false,
     },
     touchedAfterDirty: {
       type: Boolean,
+      default: false,
     },
     initialValidation: {
       type: Boolean,
+      default: false,
     },
   },
 
@@ -64,10 +58,6 @@ export const formItemMixin = {
   },
 
   computed: {
-    value() {
-      return this.formItem.value;
-    },
-
     validator() {
       return this.formItem.validator;
     },

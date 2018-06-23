@@ -5,7 +5,7 @@
       v-model="model"
       v-bind:id="id"
       v-bind:name="nameAttr"
-      v-bind:required="required"
+      v-bind="$attrs"
       v-bind:class="{
         'has-error': showError
       }"
@@ -34,6 +34,7 @@ import { BaseSelectFormItem } from '@/models';
 
 export default {
   mixins: [formItemMixin],
+  inheritAttrs: false,
 
   props: {
     formItem: {

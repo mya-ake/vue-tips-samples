@@ -5,11 +5,7 @@
       v-model="model"
       v-bind:id="id"
       v-bind:name="nameAttr"
-      v-bind:cols="cols"
-      v-bind:rows="rows"
-      v-bind:placeholder="placeholder"
-      v-bind:required="required"
-      v-bind:maxlength="maxlength"
+      v-bind="$attrs"
       v-bind:class="{
         'has-error': showError
       }"
@@ -32,17 +28,7 @@ import { formItemMixin } from '@/mixins';
 
 export default {
   mixins: [formItemMixin],
-
-  props: {
-    cols: {
-      type: Number,
-      default: 30,
-    },
-    rows: {
-      type: Number,
-      default: 3,
-    },
-  },
+  inheritAttrs: false,
 
   data() {
     return {

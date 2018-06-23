@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 
 import Form from '@/views/Form';
@@ -19,7 +19,7 @@ describe('Form view', () => {
   });
 
   it('mount', () => {
-    const wrapper = shallow(Form, { store, localVue });
+    const wrapper = shallowMount(Form, { store, localVue });
     expect(wrapper.isVueInstance()).toBe(true);
   });
 });

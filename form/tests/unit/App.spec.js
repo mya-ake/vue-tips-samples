@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 
@@ -23,7 +23,7 @@ describe('App view', () => {
   });
 
   it('mount', () => {
-    const wrapper = shallow(App, { store, router, localVue });
+    const wrapper = shallowMount(App, { store, router, localVue });
     expect(wrapper.isVueInstance()).toBe(true);
   });
 });

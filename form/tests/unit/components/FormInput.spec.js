@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { shallow } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
 import { FormInput } from '@/components';
 import { BaseFormItem } from '@/models';
@@ -12,11 +12,10 @@ class InputProcess {
   }
 
   async input(value) {
-    this._input.element.value = value; // 入力
-    this._input.trigger('input'); // inputイベント発火
-    this._wrapper.vm.formItem.value = this._wrapper.emitted().input[
-      this._callCount
-    ][0]; // 親のv-modelから値が返ってくることを想定
+    this._input.setValue(value);
+    this._wrapper.setProps({
+      value: this._wrapper.emitted().input[this._callCount][0], // 親のv-modelから値が返ってくることを想定
+    });
     this._callCount++;
     await Vue.nextTick();
   }
@@ -47,12 +46,14 @@ StringFormItem.MESSAGES.EMPTY = 'empty';
 describe('FormInput', () => {
   describe('Initialize', () => {
     it('only requred', () => {
+      const formItem = new BaseFormItem('a');
       const props = {
         id: 'search',
         label: 'Search',
-        formItem: new BaseFormItem('a'),
+        formItem,
+        value: formItem.value,
       };
-      const wrapper = shallow(FormInput, {
+      const wrapper = shallowMount(FormInput, {
         propsData: props,
       });
 
@@ -69,65 +70,41 @@ describe('FormInput', () => {
     });
 
     it('basic props', () => {
+      const formItem = new BaseFormItem('keyword');
       const props = {
         id: 'search',
         name: 'search-input',
         type: 'search',
         label: 'Search',
-        placeholder: 'e.g. vue.js',
-        required: '',
-        maxlength: 10,
-        formItem: new BaseFormItem('keyword'),
+        formItem,
+        value: formItem.value,
       };
-      const wrapper = shallow(FormInput, {
+      const wrapper = shallowMount(FormInput, {
         propsData: props,
       });
 
       const label = wrapper.find('label');
       const input = wrapper.find('input');
 
-      expect.assertions(9);
+      expect.assertions(6);
       expect(label.text()).toBe(props.label);
       expect(label.attributes().for).toBe(input.attributes().id);
       expect(input.attributes().name).toBe(props.name);
       expect(input.attributes().type).toBe(props.type);
-      expect(input.attributes().placeholder).toBe(props.placeholder);
-      expect(input.attributes().required).not.toBeUndefined();
-      expect(input.attributes().maxlength).toBe(String(props.maxlength));
       expect(input.element.value).toBe(props.formItem.value);
       expect(wrapper.findAll('li').wrappers).toHaveLength(0);
     });
 
-    it('initial validate, string', async () => {
-      const props = {
-        id: 'search',
-        label: 'Search',
-        formItem: new EmptyFormItem('a'),
-        initialValidation: '',
-      };
-      const wrapper = shallow(FormInput, {
-        propsData: props,
-      });
-
-      const input = wrapper.find('input');
-
-      await Vue.nextTick();
-      expect.assertions(3);
-      expect(wrapper.find('li').text()).toBe(
-        EmptyFormItem.MESSAGES.INPUT_PROHIBITION,
-      );
-      expect(input.classes()).toContain('has-error');
-      expect(wrapper.emitted().notify).toHaveLength(1);
-    });
-
     it('initial validate, boolean true', async () => {
+      const formItem = new EmptyFormItem('a');
       const props = {
         id: 'search',
         label: 'Search',
-        formItem: new EmptyFormItem('a'),
+        formItem,
+        value: formItem.value,
         initialValidation: true,
       };
-      const wrapper = shallow(FormInput, {
+      const wrapper = shallowMount(FormInput, {
         propsData: props,
       });
 
@@ -143,13 +120,15 @@ describe('FormInput', () => {
     });
 
     it('initial validate, boolean false', async () => {
+      const formItem = new EmptyFormItem('a');
       const props = {
         id: 'search',
         label: 'Search',
-        formItem: new EmptyFormItem('a'),
+        formItem,
+        value: formItem.value,
         initialValidation: false,
       };
-      const wrapper = shallow(FormInput, {
+      const wrapper = shallowMount(FormInput, {
         propsData: props,
       });
 
@@ -166,13 +145,20 @@ describe('FormInput', () => {
 
   describe('Events', () => {
     let wrapper;
-    const props = {
-      id: 'item1',
-      label: 'Item1',
-      formItem: new EmptyFormItem(''),
+    let props;
+    const propsBuilder = () => {
+      const formItem = new EmptyFormItem('');
+      return {
+        id: 'item1',
+        label: 'Item1',
+        formItem,
+        value: formItem.value,
+      };
     };
+
     beforeEach(() => {
-      wrapper = shallow(FormInput, {
+      props = propsBuilder();
+      wrapper = shallowMount(FormInput, {
         propsData: props,
       });
     });
@@ -181,8 +167,7 @@ describe('FormInput', () => {
       const inputText = 'test text';
 
       const input = wrapper.find('input');
-      input.element.value = inputText;
-      input.trigger('input');
+      input.setValue(inputText);
 
       expect.assertions(2);
       expect(wrapper.emitted().input).toHaveLength(1);
@@ -209,12 +194,13 @@ describe('FormInput', () => {
     };
 
     it('dirty attr, 値が変更されてからバリデーションを行う', async () => {
-      const wrapper = shallow(FormInput, {
+      const formItem = new EmptyFormItem('');
+      const wrapper = shallowMount(FormInput, {
         propsData: {
           ...props,
-          formItem: new EmptyFormItem(''),
-          dirty: '',
-          initialValidation: '',
+          formItem,
+          value: formItem.value,
+          dirty: true,
         },
       });
 
@@ -233,11 +219,13 @@ describe('FormInput', () => {
     });
 
     it('Touched attr, inputのフォーカスが離れてからバリデーションを行う', async () => {
-      const wrapper = shallow(FormInput, {
+      const formItem = new EmptyFormItem('');
+      const wrapper = shallowMount(FormInput, {
         propsData: {
           ...props,
-          formItem: new EmptyFormItem(''),
-          touched: '',
+          formItem,
+          value: formItem.value,
+          touched: true,
         },
       });
 
@@ -263,11 +251,13 @@ describe('FormInput', () => {
     });
 
     it('Touched after dirty attr, 値が変更された後にinputのフォーカスが離れてからバリデーションを行う', async () => {
-      const wrapper = shallow(FormInput, {
+      const formItem = new EmptyFormItem('');
+      const wrapper = shallowMount(FormInput, {
         propsData: {
           ...props,
-          formItem: new EmptyFormItem(''),
-          touchedAfterDirty: '',
+          formItem,
+          value: formItem.value,
+          touchedAfterDirty: true,
         },
       });
 

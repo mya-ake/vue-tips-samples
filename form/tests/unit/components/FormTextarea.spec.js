@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { shallow } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
 import { FormTextarea } from '@/components';
 import { BaseFormItem } from '@/models';
@@ -14,9 +14,9 @@ class TextareaProcess {
   async input(value) {
     this._textarea.element.value = value; // 入力
     this._textarea.trigger('input'); // inputイベント発火
-    this._wrapper.vm.formItem.value = this._wrapper.emitted().input[
-      this._callCount
-    ][0]; // 親のv-modelから値が返ってくることを想定
+    this._wrapper.setProps({
+      value: this._wrapper.emitted().input[this._callCount][0], // 親のv-modelから値が返ってくることを想定
+    });
     this._callCount++;
     await Vue.nextTick();
   }
@@ -47,12 +47,14 @@ StringFormItem.MESSAGES.EMPTY = 'empty';
 describe('FormTextarea', () => {
   describe('Initialize', () => {
     it('only requred', () => {
+      const formItem = new BaseFormItem('a');
       const props = {
         id: 'textarea',
         label: 'Content',
-        formItem: new BaseFormItem('a'),
+        formItem,
+        value: formItem.value,
       };
-      const wrapper = shallow(FormTextarea, {
+      const wrapper = shallowMount(FormTextarea, {
         propsData: props,
       });
 
@@ -67,44 +69,38 @@ describe('FormTextarea', () => {
     });
 
     it('basic props', () => {
+      const formItem = new BaseFormItem('keyword');
       const props = {
         id: 'textarea',
         name: 'textarea-input',
         label: 'Content',
-        placeholder: 'e.g. vue.js',
-        cols: 10,
-        rows: 20,
-        required: '',
-        maxlength: 100,
-        formItem: new BaseFormItem('keyword'),
+        formItem,
+        value: formItem.value,
       };
-      const wrapper = shallow(FormTextarea, {
+      const wrapper = shallowMount(FormTextarea, {
         propsData: props,
       });
 
       const label = wrapper.find('label');
       const textarea = wrapper.find('textarea');
 
-      expect.assertions(9);
+      expect.assertions(4);
       expect(label.text()).toBe(props.label);
       expect(textarea.attributes().name).toBe(props.name);
-      expect(textarea.attributes().placeholder).toBe(props.placeholder);
-      expect(textarea.attributes().cols).toBe(String(props.cols));
-      expect(textarea.attributes().rows).toBe(String(props.rows));
-      expect(textarea.attributes().required).not.toBeUndefined();
-      expect(textarea.attributes().maxlength).toBe(String(props.maxlength));
       expect(textarea.element.value).toBe(props.formItem.value);
       expect(wrapper.findAll('li').wrappers).toHaveLength(0);
     });
 
     it('validate', async () => {
+      const formItem = new EmptyFormItem('a');
       const props = {
         id: 'textarea',
         label: 'Content',
-        formItem: new EmptyFormItem('a'),
-        initialValidation: '',
+        formItem,
+        value: formItem.value,
+        initialValidation: true,
       };
-      const wrapper = shallow(FormTextarea, {
+      const wrapper = shallowMount(FormTextarea, {
         propsData: props,
       });
 
@@ -121,13 +117,19 @@ describe('FormTextarea', () => {
 
   describe('Events', () => {
     let wrapper;
-    const props = {
-      id: 'item1',
-      label: 'Content',
-      formItem: new EmptyFormItem(''),
+    let props;
+    const propsBuilder = () => {
+      const formItem = new EmptyFormItem('');
+      return {
+        id: 'item1',
+        label: 'Content',
+        formItem,
+        value: formItem.value,
+      };
     };
     beforeEach(() => {
-      wrapper = shallow(FormTextarea, {
+      props = propsBuilder();
+      wrapper = shallowMount(FormTextarea, {
         propsData: props,
       });
     });
@@ -164,12 +166,13 @@ describe('FormTextarea', () => {
     };
 
     it('dirty attr, 値が変更されてからバリデーションを行う', async () => {
-      const wrapper = shallow(FormTextarea, {
+      const formItem = new EmptyFormItem('');
+      const wrapper = shallowMount(FormTextarea, {
         propsData: {
           ...props,
-          formItem: new EmptyFormItem(''),
-          dirty: '',
-          initialValidation: '',
+          formItem,
+          value: formItem.value,
+          dirty: true,
         },
       });
 
@@ -188,11 +191,13 @@ describe('FormTextarea', () => {
     });
 
     it('Touched attr, inputのフォーカスが離れてからバリデーションを行う', async () => {
-      const wrapper = shallow(FormTextarea, {
+      const formItem = new EmptyFormItem('');
+      const wrapper = shallowMount(FormTextarea, {
         propsData: {
           ...props,
-          formItem: new EmptyFormItem(''),
-          touched: '',
+          formItem,
+          value: formItem.value,
+          touched: true,
         },
       });
 
