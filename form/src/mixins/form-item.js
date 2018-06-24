@@ -77,10 +77,6 @@ export const formItemMixin = {
       return this.formItem.value;
     },
 
-    validator() {
-      return this.formItem.validator;
-    },
-
     nameAttr() {
       return this.name || this.id;
     },
@@ -146,7 +142,7 @@ export const formItemMixin = {
     },
 
     validate() {
-      this.messages = this.validator();
+      this.messages = this.formItem.validator();
       this.notify();
     },
 
