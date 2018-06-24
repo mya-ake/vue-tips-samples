@@ -58,10 +58,6 @@ export const formItemMixin = {
   },
 
   computed: {
-    validator() {
-      return this.formItem.validator;
-    },
-
     nameAttr() {
       return this.name || this.id;
     },
@@ -110,6 +106,10 @@ export const formItemMixin = {
     value() {
       this.validate();
     },
+
+    ['formItem.messages']() {
+      this.validate();
+    },
   },
 
   methods: {
@@ -127,7 +127,7 @@ export const formItemMixin = {
     },
 
     validate() {
-      this.messages = this.validator();
+      this.messages = this.formItem.validator();
       this.notify();
     },
 
