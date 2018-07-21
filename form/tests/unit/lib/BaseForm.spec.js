@@ -28,6 +28,12 @@ describe('BaseForm', () => {
       baseForm.addItem('test', new TestFormItem());
       expect(baseForm.items.test).toBeInstanceOf(TestFormItem);
     });
+
+    it('throw error, BaseFormのインスタンスじゃない場合はエラーを投げる', () => {
+      expect(() => {
+        baseForm.addItem('test', {});
+      }).toThrow();
+    });
   });
 
   describe('relationship validation', () => {
@@ -52,7 +58,19 @@ describe('BaseForm', () => {
       expect(baseForm.items.test2._valueObservers).toHaveLength(1);
     });
 
-    it('executed', () => {
+    it('throw error, 登録されてないitemの場合はエラーを投げる', () => {
+      expect(() => {
+        baseForm.addRelationshipValidator({
+          message,
+          names: ['test1', 'test2', 'test3'],
+          validator() {
+            return true;
+          },
+        });
+      }).toThrow();
+    });
+
+    it('runs validation', () => {
       baseForm.items.test1.value = 'a';
 
       expect.assertions(2);
