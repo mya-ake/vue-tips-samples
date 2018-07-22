@@ -60,6 +60,7 @@ export class BaseFormItem {
       return;
     }
     this._validators.splice(index, 1);
+    this.removeMessage(message);
   }
 
   validate() {

@@ -21,6 +21,33 @@ export class ContactForm extends BaseForm {
     this.addItem('category', new CategoryFormItem(category).validate());
     this.addItem('title', new TitleFormItem(title).validate());
     this.addItem('body', new BodyFormItem(body).validate());
+
+    this._addRelationshipValidator();
+  }
+
+  _addRelationshipValidator() {
+    this._addTitleValidatorByCategoryOther();
+  }
+
+  _addTitleValidatorByCategoryOther() {
+    const message = 'カテゴリ「その他」を選択された方はご入力ください';
+
+    const categoryOtherValue = this.items.category.options[
+      this.items.category.options.length - 1
+    ].value;
+
+    this.items.category.addValueObserver(value => {
+      if (value === categoryOtherValue) {
+        this.items.title.addValidator({
+          message,
+          validator(value) {
+            return value !== '';
+          },
+        });
+      } else {
+        this.items.title.removeValidator({ message });
+      }
+    });
   }
 
   buildRequestBody() {
