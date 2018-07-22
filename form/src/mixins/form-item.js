@@ -41,16 +41,6 @@ export const formItemMixin = {
       type: Boolean,
       default: false,
     },
-    initialValidation: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  mounted() {
-    if (this.initialValidation) {
-      this.validate();
-    }
   },
 
   data() {

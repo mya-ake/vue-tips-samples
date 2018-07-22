@@ -6,6 +6,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^~resources/(.*)$': '<rootDir>/tests/resources/$1',
   },
   snapshotSerializers: ['jest-serializer-vue'],
 };
