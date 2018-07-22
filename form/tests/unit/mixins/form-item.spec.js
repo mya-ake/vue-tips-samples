@@ -48,7 +48,7 @@ describe('mixins/form-item', () => {
     it('mount', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -61,7 +61,7 @@ describe('mixins/form-item', () => {
     it('nameAttr, name props がない場合 id が入る', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test-id',
           label: 'test',
           formItem,
@@ -74,7 +74,7 @@ describe('mixins/form-item', () => {
     it('nameAttr, name props がある場合 name props が入る', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test-id',
           name: 'test-name',
           label: 'test',
@@ -95,7 +95,7 @@ describe('mixins/form-item', () => {
     it('value が変更されたら input で値が emit される', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -120,7 +120,7 @@ describe('mixins/form-item', () => {
 
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -143,7 +143,7 @@ describe('mixins/form-item', () => {
     it('blur されると toutched となる', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -159,7 +159,7 @@ describe('mixins/form-item', () => {
     it('dirty の 後に blur されると touchedAfterDirty となる', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -181,7 +181,7 @@ describe('mixins/form-item', () => {
     it('resetState を呼ぶと state が初期値になる', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -200,7 +200,7 @@ describe('mixins/form-item', () => {
       formItem.addValidator(emptyValidator);
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -217,7 +217,7 @@ describe('mixins/form-item', () => {
       formItem.addValidator(emptyValidator);
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -234,7 +234,7 @@ describe('mixins/form-item', () => {
       formItem = new BaseFormItem('a').addValidator(emptyValidator).validate();
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -257,7 +257,7 @@ describe('mixins/form-item', () => {
       formItem = new BaseFormItem('a').addValidator(emptyValidator).validate();
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
@@ -280,7 +280,7 @@ describe('mixins/form-item', () => {
       formItem = new BaseFormItem('a').addValidator(emptyValidator).validate();
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
-          value: '',
+          value: formItem.value,
           id: 'test',
           label: 'test',
           formItem,
