@@ -1,4 +1,11 @@
-import { BaseFormItem } from '@/models';
+import { BaseFormItem } from '@/lib';
+
+const createInitialState = () => {
+  return {
+    touched: false,
+    touchedAfterDirty: false,
+  };
+};
 
 export const formItemMixin = {
   props: {
@@ -34,44 +41,21 @@ export const formItemMixin = {
       type: Boolean,
       default: false,
     },
-    initialValidation: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  mounted() {
-    if (this.initialValidation) {
-      this.validate();
-    }
   },
 
   data() {
     return {
-      messages: [],
-      state: {
-        dirty: false,
-        touched: false,
-        touchedAfterDirty: false,
-      },
+      state: createInitialState(),
     };
   },
 
   computed: {
-    validator() {
-      return this.formItem.validator;
-    },
-
     nameAttr() {
       return this.name || this.id;
     },
 
-    hasError() {
-      return this.messages.length > 0;
-    },
-
     isDirty() {
-      return this.state.dirty;
+      return this.formItem.states.dirty;
     },
 
     isTouched() {
@@ -101,21 +85,23 @@ export const formItemMixin = {
       return true;
     },
 
+    messages() {
+      return this.formItem.messages;
+    },
+
+    hasError() {
+      return this.formItem.hasError;
+    },
+
     showError() {
       return this.hasError && this.attrShowErrorConditions;
     },
   },
 
-  watch: {
-    value() {
-      this.validate();
-    },
-  },
-
   methods: {
     handleInput(evt) {
-      this.$emit('input', evt.target.value);
-      this.state.dirty = true;
+      const value = evt.target.value;
+      this.$emit('input', value);
     },
 
     handleBlur() {
@@ -127,12 +113,11 @@ export const formItemMixin = {
     },
 
     validate() {
-      this.messages = this.validator();
-      this.notify();
+      this.formItem.validate();
     },
 
-    notify() {
-      this.$emit('notify', { name: this.nameAttr, result: !this.hasError });
+    resetState() {
+      this.state = createInitialState();
     },
   },
 };

@@ -5,4 +5,8 @@ export class BaseSelectFormItem extends BaseFormItem {
     super(value);
     this.options = [];
   }
+
+  valid(value) {
+    return this.options.some(option => value === option.value);
+  }
 }

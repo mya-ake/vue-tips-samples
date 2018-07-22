@@ -1,4 +1,5 @@
-import { BaseForm, ContactForm } from '@/models';
+import { BaseForm } from '@/lib';
+import { ContactForm } from '@/forms';
 
 describe('ContactForm', () => {
   describe('constructor', () => {
@@ -17,10 +18,10 @@ describe('ContactForm', () => {
       const form = new ContactForm(initailValues);
 
       expect.assertions(4);
-      expect(form.name.value).toBe(initailValues.name);
-      expect(form.email.value).toBe(initailValues.email);
-      expect(form.title.value).toBe(initailValues.title);
-      expect(form.body.value).toBe(initailValues.body);
+      expect(form.items.name.value).toBe(initailValues.name);
+      expect(form.items.email.value).toBe(initailValues.email);
+      expect(form.items.title.value).toBe(initailValues.title);
+      expect(form.items.body.value).toBe(initailValues.body);
     });
   });
 

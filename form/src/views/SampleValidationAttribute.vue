@@ -5,56 +5,56 @@
     <form v-on:submit.prevent="handleSubmit">
       <form-input
         id="email"
-        v-model.trim="form.email.value"
-        v-bind:formItem="form.email"
-        v-bind:maxlength="form.email.maxlength"
+        v-model.trim="form.items.email.value"
+        v-bind:formItem="form.items.email"
+        v-bind:maxlength="form.items.email.maxlength"
         label="メールアドレス（属性なし）"
         type="email"
-        v-on:notify="handleNotify"
+        autocomplete="email"
       />
       <form-input
         id="emailDirty"
-        v-model.trim="form.emailDirty.value"
-        v-bind:formItem="form.emailDirty"
-        v-bind:maxlength="form.emailDirty.maxlength"
+        v-model.trim="form.items.emailDirty.value"
+        v-bind:formItem="form.items.emailDirty"
+        v-bind:maxlength="form.items.emailDirty.maxlength"
         label="メールアドレス（dirty）"
         type="email"
+        autocomplete="email"
         dirty
-        v-on:notify="handleNotify"
       />
       <form-input
         id="emailTouched"
-        v-model.trim="form.emailTouched.value"
-        v-bind:formItem="form.emailTouched"
-        v-bind:maxlength="form.emailTouched.maxlength"
+        v-model.trim="form.items.emailTouched.value"
+        v-bind:formItem="form.items.emailTouched"
+        v-bind:maxlength="form.items.emailTouched.maxlength"
         label="メールアドレス（touched）"
         type="email"
+        autocomplete="email"
         touched
-        v-on:notify="handleNotify"
       />
       <form-input
         id="emailTouechAndDirty"
-        v-model.trim="form.emailTouechAndDirty.value"
-        v-bind:formItem="form.emailTouechAndDirty"
-        v-bind:maxlength="form.emailTouechAndDirty.maxlength"
+        v-model.trim="form.items.emailTouechAndDirty.value"
+        v-bind:formItem="form.items.emailTouechAndDirty"
+        v-bind:maxlength="form.items.emailTouechAndDirty.maxlength"
         label="メールアドレス（touched and dirty）"
         type="email"
+        autocomplete="email"
         dirty
         touched
-        v-on:notify="handleNotify"
       />
       <form-input
         id="emailTouchedAfterDirty"
-        v-model.trim="form.emailTouchedAfterDirty.value"
-        v-bind:formItem="form.emailTouchedAfterDirty"
-        v-bind:maxlength="form.emailTouchedAfterDirty.maxlength"
+        v-model.trim="form.items.emailTouchedAfterDirty.value"
+        v-bind:formItem="form.items.emailTouchedAfterDirty"
+        v-bind:maxlength="form.items.emailTouchedAfterDirty.maxlength"
         label="メールアドレス（touched-after-dirty）"
         type="email"
+        autocomplete="email"
         touchedAfterDirty
-        v-on:notify="handleNotify"
       />
       <button
-        v-bind:disabled="formObserver.hasError"
+        v-bind:disabled="form.hasError"
         type="submit"
       >送信ボタン（ログ出力）</button>
     </form>
@@ -63,29 +63,24 @@
 
 <script>
 import { FormInput } from '@/components';
-import { FormObserver } from '@/lib';
-import { SampleForm } from '@/models';
+import { SampleForm } from '@/forms';
 
 export default {
   components: {
     FormInput,
   },
+
   data() {
     const form = new SampleForm();
     return {
       form,
-      formObserver: new FormObserver(form.propertyNames()),
     };
   },
 
   methods: {
     handleSubmit() {
       // eslint-disable-next-line
-      console.log(this.form.properties());
-    },
-
-    handleNotify({ name, result }) {
-      this.formObserver.setResult(name, result);
+      console.log(this.form.values());
     },
   },
 };

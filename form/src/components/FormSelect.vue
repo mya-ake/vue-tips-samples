@@ -14,7 +14,7 @@
     >
       <option value="">選択してください</option>
       <option 
-        v-for="(option, index) in options"
+        v-for="(option, index) in formItem.options"
         v-bind:key="`option-${index}`"
         v-bind:value="option.value"
       >{{ option.text }}</option>
@@ -30,7 +30,7 @@
 
 <script>
 import { formItemMixin } from '@/mixins';
-import { BaseSelectFormItem } from '@/models';
+import { BaseSelectFormItem } from '@/forms/items';
 
 export default {
   mixins: [formItemMixin],
@@ -47,12 +47,6 @@ export default {
     return {
       model: this.formItem.value,
     };
-  },
-
-  computed: {
-    options() {
-      return this.formItem.options;
-    },
   },
 };
 </script>
