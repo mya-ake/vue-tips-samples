@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { shallowMount } from '@vue/test-utils';
 
 import { FormSelect } from '@/components';
-import { BaseSelectFormItem } from '@/models';
+import { BaseSelectFormItem } from '@/forms';
 
 class SelectProcess {
   constructor(wrapper) {

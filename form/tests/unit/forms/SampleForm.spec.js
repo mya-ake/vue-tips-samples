@@ -1,4 +1,5 @@
-import { BaseForm, SampleForm } from '@/models';
+import { BaseForm } from '@/lib';
+import { SampleForm } from '@/forms';
 
 describe('ContactForm', () => {
   describe('constructor', () => {

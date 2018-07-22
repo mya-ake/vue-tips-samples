@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { shallowMount } from '@vue/test-utils';
 
 import { FormTextarea } from '@/components';
-import { BaseFormItem } from '@/models';
+import { BaseFormItem } from '@/forms';
 
 class TextareaProcess {
   constructor(wrapper) {
