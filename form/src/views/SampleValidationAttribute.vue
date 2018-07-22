@@ -64,7 +64,7 @@
 <script>
 import { FormInput } from '@/components';
 import { FormObserver } from '@/lib';
-import { SampleForm } from '@/models';
+import { SampleForm } from '@/forms';
 
 export default {
   components: {

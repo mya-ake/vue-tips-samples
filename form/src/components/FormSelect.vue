@@ -30,7 +30,7 @@
 
 <script>
 import { formItemMixin } from '@/mixins';
-import { BaseSelectFormItem } from '@/models';
+import { BaseSelectFormItem } from '@/forms/items';
 
 export default {
   mixins: [formItemMixin],

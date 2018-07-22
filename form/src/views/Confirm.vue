@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { ContactForm } from '@/models';
+import { ContactForm } from '@/forms';
 import { FORM_GETTER_TYPES, FORM_MUTATION_TYPES } from '@/store/form';
 import store from '@/store';
 

@@ -1,4 +1,4 @@
-import { BaseForm } from './BaseForm';
+import { BaseForm } from '@/lib';
 import { EmailFormItem } from './items';
 
 export class SampleForm extends BaseForm {

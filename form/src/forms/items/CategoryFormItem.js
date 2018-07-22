@@ -1,10 +1,5 @@
-import { BaseSelectFormItem } from './BaseSelectFormItem';
+import { BaseSelectFormItem } from '@/lib';
 import { isEmptyString } from '@/helpers/validators';
-
-const MESSAGES = {
-  EMPTY: '選択が必須の項目です',
-  INVALID: '不正な操作が必要な行われました',
-};
 
 export class CategoryFormItem extends BaseSelectFormItem {
   constructor(value = '') {
@@ -23,19 +18,24 @@ export class CategoryFormItem extends BaseSelectFormItem {
         value: 'その他（タイトルにご記入ください）',
       },
     ];
+
+    this._addValidators();
   }
 
-  validator() {
-    const messages = [];
-    if (isEmptyString(this.value)) {
-      messages.push(MESSAGES.EMPTY);
-      return messages;
-    }
-    if (this.options.some(option => this.value === option.value) === false) {
-      messages.push(MESSAGES.INVALID);
-    }
-    return messages;
+  _addValidators() {
+    this.addValidator({
+      message: '選択が必須の項目です',
+      validator: this._isEmptyValidator,
+      stop: true,
+    });
+
+    this.addValidator({
+      message: '不正な操作が行われました',
+      validator: this.valid,
+    });
+  }
+
+  _isEmptyValidator(value) {
+    return isEmptyString(value) === false;
   }
 }
-
-CategoryFormItem.MESSAGES = MESSAGES;
