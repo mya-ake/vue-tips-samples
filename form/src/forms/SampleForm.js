@@ -10,10 +10,13 @@ export class SampleForm extends BaseForm {
     emailTouchedAfterDirty = '',
   } = {}) {
     super();
-    this.email = new EmailFormItem(email);
-    this.emailDirty = new EmailFormItem(emailDirty);
-    this.emailTouched = new EmailFormItem(emailTouched);
-    this.emailTouechAndDirty = new EmailFormItem(emailTouechAndDirty);
-    this.emailTouchedAfterDirty = new EmailFormItem(emailTouchedAfterDirty);
+    this.addItem('email', new EmailFormItem(email));
+    this.addItem('emailDirty', new EmailFormItem(emailDirty));
+    this.addItem('emailTouched', new EmailFormItem(emailTouched));
+    this.addItem('emailTouechAndDirty', new EmailFormItem(emailTouechAndDirty));
+    this.addItem(
+      'emailTouchedAfterDirty',
+      new EmailFormItem(emailTouchedAfterDirty),
+    );
   }
 }
