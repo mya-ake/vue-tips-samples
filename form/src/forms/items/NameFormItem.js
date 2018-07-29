@@ -17,7 +17,7 @@ export class NameFormItem extends BaseFormItem {
 
     this.addValidator({
       message: '16文字以内で入力してください',
-      validator: this._isExpectLength,
+      validator: this._isExpectLengthValidator,
     });
   }
 
@@ -25,7 +25,7 @@ export class NameFormItem extends BaseFormItem {
     return isEmptyString(value) === false;
   }
 
-  _isExpectLength(value) {
+  _isExpectLengthValidator(value) {
     return isExpectLength(value, { max: this.maxlength - 1 });
   }
 }

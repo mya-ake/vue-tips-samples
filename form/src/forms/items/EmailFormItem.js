@@ -18,7 +18,7 @@ export class EmailFormItem extends BaseFormItem {
 
     this.addValidator({
       message: 'メールアドレスを入力してください',
-      validator: this._isEmail,
+      validator: this._isEmailValidator,
     });
 
     this.addValidator({
@@ -31,7 +31,7 @@ export class EmailFormItem extends BaseFormItem {
     return isEmptyString(value) === false;
   }
 
-  _isEmail(value) {
+  _isEmailValidator(value) {
     return isEmail(value);
   }
 
