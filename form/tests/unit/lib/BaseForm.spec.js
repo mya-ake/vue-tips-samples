@@ -98,6 +98,26 @@ describe('BaseForm', () => {
     });
   });
 
+  describe('setValues', () => {
+    it('sets correctly', () => {
+      const baseForm = new BaseForm();
+      baseForm.addItem('test', new TestFormItem());
+      baseForm.setValues({
+        test: 'test',
+      });
+      expect(baseForm.items.test.value).toBe('test');
+    });
+
+    it('runs validate', () => {
+      const baseForm = new BaseForm();
+      baseForm.addItem('test', new TestFormItem('test'));
+      baseForm.setValues({
+        test: '',
+      });
+      expect(baseForm.invalid).toBe(true);
+    });
+  });
+
   describe('values', () => {
     it('', () => {
       const baseForm = new BaseForm();

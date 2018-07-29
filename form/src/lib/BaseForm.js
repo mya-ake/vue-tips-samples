@@ -48,6 +48,12 @@ export class BaseForm {
     });
   }
 
+  setValues(newValues) {
+    Object.entries(newValues).forEach(([name, value]) => {
+      this.items[name].value = value;
+    });
+  }
+
   values() {
     return Object.entries(this.items).reduce((values, [name, item]) => {
       values[name] = item.value;
