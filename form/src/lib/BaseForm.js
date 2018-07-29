@@ -14,7 +14,7 @@ export class BaseForm {
       );
     }
     this.items[name] = item;
-    this.items[name].addStateObserver(invalid => {
+    this.items[name].addInvalidObserver(invalid => {
       this._updateState(invalid);
     });
     this.updateState();

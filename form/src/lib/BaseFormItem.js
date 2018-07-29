@@ -4,7 +4,7 @@ export class BaseFormItem {
     this._messages = [];
     this._validators = [];
     this._valueObservers = [];
-    this._stateObservers = [];
+    this._invalidObservers = [];
     this._invalid = false;
     this._states = {
       dirty: false,
@@ -30,7 +30,7 @@ export class BaseFormItem {
     if (this._messages.includes(message) === false) {
       this._messages.push(message);
     }
-    this._updateState();
+    this._updateInvalid();
     return this;
   }
 
@@ -39,7 +39,7 @@ export class BaseFormItem {
     if (index !== -1) {
       this._messages.splice(index, 1);
     }
-    this._updateState();
+    this._updateInvalid();
     return this;
   }
 
@@ -85,24 +85,24 @@ export class BaseFormItem {
     return this;
   }
 
-  addStateObserver(observer) {
-    this._stateObservers.push(value => {
-      observer.call(null, value);
+  addInvalidObserver(observer) {
+    this._invalidObservers.push(invalid => {
+      observer.call(null, invalid);
     });
     return this;
   }
 
-  _updateState() {
+  _updateInvalid() {
     const invalid = this.messages.length > 0;
     if (invalid === this._invalid) {
       return;
     }
     this._invalid = invalid;
-    this._notifyStateObservers(invalid);
+    this._notifyInvalidObservers(invalid);
   }
 
-  _notifyStateObservers(invalid) {
-    this._stateObservers.forEach(observer => {
+  _notifyInvalidObservers(invalid) {
+    this._invalidObservers.forEach(observer => {
       observer(invalid);
     });
   }

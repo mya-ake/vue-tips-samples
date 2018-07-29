@@ -159,7 +159,7 @@ describe('BaseFormItem', () => {
         },
         message: 'empty',
       });
-      baseFormItem.addStateObserver(mockFunc);
+      baseFormItem.addInvalidObserver(mockFunc);
 
       baseFormItem.value = '';
 
