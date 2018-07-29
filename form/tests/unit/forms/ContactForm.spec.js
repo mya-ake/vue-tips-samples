@@ -12,14 +12,16 @@ describe('ContactForm', () => {
       const initailValues = {
         name: 'test name',
         email: 'test@example.com',
+        category: 'サービスについて',
         title: 'test title',
         body: 'test body',
       };
       const form = new ContactForm(initailValues);
 
-      expect.assertions(4);
+      expect.assertions(5);
       expect(form.items.name.value).toBe(initailValues.name);
       expect(form.items.email.value).toBe(initailValues.email);
+      expect(form.items.category.value).toBe(initailValues.category);
       expect(form.items.title.value).toBe(initailValues.title);
       expect(form.items.body.value).toBe(initailValues.body);
     });
