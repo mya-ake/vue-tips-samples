@@ -85,16 +85,16 @@ describe('BaseForm', () => {
       baseForm = new BaseForm();
     });
 
-    it('hasError, true', () => {
+    it('invalid, true', () => {
       baseForm.addItem('test', new TestFormItem());
       baseForm.items.test.validate();
-      expect(baseForm.hasError).toBe(true);
+      expect(baseForm.invalid).toBe(true);
     });
 
-    it('hasError, false', () => {
+    it('invalid, false', () => {
       baseForm.addItem('test', new TestFormItem('a'));
       baseForm.items.test.validate();
-      expect(baseForm.hasError).toBe(false);
+      expect(baseForm.invalid).toBe(false);
     });
   });
 

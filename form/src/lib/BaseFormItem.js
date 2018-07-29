@@ -5,7 +5,7 @@ export class BaseFormItem {
     this._validators = [];
     this._valueObservers = [];
     this._stateObservers = [];
-    this._hasError = false;
+    this._invalid = false;
     this._states = {
       dirty: false,
     };
@@ -18,8 +18,8 @@ export class BaseFormItem {
     return this._messages;
   }
 
-  get hasError() {
-    return this._hasError;
+  get invalid() {
+    return this._invalid;
   }
 
   get states() {
@@ -92,17 +92,17 @@ export class BaseFormItem {
   }
 
   _updateState() {
-    const hasError = this.messages.length > 0;
-    if (hasError === this._hasError) {
+    const invalid = this.messages.length > 0;
+    if (invalid === this._invalid) {
       return;
     }
-    this._hasError = hasError;
-    this._notifyStateObservers(hasError);
+    this._invalid = invalid;
+    this._notifyStateObservers(invalid);
   }
 
-  _notifyStateObservers(hasError) {
+  _notifyStateObservers(invalid) {
     this._stateObservers.forEach(observer => {
-      observer(hasError);
+      observer(invalid);
     });
   }
 

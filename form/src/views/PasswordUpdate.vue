@@ -20,7 +20,7 @@
       />
 
       <button
-        v-bind:disabled="form.hasError"
+        v-bind:disabled="form.invalid"
         type="submit"
       >パスワードを変更する</button>
     </form>

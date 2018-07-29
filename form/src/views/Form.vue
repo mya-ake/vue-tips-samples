@@ -51,7 +51,7 @@
         touched
       />
       <button
-        v-bind:disabled="form.hasError"
+        v-bind:disabled="form.invalid"
         type="submit"
       >確認画面へ</button>
     </form>

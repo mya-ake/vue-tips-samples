@@ -213,7 +213,7 @@ describe('mixins/form-item', () => {
       expect(wrapper.vm.messages).toEqual([emptyValidator.message]);
     });
 
-    it('エラーが存在するとき hasError が true となっている', () => {
+    it('エラーが存在するとき invalid が true となっている', () => {
       formItem.addValidator(emptyValidator);
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
@@ -227,7 +227,7 @@ describe('mixins/form-item', () => {
       const inputProcess = new InputProcess(wrapper, formItem);
       inputProcess.input('a');
 
-      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.vm.invalid).toBe(true);
     });
 
     it('dirty props が設定されているとき、入力されてから showError が true になる', () => {
@@ -243,13 +243,13 @@ describe('mixins/form-item', () => {
       });
 
       expect.assertions(4);
-      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.vm.invalid).toBe(true);
       expect(wrapper.vm.showError).toBe(false);
 
       const inputProcess = new InputProcess(wrapper, formItem);
       inputProcess.input('aa');
 
-      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.vm.invalid).toBe(true);
       expect(wrapper.vm.showError).toBe(true);
     });
 
@@ -266,13 +266,13 @@ describe('mixins/form-item', () => {
       });
 
       expect.assertions(4);
-      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.vm.invalid).toBe(true);
       expect(wrapper.vm.showError).toBe(false);
 
       const input = wrapper.find('input');
       input.trigger('blur');
 
-      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.vm.invalid).toBe(true);
       expect(wrapper.vm.showError).toBe(true);
     });
 
@@ -289,19 +289,19 @@ describe('mixins/form-item', () => {
       });
 
       expect.assertions(6);
-      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.vm.invalid).toBe(true);
       expect(wrapper.vm.showError).toBe(false);
 
       const inputProcess = new InputProcess(wrapper, formItem);
       inputProcess.input('aa');
 
-      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.vm.invalid).toBe(true);
       expect(wrapper.vm.showError).toBe(false);
 
       const input = wrapper.find('input');
       input.trigger('blur');
 
-      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.vm.invalid).toBe(true);
       expect(wrapper.vm.showError).toBe(true);
     });
   });

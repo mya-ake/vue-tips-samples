@@ -13,7 +13,7 @@ describe('BaseFormItem', () => {
     });
   });
 
-  describe('messages, hasError', () => {
+  describe('messages, invalid', () => {
     let baseFormItem;
     beforeEach(() => {
       baseFormItem = new BaseFormItem();
@@ -30,13 +30,13 @@ describe('BaseFormItem', () => {
       expect(baseFormItem.messages).not.toContain('test');
     });
 
-    it('hasError', () => {
+    it('invalid', () => {
       baseFormItem.addMessage('test');
-      expect(baseFormItem.hasError).toBe(true);
+      expect(baseFormItem.invalid).toBe(true);
     });
 
-    it('not hasError', () => {
-      expect(baseFormItem.hasError).toBe(false);
+    it('not invalid', () => {
+      expect(baseFormItem.invalid).toBe(false);
     });
   });
 

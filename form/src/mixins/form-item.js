@@ -89,12 +89,12 @@ export const formItemMixin = {
       return this.formItem.messages;
     },
 
-    hasError() {
-      return this.formItem.hasError;
+    invalid() {
+      return this.formItem.invalid;
     },
 
     showError() {
-      return this.hasError && this.attrShowErrorConditions;
+      return this.invalid && this.attrShowErrorConditions;
     },
   },
 

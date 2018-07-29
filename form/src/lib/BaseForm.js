@@ -2,7 +2,7 @@ import { BaseFormItem } from './BaseFormItem';
 
 export class BaseForm {
   constructor() {
-    this.hasError = false;
+    this.invalid = false;
     this.items = {};
     return this;
   }
@@ -14,8 +14,8 @@ export class BaseForm {
       );
     }
     this.items[name] = item;
-    this.items[name].addStateObserver(hasError => {
-      this._updateState(hasError);
+    this.items[name].addStateObserver(invalid => {
+      this._updateState(invalid);
     });
     this.updateState();
     return this;
@@ -56,19 +56,19 @@ export class BaseForm {
   }
 
   updateState() {
-    this.hasError = this._hasErrorResults();
+    this.invalid = this._invalidResults();
     return this;
   }
 
-  _updateState(hasError) {
-    if (hasError === false) {
-      this.hasError = this._hasErrorResults();
+  _updateState(invalid) {
+    if (invalid === false) {
+      this.invalid = this._invalidResults();
     } else {
-      this.hasError = true;
+      this.invalid = true;
     }
   }
 
-  _hasErrorResults() {
-    return Object.keys(this.items).some(name => this.items[name].hasError);
+  _invalidResults() {
+    return Object.keys(this.items).some(name => this.items[name].invalid);
   }
 }

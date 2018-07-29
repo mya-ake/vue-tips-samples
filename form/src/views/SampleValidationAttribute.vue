@@ -54,7 +54,7 @@
         touchedAfterDirty
       />
       <button
-        v-bind:disabled="form.hasError"
+        v-bind:disabled="form.invalid"
         type="submit"
       >送信ボタン（ログ出力）</button>
     </form>
