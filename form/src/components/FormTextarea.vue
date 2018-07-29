@@ -30,10 +30,13 @@ export default {
   mixins: [formItemMixin],
   inheritAttrs: false,
 
-  data() {
-    return {
-      model: this.value,
-    };
+  computed: {
+    model: {
+      get() {
+        return this.value;
+      },
+      set() {},
+    },
   },
 };
 </script>
