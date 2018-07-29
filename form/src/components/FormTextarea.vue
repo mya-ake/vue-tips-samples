@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      model: this.formItem.value,
+      model: this.value,
     };
   },
 };
