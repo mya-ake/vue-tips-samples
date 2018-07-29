@@ -38,7 +38,6 @@ export default {
 
   data() {
     return {
-      values: this.$store.getters[FORM_GETTER_TYPES.VALUES],
       status: {
         submitting: false,
       },
@@ -46,6 +45,10 @@ export default {
   },
 
   computed: {
+    values() {
+      return this.$store.getters[FORM_GETTER_TYPES.VALUES];
+    },
+
     submittable() {
       return this.status.submitting === false;
     },
