@@ -1,5 +1,4 @@
 import { buildModuleTypes } from '@/helpers/store';
-import { ContactForm } from '@/forms';
 
 const moduleName = 'form';
 const GETTER_TYPES = {
@@ -30,7 +29,7 @@ export const state = {
 export const getters = {
   [GETTER_TYPES.VALUES](state) {
     if (state.values === null) {
-      return new ContactForm().values();
+      return {};
     }
     return state.values;
   },
