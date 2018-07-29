@@ -107,13 +107,13 @@ export class BaseFormItem {
     });
   }
 
-  _createObserver() {
-    const notifyObserver = value => {
-      this._valueObservers.forEach(observer => {
-        observer(value);
-      });
-    };
+  _notifyValueObserver(value) {
+    this._valueObservers.forEach(observer => {
+      observer(value);
+    });
+  }
 
+  _createObserver() {
     Object.defineProperty(this, 'value', {
       get() {
         return this._value;
@@ -122,7 +122,7 @@ export class BaseFormItem {
         this._value = value;
         this.states.dirty = true;
         this.validate();
-        notifyObserver(value);
+        this._notifyValueObserver(value);
       },
     });
   }
