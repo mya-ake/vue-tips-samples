@@ -43,10 +43,13 @@ export default {
     },
   },
 
-  data() {
-    return {
-      model: this.formItem.value,
-    };
+  computed: {
+    model: {
+      get() {
+        return this.value;
+      },
+      set() {},
+    },
   },
 };
 </script>
