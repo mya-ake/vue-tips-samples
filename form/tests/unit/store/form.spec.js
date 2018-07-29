@@ -1,5 +1,4 @@
 import { state, getters, mutations } from '@/store/form';
-import { ContactForm } from '@/forms';
 
 describe('Form Store', () => {
   let testState;
@@ -10,7 +9,7 @@ describe('Form Store', () => {
   describe('getters', () => {
     it('VALUES, initial', () => {
       const values = getters.VALUES(testState);
-      expect(values).toEqual(new ContactForm().values());
+      expect(values).toEqual({});
     });
 
     it('VALUES, after mutation', () => {
