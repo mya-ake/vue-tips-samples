@@ -34,6 +34,7 @@ export class BaseForm {
         }
       });
     });
+    return this;
   }
 
   _addMessages(names, message) {
