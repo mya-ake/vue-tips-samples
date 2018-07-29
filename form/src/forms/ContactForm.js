@@ -6,6 +6,7 @@ import {
   TitleFormItem,
   BodyFormItem,
 } from './items';
+import { isEmptyString } from '@/helpers/validators';
 
 export class ContactForm extends BaseForm {
   constructor({
@@ -40,14 +41,16 @@ export class ContactForm extends BaseForm {
       if (value === categoryOtherValue) {
         this.items.title.addValidator({
           message,
-          validator(value) {
-            return value !== '';
-          },
+          validator: this._isEmptyValidator,
         });
       } else {
         this.items.title.removeValidator({ message });
       }
     });
+  }
+
+  _isEmptyValidator(value) {
+    return isEmptyString(value) === false;
   }
 
   buildRequestBody() {
