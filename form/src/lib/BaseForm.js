@@ -71,19 +71,19 @@ export class BaseForm {
   }
 
   updateState() {
-    this._invalid = this._invalidResults();
+    this._invalid = this._checkItemsInvalid();
     return this;
   }
 
   _updateState(invalid) {
     if (invalid === false) {
-      this._invalid = this._invalidResults();
+      this._invalid = this._checkItemsInvalid();
     } else {
       this._invalid = true;
     }
   }
 
-  _invalidResults() {
+  _checkItemsInvalid() {
     return Object.keys(this._items).some(name => this._items[name].invalid);
   }
 }
