@@ -43,6 +43,7 @@ export class ContactForm extends BaseForm {
           message,
           validator: this._isEmptyValidator,
         });
+        this.items.title.validate();
       } else {
         this.items.title.removeValidator({ message });
       }
