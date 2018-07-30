@@ -2,13 +2,17 @@ import { BaseFormItem } from './BaseFormItem';
 
 export class BaseForm {
   constructor() {
-    this.invalid = false;
     this._items = {};
+    this._invalid = false;
     return this;
   }
 
   get items() {
     return this._items;
+  }
+
+  get invalid() {
+    return this._invalid;
   }
 
   addItem(name, item) {
@@ -67,15 +71,15 @@ export class BaseForm {
   }
 
   updateState() {
-    this.invalid = this._invalidResults();
+    this._invalid = this._invalidResults();
     return this;
   }
 
   _updateState(invalid) {
     if (invalid === false) {
-      this.invalid = this._invalidResults();
+      this._invalid = this._invalidResults();
     } else {
-      this.invalid = true;
+      this._invalid = true;
     }
   }
 
