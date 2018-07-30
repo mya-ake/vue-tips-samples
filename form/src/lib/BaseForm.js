@@ -3,8 +3,12 @@ import { BaseFormItem } from './BaseFormItem';
 export class BaseForm {
   constructor() {
     this.invalid = false;
-    this.items = {};
+    this._items = {};
     return this;
+  }
+
+  get items() {
+    return this._items;
   }
 
   addItem(name, item) {
@@ -13,8 +17,8 @@ export class BaseForm {
         '[BaseForm] Item must be an instance of the extended BaseFormItem class',
       );
     }
-    this.items[name] = item;
-    this.items[name].addInvalidObserver(invalid => {
+    this._items[name] = item;
+    this._items[name].addInvalidObserver(invalid => {
       this._updateState(invalid);
     });
     this.updateState();
@@ -22,11 +26,11 @@ export class BaseForm {
   }
 
   addRelationshipValidator({ names, validator, message }) {
-    names.filter(name => name in this.items === false).forEach(name => {
+    names.filter(name => name in this._items === false).forEach(name => {
       throw new Error(`[BaseForm] ${name} is not set item`);
     });
     names.forEach(name => {
-      this.items[name].addValueObserver(() => {
+      this._items[name].addValueObserver(() => {
         if (validator.call(this)) {
           this._removeMessages(names, message);
         } else {
@@ -39,24 +43,24 @@ export class BaseForm {
 
   _addMessages(names, message) {
     names.forEach(name => {
-      this.items[name].addMessage(message);
+      this._items[name].addMessage(message);
     });
   }
 
   _removeMessages(names, message) {
     names.forEach(name => {
-      this.items[name].removeMessage(message);
+      this._items[name].removeMessage(message);
     });
   }
 
   setValues(newValues) {
     Object.entries(newValues).forEach(([name, value]) => {
-      this.items[name].value = value;
+      this._items[name].value = value;
     });
   }
 
   values() {
-    return Object.entries(this.items).reduce((values, [name, item]) => {
+    return Object.entries(this._items).reduce((values, [name, item]) => {
       values[name] = item.value;
       return values;
     }, {});
@@ -76,6 +80,6 @@ export class BaseForm {
   }
 
   _invalidResults() {
-    return Object.keys(this.items).some(name => this.items[name].invalid);
+    return Object.keys(this._items).some(name => this._items[name].invalid);
   }
 }
