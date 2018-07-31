@@ -27,7 +27,7 @@ describe('ContactForm', () => {
     });
   });
 
-  describe('functions', () => {
+  describe('methods', () => {
     it('buildRequestBody', () => {
       const form = new ContactForm();
 
