@@ -93,6 +93,7 @@ export class BaseFormItem {
 
   resetStates() {
     this._createInitialState();
+    return this;
   }
 
   _createInitialState() {
