@@ -35,7 +35,7 @@ describe('BaseFormItem', () => {
       expect(baseFormItem.invalid).toBe(true);
     });
 
-    it('not invalid', () => {
+    it('valid', () => {
       expect(baseFormItem.invalid).toBe(false);
     });
   });
@@ -55,6 +55,12 @@ describe('BaseFormItem', () => {
     it('dirty', () => {
       baseFormItem.value = 'a';
       expect(baseFormItem.states.dirty).toBe(true);
+    });
+
+    it('reset', () => {
+      baseFormItem.value = 'a';
+      baseFormItem.resetStates();
+      expect(baseFormItem.states.dirty).toBe(false);
     });
   });
 
@@ -145,7 +151,7 @@ describe('BaseFormItem', () => {
     });
   });
 
-  describe('state observer', () => {
+  describe('invalid observer', () => {
     let baseFormItem;
     beforeEach(() => {
       baseFormItem = new BaseFormItem();

@@ -6,10 +6,9 @@ export class BaseFormItem {
     this._valueObservers = [];
     this._invalidObservers = [];
     this._invalid = false;
-    this._states = {
-      dirty: false,
-    };
+    this._states = {};
 
+    this._createInitialState();
     this._createObserver();
     return this;
   }
@@ -90,6 +89,16 @@ export class BaseFormItem {
       observer.call(null, invalid);
     });
     return this;
+  }
+
+  resetStates() {
+    this._createInitialState();
+  }
+
+  _createInitialState() {
+    this._states = {
+      dirty: false,
+    };
   }
 
   _updateInvalid() {

@@ -116,8 +116,9 @@ export const formItemMixin = {
       this.formItem.validate();
     },
 
-    resetState() {
+    resetStates() {
       this.state = createInitialState();
+      this.formItem.resetStates();
     },
   },
 };
