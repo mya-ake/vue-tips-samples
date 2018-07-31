@@ -35,4 +35,29 @@ describe('ContactForm', () => {
       expect('contact' in requestBody).toBe(true);
     });
   });
+
+  describe('validators', () => {
+    describe('title, by category', () => {
+      it('カテゴリのその他を選択したときタイトルの入力が必要', () => {
+        const form = new ContactForm();
+
+        const category = form.items.category;
+        const otherIndex = category.options.length - 1;
+        const otherOption = category.options[otherIndex];
+        category.value = otherOption.value;
+
+        expect(form.items.title.invalid).toBe(true);
+      });
+
+      it('その他以外の選択しているときはタイトルは必須ではない', () => {
+        const form = new ContactForm();
+
+        const category = form.items.category;
+        const firstOption = category.options[0];
+        category.value = firstOption.value;
+
+        expect(form.items.title.invalid).toBe(false);
+      });
+    });
+  });
 });
