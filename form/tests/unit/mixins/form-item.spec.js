@@ -134,7 +134,7 @@ describe('mixins/form-item', () => {
     });
   });
 
-  describe('State', () => {
+  describe('States', () => {
     let formItem;
     beforeEach(() => {
       formItem = new BaseFormItem();
@@ -178,7 +178,7 @@ describe('mixins/form-item', () => {
       expect(wrapper.vm.isTouchedAfterDirty).toBe(true);
     });
 
-    it('resetStates を呼ぶと state が初期値になる', () => {
+    it('resetStates を呼ぶと states が初期値になる', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
           value: formItem.value,
@@ -188,7 +188,7 @@ describe('mixins/form-item', () => {
         },
       });
 
-      const initialState = { ...wrapper.vm.state };
+      const initialStates = { ...wrapper.vm.states };
       const inputProcess = new InputProcess(wrapper, formItem);
 
       inputProcess.input('a');
@@ -197,7 +197,7 @@ describe('mixins/form-item', () => {
       wrapper.vm.resetStates();
 
       expect.assertions(2);
-      expect(wrapper.vm.state).toEqual(initialState);
+      expect(wrapper.vm.states).toEqual(initialStates);
       expect(wrapper.vm.isDirty).toBe(false);
     });
 

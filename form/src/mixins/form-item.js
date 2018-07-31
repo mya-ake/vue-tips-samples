@@ -1,6 +1,6 @@
 import { BaseFormItem } from '@/lib';
 
-const createInitialState = () => {
+const createInitialStates = () => {
   return {
     touched: false,
     touchedAfterDirty: false,
@@ -45,7 +45,7 @@ export const formItemMixin = {
 
   data() {
     return {
-      state: createInitialState(),
+      states: createInitialStates(),
     };
   },
 
@@ -59,11 +59,11 @@ export const formItemMixin = {
     },
 
     isTouched() {
-      return this.state.touched;
+      return this.states.touched;
     },
 
     isTouchedAfterDirty() {
-      return this.state.touchedAfterDirty;
+      return this.states.touchedAfterDirty;
     },
 
     attrShowErrorConditions() {
@@ -105,9 +105,9 @@ export const formItemMixin = {
     },
 
     handleBlur() {
-      this.state.touched = true;
+      this.states.touched = true;
       if (this.isDirty) {
-        this.state.touchedAfterDirty = true;
+        this.states.touchedAfterDirty = true;
       }
       this.validate();
     },
@@ -117,7 +117,7 @@ export const formItemMixin = {
     },
 
     resetStates() {
-      this.state = createInitialState();
+      this.states = createInitialStates();
       this.formItem.resetStates();
     },
   },
