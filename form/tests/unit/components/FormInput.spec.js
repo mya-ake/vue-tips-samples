@@ -27,6 +27,7 @@ describe('FormInput', () => {
       const props = {
         value: formItem.value,
         id: 'test-id',
+        name: 'test-name',
         label: 'test-label',
         formItem,
       };
@@ -43,7 +44,7 @@ describe('FormInput', () => {
       expect(label.text()).toBe(props.label);
       expect(labelAttributes.for).toBe(props.id);
       expect(inputAttributes.type).toBe('text');
-      expect(inputAttributes.name).toBe(props.id);
+      expect(inputAttributes.name).toBe(props.name);
       expect(input.element.value).toBe(props.formItem.value);
       expect(wrapper.findAll('li').wrappers).toHaveLength(0);
     });

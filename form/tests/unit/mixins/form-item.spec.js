@@ -58,7 +58,7 @@ describe('mixins/form-item', () => {
       expect(wrapper.isVueInstance()).toBe(true);
     });
 
-    it('name attribute, name props がない場合 id が入る', () => {
+    it('nameAttr, name props がない場合 id が入る', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
           value: formItem.value,
@@ -68,11 +68,10 @@ describe('mixins/form-item', () => {
         },
       });
 
-      const input = wrapper.find('input')
-      expect(input.attributes().name).toBe('test-id');
+      expect(wrapper.vm.nameAttr).toBe('test-id');
     });
 
-    it('name attribute, name props がある場合 name props が入る', () => {
+    it('nameAttr, name props がある場合 name props が入る', () => {
       const wrapper = shallowMount(FormItemComponent, {
         propsData: {
           value: formItem.value,
@@ -83,8 +82,7 @@ describe('mixins/form-item', () => {
         },
       });
 
-      const input = wrapper.find('input')
-      expect(input.attributes().name).toBe('test-name');
+      expect(wrapper.vm.nameAttr).toBe('test-name');
     });
   });
 

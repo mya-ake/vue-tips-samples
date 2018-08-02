@@ -2,7 +2,6 @@
   <div>
     <input
       v-bind:value="value"
-      v-bind:name="nameAttr"
       type="text" 
       v-on:input="handleInput"
       v-on:blur="handleBlur"
