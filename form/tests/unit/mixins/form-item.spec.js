@@ -25,6 +25,7 @@ class InputProcess {
 
     this._formItem = formItem;
     this._wrapper.setProps({
+      value,
       formItem,
     });
   }
