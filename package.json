@@ -1,0 +1,16 @@
+{
+  "name": "vue-tips-samples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mya-ake/vue-tips-samples.git",
+  "author": "mya-ake <make.app.ts@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "doc:dev": "vuepress dev docs",
+    "doc:build": "vuepress build docs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vuepress": "^0.13.1"
+  }
+}
