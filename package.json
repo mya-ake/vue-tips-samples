@@ -9,8 +9,12 @@
     "doc:dev": "vuepress dev docs",
     "doc:build": "vuepress build docs"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vuex": "^3.0.1"
+  },
   "devDependencies": {
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.1.0",
     "vuepress": "^0.13.1"
   }
 }
