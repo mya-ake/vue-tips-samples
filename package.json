@@ -10,7 +10,7 @@
     "doc:build": "run-s doc:prebuild vuepress:build",
     "doc:prebuild": "node --experimental-modules build/index.mjs",
     "vuepress:dev": "vuepress dev docs",
-    "vuepress:build": "vuepress dev build"
+    "vuepress:build": "vuepress build docs"
   },
   "dependencies": {
     "vuex": "^3.0.1"

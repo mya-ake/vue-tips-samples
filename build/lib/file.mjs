@@ -26,3 +26,12 @@ export const extractFileName = path => {
 export const writeFile = (path, data) => {
   return fs.writeFileSync(path, data, { encoding: 'utf8' });
 };
+
+export const existPathname = pathname => {
+  try {
+    fs.statSync(pathname);
+    return true;
+  } catch {
+    return false;
+  }
+};

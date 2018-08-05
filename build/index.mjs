@@ -1,5 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+
+import { existPathname } from './lib/file';
 import { buildStore, buildComponents } from './projects';
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -9,8 +11,12 @@ const VUEPRESS_PATH = path.join(ROOT, 'docs', '.vuepress');
 const VUEPRESS_COMPONENTS_PATH = path.join(VUEPRESS_PATH, 'components');
 const VUEPRESS_STORE_PATH = path.join(VUEPRESS_PATH, 'store');
 
-fs.mkdirSync(VUEPRESS_COMPONENTS_PATH);
-fs.mkdirSync(VUEPRESS_STORE_PATH);
+if (existPathname(VUEPRESS_COMPONENTS_PATH) === false) {
+  fs.mkdirSync(VUEPRESS_COMPONENTS_PATH);
+}
+if (existPathname(VUEPRESS_STORE_PATH) === false) {
+  fs.mkdirSync(VUEPRESS_STORE_PATH);
+}
 
 /** samples/modal_store */
 const build = () => {
