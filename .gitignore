@@ -22,3 +22,4 @@ yarn-error.log*
 # doc
 docs/.vuepress/components
 docs/.vuepress/store
+docs/.vuepress/public/api

@@ -1,7 +1,29 @@
 'use strict';
 
 import fs from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
+
+export const existPathname = pathname => {
+  try {
+    fs.statSync(pathname);
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
+export const createDir = pathname => {
+  fs.mkdirSync(pathname);
+};
+
+const ensureWriteProcess = pathname => {
+  const fileDirname = dirname(pathname);
+  if (existPathname(fileDirname)) {
+    return;
+  }
+  ensureWriteProcess(fileDirname);
+  createDir(fileDirname);
+};
 
 export const getFilePathList = folderPath => {
   const paths = fs.readdirSync(folderPath);
@@ -15,23 +37,20 @@ export const getFilePathList = folderPath => {
   }, []);
 };
 
-export const readFile = path => {
-  return fs.readFileSync(path, { encoding: 'utf8' });
+export const readFile = pathname => {
+  return fs.readFileSync(pathname, { encoding: 'utf8' });
 };
 
-export const extractFileName = path => {
-  return path.split('/').pop();
+export const extractFileName = pathname => {
+  return pathname.split('/').pop();
 };
 
-export const writeFile = (path, data) => {
-  return fs.writeFileSync(path, data, { encoding: 'utf8' });
+export const writeFile = (pathname, data) => {
+  ensureWriteProcess(pathname);
+  return fs.writeFileSync(pathname, data, { encoding: 'utf8' });
 };
 
-export const existPathname = pathname => {
-  try {
-    fs.statSync(pathname);
-    return true;
-  } catch {
-    return false;
-  }
+export const copyFile = (pathname, distPathname) => {
+  ensureWriteProcess(distPathname);
+  fs.copyFileSync(pathname, distPathname);
 };

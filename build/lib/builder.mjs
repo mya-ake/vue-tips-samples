@@ -5,7 +5,21 @@ import {
   extractFileName,
   readFile,
   writeFile,
+  copyFile,
 } from './../lib/file';
+
+const extractTargetPathname = (pathname, srcPattname) => {
+  return pathname.replace(srcPattname, '');
+};
+
+export const copyFiles = (srcPathname, distDirPathname) => {
+  const pathList = getFilePathList(srcPathname);
+  for (const pathname of pathList) {
+    const targetPathname = extractTargetPathname(pathname, srcPathname);
+    const distPathname = path.join(distDirPathname, targetPathname);
+    copyFile(pathname, distPathname);
+  }
+};
 
 export const buildStore = (projectPathname, distPathname) => {
   const storePathname = path.join(projectPathname, 'store');

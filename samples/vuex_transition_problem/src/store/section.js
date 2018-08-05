@@ -54,7 +54,7 @@ export const actions = {
 
   // APIのレスポンスをそのまま返す（エラーハンドリングだけする）
   // 書籍内のサービス的な使い方
-  [ACTION_TYPES.REQUEST_SECTIONS_EXPECT](ctx, { order = SORT_ORDERS.ASC }) {
+  [ACTION_TYPES.REQUEST_SECTIONS_EXPECT](_, { order = SORT_ORDERS.ASC }) {
     return this.axios.get(`/sections/${order}.json`).catch(err => {
       return err.response;
     });
