@@ -1,19 +1,25 @@
-import Vuex from 'vuex';
+import VueAxios from "vue-axios";
 
-import { DemoModal } from './views'
-import * as modalModule from './store/modal';
+import store from './store';
+import routes from './routes'
+import axios from './axios';
+import { DemoModal } from './views';
 
 export default ({
   Vue,
+  router,
   options,
 }) => {
-  Vue.use(Vuex);
+  // components
+  Vue.component('demo-modal', DemoModal);
 
-  Vue.component('demo-modal', DemoModal)
+  // add store
+  store.axios = axios;
+  options.store = store;
 
-  options.store = new Vuex.Store({
-    modules: {
-      modal: modalModule,
-    },
-  });
+  // demo router
+  router.addRoutes(routes);
+
+  // axios
+  Vue.use(VueAxios, axios);
 };

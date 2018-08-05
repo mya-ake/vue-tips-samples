@@ -30,7 +30,7 @@ export const buildStore = (projectPathname, distPathname) => {
       continue;
     }
 
-    const storeCode = readFile(pathname).replace('@/', `${projectPathname}/`);
+    const storeCode = readFile(pathname).replace(/@\//g, `${projectPathname}/`);
     const distFilePathname = path.join(distPathname, fileName);
     writeFile(distFilePathname, storeCode);
   }
@@ -43,12 +43,19 @@ const extractImportComponents = componentsCode => {
   return importCode === null ? null : importCode[1].split(/[\s,]+/);
 };
 
-export const buildComponents = (projectPathname, distPathname) => {
-  const componentsPathname = path.join(projectPathname, 'components');
+export const buildComponents = (
+  projectPathname,
+  distPathname,
+  { prefix = '', exclude = [], componentsDirname = 'components' } = {},
+) => {
+  const componentsPathname = path.join(projectPathname, componentsDirname);
   const pathList = getFilePathList(componentsPathname);
   for (const pathname of pathList) {
     const fileName = extractFileName(pathname);
     if (fileName === 'index.js') {
+      continue;
+    }
+    if (exclude.includes(fileName)) {
       continue;
     }
 
@@ -58,7 +65,8 @@ export const buildComponents = (projectPathname, distPathname) => {
     const importComponents = extractImportComponents(componentsCode);
     if (importComponents !== null) {
       const imposrtString = importComponents
-        .map(code => `import ${code} from './${code}'`)
+        .map(compoent => `${prefix}${compoent}`)
+        .map(compoent => `import ${compoent} from './${compoent}'`)
         .join('\n');
       componentsCode = componentsCode.replace(
         /import { ([a-zA-Z\s,]*) } from ['"]@\/components['"]/,
@@ -66,10 +74,13 @@ export const buildComponents = (projectPathname, distPathname) => {
       );
     }
 
-    // import store
-    componentsCode = componentsCode.replace('@/store/', './../store/');
+    // replace import
+    componentsCode = componentsCode
+      .replace('@/store/', './../store/')
+      .replace('@/store', './../store')
+      .replace('@/', `${projectPathname}/`);
 
-    const distFilename = path.join(distPathname, fileName);
+    const distFilename = path.join(distPathname, `${prefix}${fileName}`);
     writeFile(distFilename, componentsCode);
   }
 };

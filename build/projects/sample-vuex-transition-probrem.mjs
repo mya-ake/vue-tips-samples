@@ -1,7 +1,12 @@
 import path from 'path';
-import { copyFiles, buildStore } from './../lib/builder';
+import { copyFiles, buildStore, buildComponents } from './../lib/builder';
 
-export default ({ root, vuepressPath, distStorePathname }) => {
+export default ({
+  root,
+  vuepressPath,
+  distStorePathname,
+  distComponentPathname,
+}) => {
   const PROJECT_SRC = path.join(
     root,
     'samples',
@@ -13,4 +18,14 @@ export default ({ root, vuepressPath, distStorePathname }) => {
 
   copyFiles(API_SRC_PATH, API_DIST_PATH);
   buildStore(PROJECT_SRC, distStorePathname);
+
+  const componentPrefix = 'VuexTransition';
+  buildComponents(PROJECT_SRC, distComponentPathname, {
+    prefix: componentPrefix,
+    componentsDirname: 'views',
+  });
+  buildComponents(PROJECT_SRC, distComponentPathname, {
+    prefix: `${componentPrefix}Layout`,
+    componentsDirname: 'layouts',
+  });
 };

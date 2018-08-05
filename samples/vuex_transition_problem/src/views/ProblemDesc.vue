@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { SECTION_ACTION_TYPES } from "@/store/index";
+import { SECTION_ACTION_TYPES } from "@/store/section";
 import { SORT_ORDERS } from "@/constants/api";
 import store from "@/store";
 
