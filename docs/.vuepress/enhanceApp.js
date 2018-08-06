@@ -3,7 +3,7 @@ import VueAxios from "vue-axios";
 import store from './store';
 import routes from './routes'
 import axios from './axios';
-import { DemoModal } from './views';
+import { DemoModal, DemoVuexTransition } from './views';
 
 export default ({
   Vue,
@@ -12,6 +12,7 @@ export default ({
 }) => {
   // components
   Vue.component('demo-modal', DemoModal);
+  Vue.component('demo-vuex-transition', DemoVuexTransition);
 
   // add store
   store.axios = axios;

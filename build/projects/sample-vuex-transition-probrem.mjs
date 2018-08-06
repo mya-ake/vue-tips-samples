@@ -1,6 +1,13 @@
 import path from 'path';
 import { copyFiles, buildStore, buildComponents } from './../lib/builder';
 
+const replaceRouterLinkTo = code => {
+  return code.replace(
+    /<router-link to="\//g,
+    '<router-link to="/demo/vuex_transition_problem/',
+  );
+};
+
 export default ({
   root,
   vuepressPath,
@@ -23,9 +30,11 @@ export default ({
   buildComponents(PROJECT_SRC, distComponentPathname, {
     prefix: componentPrefix,
     componentsDirname: 'views',
+    replacer: replaceRouterLinkTo,
   });
   buildComponents(PROJECT_SRC, distComponentPathname, {
     prefix: `${componentPrefix}Layout`,
     componentsDirname: 'layouts',
+    replacer: replaceRouterLinkTo,
   });
 };

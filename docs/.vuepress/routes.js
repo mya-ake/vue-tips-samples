@@ -1,3 +1,4 @@
+import { DemoVuexTransition } from './views'
 import VuexTransitionLayoutExpect from './components/VuexTransitionLayoutExpect';
 import VuexTransitionLayoutProblem from './components/VuexTransitionLayoutProblem';
 import VuexTransitionHome from './components/VuexTransitionHome'; 
@@ -9,34 +10,44 @@ import VuexTransitionProblemDesc from './components/VuexTransitionProblemDesc';
 export default [
   {
     path: '/demo/vuex_transition_problem',
-    component: VuexTransitionHome,
-  },
-  {
-    path: '/demo/vuex_transition_problem/problem',
-    component: VuexTransitionLayoutProblem,
+    component: DemoVuexTransition,
     children: [
       {
-        path: 'asc',
-        component: VuexTransitionProblemAsc,
+        path: '',
+        component: VuexTransitionHome,
       },
       {
-        path: 'desc',
-        component: VuexTransitionProblemDesc,
+        path: 'problem',
+        component: VuexTransitionLayoutProblem,
+        children: [
+          {
+            path: 'asc',
+            component: VuexTransitionProblemAsc,
+          },
+          {
+            path: 'desc',
+            component: VuexTransitionProblemDesc,
+          },
+        ],
       },
-    ],
-  },
-  {
-    path: '/demo/vuex-vuex_transition_problem/expect',
-    component: VuexTransitionLayoutExpect,
-    children: [
       {
-        path: 'asc',
-        component: VuexTransitionExpectAsc,
+        path: 'expect',
+        component: VuexTransitionLayoutExpect,
+        children: [
+          {
+            path: 'asc',
+            component: VuexTransitionExpectAsc,
+          },
+          {
+            path: 'desc',
+            component: VuexTransitionExpectDesc,
+          },
+        ],
       },
       {
-        path: 'desc',
-        component: VuexTransitionExpectDesc,
-      },
-    ],
-  },
+        path: "*",
+        redirect: "/demo/vuex_transition_problem/"
+      }
+      ]
+  }
 ];

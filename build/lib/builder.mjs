@@ -46,7 +46,12 @@ const extractImportComponents = componentsCode => {
 export const buildComponents = (
   projectPathname,
   distPathname,
-  { prefix = '', exclude = [], componentsDirname = 'components' } = {},
+  {
+    prefix = '',
+    exclude = [],
+    componentsDirname = 'components',
+    replacer = null,
+  } = {},
 ) => {
   const componentsPathname = path.join(projectPathname, componentsDirname);
   const pathList = getFilePathList(componentsPathname);
@@ -79,6 +84,10 @@ export const buildComponents = (
       .replace('@/store/', './../store/')
       .replace('@/store', './../store')
       .replace('@/', `${projectPathname}/`);
+
+    if (typeof replacer === 'function') {
+      componentsCode = replacer(componentsCode);
+    }
 
     const distFilename = path.join(distPathname, `${prefix}${fileName}`);
     writeFile(distFilename, componentsCode);
