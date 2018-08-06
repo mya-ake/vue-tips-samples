@@ -1,14 +1,14 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
 import {
   i18n,
   allowLanguage,
   extractLanguage,
   setLang,
-  loadLocaleMessage
-} from "./i18n";
+  loadLocaleMessage,
+} from './i18n';
 
 Vue.config.productionTip = false;
 
@@ -31,11 +31,11 @@ router.beforeEach(async (to, from, next) => {
 (async () => {
   const lang = extractLanguage();
   await setLang(lang);
-  await loadLocaleMessage(lang, "common");
+  await loadLocaleMessage(lang, 'common');
   new Vue({
     router,
     store,
     i18n,
-    render: h => h(App)
-  }).$mount("#app");
+    render: h => h(App),
+  }).$mount('#app');
 })();

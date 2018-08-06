@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/" v-t="'nav.home'"></router-link> |
-      <router-link to="/about" v-t="'nav.about'"></router-link> | 
-      <router-link v-bind:to="changeLanguageTo" v-t="'nav.change-language'"></router-link>
+      <router-link v-t="'nav.home'" to="/"/> |
+      <router-link v-t="'nav.about'" to="/about"/> | 
+      <router-link v-t="'nav.change-language'" v-bind:to="changeLanguageTo"/>
     </div>
     <router-view/>
   </div>
@@ -14,12 +14,12 @@ export default {
   computed: {
     changeLanguageTo() {
       switch (this.$i18n.locale) {
-        case "en":
-          return "/ja";
+        case 'en':
+          return '/ja';
         default:
-          return "/en";
+          return '/en';
       }
-    }
-  }
+    },
+  },
 };
 </script>

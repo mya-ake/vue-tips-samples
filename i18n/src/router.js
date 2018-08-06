@@ -1,32 +1,32 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Home from "./views/Home.vue";
-import About from "./views/About.vue";
-import { i18n } from "./i18n";
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
+import About from './views/About.vue';
+import { i18n } from './i18n';
 
 Vue.use(Router);
 
 const routes = [
   {
-    path: "/",
-    name: "home",
+    path: '/',
+    name: 'home',
     component: Home,
     meta: {
       locale: {
-        category: "home"
-      }
-    }
+        category: 'home',
+      },
+    },
   },
   {
-    path: "/about",
-    name: "about",
+    path: '/about',
+    name: 'about',
     component: About,
     meta: {
       locale: {
-        category: "about"
-      }
-    }
-  }
+        category: 'about',
+      },
+    },
+  },
 ];
 
 const routesI18n = routes.map(route => {
@@ -34,7 +34,7 @@ const routesI18n = routes.map(route => {
     path: `/:lang${route.path}`,
     name: `lang-${route.name}`,
     component: route.component,
-    meta: route.meta
+    meta: route.meta,
   };
 });
 
@@ -48,12 +48,12 @@ routes.forEach(route => {
 const mergedRoutes = routes.concat(routesI18n);
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   routes: [
     ...mergedRoutes,
     {
-      path: "*",
-      redirect: `/${i18n.fallbackLocale}`
-    }
-  ]
+      path: '*',
+      redirect: `/${i18n.fallbackLocale}`,
+    },
+  ],
 });

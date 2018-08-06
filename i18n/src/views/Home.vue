@@ -7,7 +7,7 @@
         <dt>$t</dt>
         <dd>{{ $t('home.text') }}</dd>
         <dt>v-t</dt>
-        <dd v-t="'home.text'"></dd>
+        <dd v-t="'home.text'"/>
       </dl>
     </div>
   </div>
@@ -18,6 +18,6 @@ export default {
   beforeRouteUpdate(to, from, next) {
     this.$forceUpdate();
     next();
-  }
+  },
 };
 </script>
