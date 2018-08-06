@@ -9,20 +9,19 @@
 
 <script>
 export default {
-  data() {
-    return {
-      number: 12345678
-    };
-  },
-
   filters: {
     separateDigit3(value) {
-      return Number(value).toLocaleString("ja-JP", { style: "decimal" });
+      return Number(value).toLocaleString('ja-JP', { style: 'decimal' });
     },
 
     padZero(value, digit = 10) {
-      return String(value).padStart(digit, "0");
-    }
-  }
+      return String(value).padStart(digit, '0');
+    },
+  },
+  data() {
+    return {
+      number: 12345678,
+    };
+  },
 };
 </script>

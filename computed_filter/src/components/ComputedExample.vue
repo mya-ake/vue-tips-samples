@@ -21,14 +21,14 @@
 export default {
   data() {
     return {
-      tags: ["JavaScript", "Vue.js", "computed"]
+      tags: ['JavaScript', 'Vue.js', 'computed'],
     };
   },
 
   computed: {
     tagsString() {
-      return this.tags.join("、");
-    }
-  }
+      return this.tags.join('、');
+    },
+  },
 };
 </script>

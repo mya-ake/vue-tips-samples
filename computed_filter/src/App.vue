@@ -23,15 +23,15 @@
 </template>
 
 <script>
-import ComputedExample from "./components/ComputedExample";
-import FilterExample from "./components/FilterExample";
-import ComputedForm from "./components/ComputedForm";
+import ComputedExample from './components/ComputedExample';
+import FilterExample from './components/FilterExample';
+import ComputedForm from './components/ComputedForm';
 
 export default {
   components: {
     ComputedExample,
     FilterExample,
-    ComputedForm
-  }
+    ComputedForm,
+  },
 };
 </script>
