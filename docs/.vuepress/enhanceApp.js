@@ -18,6 +18,7 @@ const setI18nRouterHook = (router) => {
     if (('lang' in to.params) === false) {
       // lang パラメータがなければスキップ
       next();
+      return;
     }
 
     const lang = to.params.lang;
@@ -55,8 +56,8 @@ export default ({
   Vue.use(VueAxios, axios);
 
   // i18n
-  options.i18n = i18n
-  setI18nRouterHook(router)
+  options.i18n = i18n;
+  setI18nRouterHook(router);
   // 最初の言語を決めるためにマウント前に言語ファイルを取りにいく
   (async () => {
     const lang = extractLanguage();
