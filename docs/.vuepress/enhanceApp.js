@@ -3,7 +3,36 @@ import VueAxios from "vue-axios";
 import store from './store';
 import routes from './routes'
 import axios from './axios';
-import { DemoModal, DemoVuexTransition } from './views';
+import {
+  i18n,
+  allowLanguage,
+  extractLanguage,
+  setLang,
+  loadLocaleMessage,
+} from './i18n';
+import { LayoutDemo, DemoModal, DemoVuexTransition } from './views';
+
+const setI18nRouterHook = (router) => {
+  // 遷移時に必要な言語ファイルを取りにいく
+  router.beforeEach(async (to, from, next) => {
+    if (('lang' in to.params) === false) {
+      // lang パラメータがなければスキップ
+      next();
+    }
+
+    const lang = to.params.lang;
+
+    if (allowLanguage(lang) === false) {
+      next(`/${i18n.locale}`);
+      return;
+    }
+
+    const { locale } = to.meta;
+    await setLang(lang);
+    await loadLocaleMessage(lang, locale.category);
+    next();
+  });
+}
 
 export default ({
   Vue,
@@ -11,6 +40,7 @@ export default ({
   options,
 }) => {
   // components
+  Vue.component('layout-demo', LayoutDemo);
   Vue.component('demo-modal', DemoModal);
   Vue.component('demo-vuex-transition', DemoVuexTransition);
 
@@ -23,4 +53,14 @@ export default ({
 
   // axios
   Vue.use(VueAxios, axios);
+
+  // i18n
+  options.i18n = i18n
+  setI18nRouterHook(router)
+  // 最初の言語を決めるためにマウント前に言語ファイルを取りにいく
+  (async () => {
+    const lang = extractLanguage();
+    await setLang(lang);
+    await loadLocaleMessage(lang, 'common');
+  })();
 };

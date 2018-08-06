@@ -1,4 +1,6 @@
-import { DemoVuexTransition } from './views'
+import { DemoVuexTransition, DemoI18n } from './views'
+import I18nHome from './components/I18nHome';
+import I18nAbout from './components/I18nAbout';
 import VuexTransitionLayoutExpect from './components/VuexTransitionLayoutExpect';
 import VuexTransitionLayoutProblem from './components/VuexTransitionLayoutProblem';
 import VuexTransitionHome from './components/VuexTransitionHome'; 
@@ -8,6 +10,32 @@ import VuexTransitionProblemAsc from './components/VuexTransitionProblemAsc';
 import VuexTransitionProblemDesc from './components/VuexTransitionProblemDesc';
 
 export default [
+  {
+    path: '/demo/i18n',
+    component: DemoI18n,
+    children: [
+      {
+        path: '',
+        name: 'i18n-home',
+        component: I18nHome,
+        meta: {
+          locale: {
+            category: 'home',
+          },
+        },
+      },
+      {
+        path: 'about',
+        name: 'i18n-about',
+        component: I18nAbout,
+        meta: {
+          locale: {
+            category: 'about',
+          },
+        },
+      },
+    ],
+  },
   {
     path: '/demo/vuex_transition_problem',
     component: DemoVuexTransition,
