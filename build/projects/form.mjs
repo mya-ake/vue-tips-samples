@@ -26,26 +26,31 @@ const formsReplacer = ({ code, fileName }) => {
       `from './../helpers/validators'`,
     );
   }
-  if (/FormItem\.js$/.test) {
+  if (/Form\.js$/.test(fileName)) {
     code = code.replace(
-      `from '@/helpers/validators'`,
-      `from './../../helpers/validators'`,
-    );
-  }
-
-  return code
-    .replace(
       `import { BaseForm } from '@/lib'`,
       `import { BaseForm } from './../lib/BaseForm'`,
-    )
-    .replace(
-      `import { BaseFormItem } from '@/lib'`,
-      `import { BaseFormItem } from './../../lib/BaseFormItem'`,
-    )
-    .replace(
+    );
+  }
+  if (/FormItem\.js$/.test(fileName)) {
+    code = code
+      .replace(
+        `from '@/helpers/validators'`,
+        `from './../../helpers/validators'`,
+      )
+      .replace(
+        `import { BaseFormItem } from '@/lib'`,
+        `import { BaseFormItem } from './../../lib/BaseFormItem'`,
+      );
+  }
+  if (fileName === 'CategoryFormItem.js') {
+    code = code.replace(
       `import { BaseSelectFormItem } from '@/lib'`,
       `import { BaseSelectFormItem } from './../../lib/BaseSelectFormItem'`,
     );
+  }
+
+  return code;
 };
 
 const componentReplacer = ({ code }) => {
@@ -60,11 +65,32 @@ const componentReplacer = ({ code }) => {
     );
 };
 
-const viewComponentReplacer = ({ code }) => {
-  return code.replace(
-    `import { ContactForm } from '@/forms'`,
-    `import { ContactForm } from './../forms/ContactForm'`,
-  );
+const viewComponentReplacer = ({ code, fileName }) => {
+  if (fileName === 'Form.vue') {
+    code = code.replace(
+      `this.$router.push('/confirm')`,
+      `this.$router.push('/demo/form/confirm/')`,
+    );
+  }
+  if (fileName === 'Confirm.vue') {
+    code = code.replace(
+      `this.$router.push('/complete')`,
+      `this.$router.push('/demo/form/complete/')`,
+    );
+  }
+  if (fileName === 'Complete.vue') {
+    code = code.replace(
+      `if (from.path !== '/confirm')`,
+      `if (from.path !== '/demo/form/confirm/')`,
+    );
+  }
+  return code
+    .replace(
+      `import { ContactForm } from '@/forms'`,
+      `import { ContactForm } from './../forms/ContactForm'`,
+    )
+    .replace(`next('/form')`, `next('/demo/form/')`)
+    .replace(`to="/form"`, `to="/demo/form/"`);
 };
 
 export default ({

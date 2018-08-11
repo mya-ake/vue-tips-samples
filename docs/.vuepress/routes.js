@@ -11,6 +11,8 @@ import VuexTransitionExpectDesc from './components/VuexTransitionExpectDesc';
 import VuexTransitionProblemAsc from './components/VuexTransitionProblemAsc';
 import VuexTransitionProblemDesc from './components/VuexTransitionProblemDesc';
 import ContactForm from './components/ContactForm'
+import ContactConfirm from './components/ContactConfirm'
+import ContactComplete from './components/ContactComplete'
 
 const i18nBasePath = '/demo/i18n';
 const i18nOriginRoutes = [
@@ -132,7 +134,19 @@ const formRoutes = [
       {
         path: '',
         component: ContactForm,
-      }
+      },
+      {
+        path: 'confirm',
+        component: ContactConfirm,
+      },
+      {
+        path: 'complete',
+        component: ContactComplete,
+      },
+      {
+        path: '*',
+        redirect: '/demo/form/',
+      },
     ],
   },
 ];
