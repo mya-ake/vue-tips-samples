@@ -1,7 +1,5 @@
 import VueAxios from "vue-axios";
 
-import store from './store';
-import routes from './routes'
 import axios from './axios';
 import {
   i18n,
@@ -10,21 +8,23 @@ import {
   setLang,
   loadLocaleMessage,
 } from './i18n';
+import store from './store';
+import routes from './routes'
 import { LayoutDemo, DemoModal, DemoVuexTransition } from './views';
 
 const setI18nRouterHook = (router) => {
   // 遷移時に必要な言語ファイルを取りにいく
   router.beforeEach(async (to, from, next) => {
-    if (('lang' in to.params) === false) {
+    if (('params' in to) === false || ('lang' in to.params) === false) {
       // lang パラメータがなければスキップ
       next();
       return;
     }
 
-    const lang = to.params.lang;
+    const { lang } = to.params;
 
     if (allowLanguage(lang) === false) {
-      next(`/${i18n.locale}`);
+      next(`/demo/i18n/${i18n.locale}`);
       return;
     }
 

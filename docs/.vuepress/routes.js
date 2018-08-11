@@ -1,3 +1,5 @@
+import { i18n } from './i18n';
+
 import { DemoVuexTransition, DemoI18n } from './views'
 import I18nHome from './components/I18nHome';
 import I18nAbout from './components/I18nAbout';
@@ -9,33 +11,71 @@ import VuexTransitionExpectDesc from './components/VuexTransitionExpectDesc';
 import VuexTransitionProblemAsc from './components/VuexTransitionProblemAsc';
 import VuexTransitionProblemDesc from './components/VuexTransitionProblemDesc';
 
-export default [
+const i18nBasePath = '/demo/i18n';
+const i18nOriginRoutes = [
   {
-    path: '/demo/i18n',
-    component: DemoI18n,
-    children: [
-      {
-        path: '',
-        name: 'i18n-home',
-        component: I18nHome,
-        meta: {
-          locale: {
-            category: 'home',
-          },
-        },
+    path: '',
+    name: 'i18n-home',
+    component: I18nHome,
+    meta: {
+      locale: {
+        category: 'home',
       },
-      {
-        path: 'about',
-        name: 'i18n-about',
-        component: I18nAbout,
-        meta: {
-          locale: {
-            category: 'about',
-          },
-        },
-      },
-    ],
+    },
   },
+  {
+    path: 'about',
+    name: 'i18n-about',
+    component: I18nAbout,
+    meta: {
+      locale: {
+        category: 'about',
+      },
+    },
+  },
+];
+
+const i18nLocalesRoutes = i18nOriginRoutes.map(route => {
+  return {
+    ...route,
+    name: undefined,
+  };
+});
+
+i18nOriginRoutes.forEach(route => {
+  delete route.component;
+  route.redirect = to => {
+    const fullPath = to.fullPath.replace(new RegExp(`^${i18nBasePath}`), '');
+    const path = `${i18nBasePath}/${i18n.locale}${fullPath}/`.replace(/\/\/$/, '/');
+    return {
+      path,
+      params: {
+        lang: i18n.locale,
+      }
+    };
+  };
+})
+
+const i18nRoutes = [
+  {
+    path: i18nBasePath,
+    component: DemoI18n,
+    children: i18nOriginRoutes,
+  },
+  {
+    path: `${i18nBasePath}/:lang`,
+    component: DemoI18n,
+    children: i18nLocalesRoutes,
+  },
+  {
+    path: `${i18nBasePath}/*`,
+    redirect(to) {
+      return `${i18nBasePath}/${i18n.locale}`;
+    },
+  },
+];
+
+const vuexTransitionRoutes = [
   {
     path: '/demo/vuex_transition_problem',
     component: DemoVuexTransition,
@@ -76,6 +116,11 @@ export default [
         path: "*",
         redirect: "/demo/vuex_transition_problem/"
       }
-      ]
-  }
+    ]
+  }  
+];
+
+export default [
+  ...i18nRoutes,
+  ...vuexTransitionRoutes,
 ];

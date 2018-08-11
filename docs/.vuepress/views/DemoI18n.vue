@@ -1,10 +1,12 @@
 <template>
   <layout-demo>
-    <div>
+    <div class="nav">
       <router-link to="/">Home</router-link> | 
       <router-link to="/demo/">Demo</router-link> | 
-      <router-link v-t="'nav.home'" to="/"/> |
-      <router-link v-t="'nav.about'" to="/about"/> | 
+    </div>
+    <div class="nav">
+      <router-link v-t="'nav.home'" to="/demo/i18n/"/> |
+      <router-link v-t="'nav.about'" to="/demo/i18n/about/"/> | 
       <router-link v-t="'nav.change-language'" v-bind:to="changeLanguageTo"/>
     </div>
     <router-view/>
@@ -17,11 +19,17 @@ export default {
     changeLanguageTo() {
       switch (this.$i18n.locale) {
         case 'en':
-          return '/ja';
+          return '/demo/i18n/ja';
         default:
-          return '/en';
+          return '/demo/i18n/en';
       }
     },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.nav {
+  padding: 8px 0;
+}
+</style>
