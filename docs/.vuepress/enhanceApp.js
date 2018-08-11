@@ -1,4 +1,4 @@
-import VueAxios from "vue-axios";
+import VueAxios from 'vue-axios';
 
 import axios from './axios';
 import {
@@ -9,13 +9,13 @@ import {
   loadLocaleMessage,
 } from './i18n';
 import store from './store';
-import routes from './routes'
+import routes from './routes';
 import { LayoutDemo, DemoModal, DemoVuexTransition } from './views';
 
-const setI18nRouterHook = (router) => {
+const setI18nRouterHook = router => {
   // 遷移時に必要な言語ファイルを取りにいく
   router.beforeEach(async (to, from, next) => {
-    if (('params' in to) === false || ('lang' in to.params) === false) {
+    if ('params' in to === false || 'lang' in to.params === false) {
       // lang パラメータがなければスキップ
       next();
       return;
@@ -33,13 +33,9 @@ const setI18nRouterHook = (router) => {
     await loadLocaleMessage(lang, locale.category);
     next();
   });
-}
+};
 
-export default ({
-  Vue,
-  router,
-  options,
-}) => {
+export default ({ Vue, router, options }) => {
   // components
   Vue.component('layout-demo', LayoutDemo);
   Vue.component('demo-modal', DemoModal);

@@ -1,11 +1,11 @@
 import { i18n } from './i18n';
 
-import { DemoVuexTransition, DemoI18n } from './views'
+import { DemoVuexTransition, DemoI18n } from './views';
 import I18nHome from './components/I18nHome';
 import I18nAbout from './components/I18nAbout';
 import VuexTransitionLayoutExpect from './components/VuexTransitionLayoutExpect';
 import VuexTransitionLayoutProblem from './components/VuexTransitionLayoutProblem';
-import VuexTransitionHome from './components/VuexTransitionHome'; 
+import VuexTransitionHome from './components/VuexTransitionHome';
 import VuexTransitionExpectAsc from './components/VuexTransitionExpectAsc';
 import VuexTransitionExpectDesc from './components/VuexTransitionExpectDesc';
 import VuexTransitionProblemAsc from './components/VuexTransitionProblemAsc';
@@ -46,15 +46,18 @@ i18nOriginRoutes.forEach(route => {
   delete route.component;
   route.redirect = to => {
     const fullPath = to.fullPath.replace(new RegExp(`^${i18nBasePath}`), '');
-    const path = `${i18nBasePath}/${i18n.locale}${fullPath}/`.replace(/\/\/$/, '/');
+    const path = `${i18nBasePath}/${i18n.locale}${fullPath}/`.replace(
+      /\/\/$/,
+      '/',
+    );
     return {
       path,
       params: {
         lang: i18n.locale,
-      }
+      },
     };
   };
-})
+});
 
 const i18nRoutes = [
   {
@@ -69,7 +72,7 @@ const i18nRoutes = [
   },
   {
     path: `${i18nBasePath}/*`,
-    redirect(to) {
+    redirect() {
       return `${i18nBasePath}/${i18n.locale}`;
     },
   },
@@ -113,14 +116,11 @@ const vuexTransitionRoutes = [
         ],
       },
       {
-        path: "*",
-        redirect: "/demo/vuex_transition_problem/"
-      }
-    ]
-  }  
+        path: '*',
+        redirect: '/demo/vuex_transition_problem/',
+      },
+    ],
+  },
 ];
 
-export default [
-  ...i18nRoutes,
-  ...vuexTransitionRoutes,
-];
+export default [...i18nRoutes, ...vuexTransitionRoutes];
