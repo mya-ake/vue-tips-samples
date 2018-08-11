@@ -9,7 +9,7 @@
     "doc:dev": "run-s doc:clean doc:prebuild vuepress:dev",
     "doc:build": "run-s doc:clean doc:prebuild vuepress:build",
     "doc:prebuild": "node --experimental-modules build/index.mjs",
-    "doc:clean": "rimraf ./docs/.vuepress/components ./docs/.vuepress/store ./docs/.vuepress/public/api",
+    "doc:clean": "rimraf ./docs/.vuepress/components ./docs/.vuepress/store ./docs/.vuepress/public ./docs/.vuepress/mixins ./docs/.vuepress/lib ./docs/.vuepress/public/forms ./docs/.vuepress/public/helpers",
     "vuepress:dev": "vuepress dev docs",
     "vuepress:build": "vuepress build docs"
   },

@@ -25,3 +25,7 @@ docs/.vuepress/store
 docs/.vuepress/public/api
 docs/.vuepress/public/locales
 docs/.vuepress/i18n.js
+docs/.vuepress/mixins
+docs/.vuepress/lib
+docs/.vuepress/forms
+docs/.vuepress/helpers

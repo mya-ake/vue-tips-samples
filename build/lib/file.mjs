@@ -54,3 +54,17 @@ export const copyFile = (pathname, distPathname) => {
   ensureWriteProcess(distPathname);
   fs.copyFileSync(pathname, distPathname);
 };
+
+export const copyFileWithReplacer = (
+  pathname,
+  distPathname,
+  replacer = null,
+) => {
+  let data = readFile(pathname);
+
+  if (typeof replacer === 'function') {
+    data = replacer(data);
+  }
+
+  writeFile(distPathname, data);
+};

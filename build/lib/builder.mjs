@@ -6,18 +6,41 @@ import {
   readFile,
   writeFile,
   copyFile,
+  copyFileWithReplacer,
 } from './../lib/file';
+
+const buildImportRegExp = from =>
+  new RegExp(`import {([^{^}]*)} from ['"]${from}['"]`);
 
 const extractTargetPathname = (pathname, srcPattname) => {
   return pathname.replace(srcPattname, '');
 };
 
-export const copyFiles = (srcPathname, distDirPathname) => {
+const camelToHyphen = str => {
+  return str.replace(/[A-Z]/g, (match, offset) => {
+    return offset === 0 ? match.toLowerCase() : `-${match.toLowerCase()}`;
+  });
+};
+
+export const copyFiles = (
+  srcPathname,
+  distDirPathname,
+  { exclude = [], replacer = null } = {},
+) => {
   const pathList = getFilePathList(srcPathname);
   for (const pathname of pathList) {
+    const fileName = extractFileName(pathname);
+    if (exclude.includes(fileName)) {
+      continue;
+    }
+
     const targetPathname = extractTargetPathname(pathname, srcPathname);
     const distPathname = path.join(distDirPathname, targetPathname);
-    copyFile(pathname, distPathname);
+    if (typeof replacer === 'function') {
+      copyFileWithReplacer(pathname, distPathname, replacer);
+    } else {
+      copyFile(pathname, distPathname);
+    }
   }
 };
 
@@ -36,11 +59,17 @@ export const buildStore = (projectPathname, distPathname) => {
   }
 };
 
-const extractImportComponents = componentsCode => {
-  const importCode = componentsCode.match(
-    /import { ([a-zA-Z\s,]*) } from ['"]@\/components['"]/,
-  );
-  return importCode === null ? null : importCode[1].split(/[\s,]+/);
+export const splitImport = (code, from) => {
+  const importCode = code.match(buildImportRegExp(from));
+  return importCode === null
+    ? null
+    : importCode[1]
+        .split(/[\s,\n]+/)
+        .filter(moduleName => moduleName.length > 0);
+};
+
+export const replaceImport = (code = '', from, replaceValue) => {
+  return code.replace(buildImportRegExp(from), replaceValue);
 };
 
 export const buildComponents = (
@@ -66,17 +95,38 @@ export const buildComponents = (
 
     let componentsCode = readFile(pathname);
 
+    if (typeof replacer === 'function') {
+      componentsCode = replacer(componentsCode);
+    }
+
     // import components
-    const importComponents = extractImportComponents(componentsCode);
+    const importComponents = splitImport(componentsCode, '@/components');
     if (importComponents !== null) {
-      const imposrtString = importComponents
+      const importString = importComponents
         .map(compoent => `${prefix}${compoent}`)
         .map(compoent => `import ${compoent} from './${compoent}'`)
         .join('\n');
-      componentsCode = componentsCode.replace(
-        /import { ([a-zA-Z\s,]*) } from ['"]@\/components['"]/,
-        imposrtString,
+      componentsCode = replaceImport(
+        componentsCode,
+        '@/components',
+        importString,
       );
+
+      // components property
+      for (const importComponent of importComponents) {
+        const prefixComponentName = `${prefix}${importComponent}`;
+        componentsCode = componentsCode.replace(
+          new RegExp(`${importComponent},`),
+          `${prefixComponentName},`,
+        );
+
+        const customTag = camelToHyphen(importComponent);
+        const prefixCustomTag = camelToHyphen(prefixComponentName);
+        componentsCode = componentsCode.replace(
+          new RegExp(customTag, 'g'),
+          prefixCustomTag,
+        );
+      }
     }
 
     // replace import
@@ -84,10 +134,6 @@ export const buildComponents = (
       .replace('@/store/', './../store/')
       .replace('@/store', './../store')
       .replace('@/', `${projectPathname}/`);
-
-    if (typeof replacer === 'function') {
-      componentsCode = replacer(componentsCode);
-    }
 
     const distFilename = path.join(distPathname, `${prefix}${fileName}`);
     writeFile(distFilename, componentsCode);

@@ -1,6 +1,6 @@
 import { i18n } from './i18n';
 
-import { DemoVuexTransition, DemoI18n } from './views';
+import { DemoVuexTransition, DemoForm, DemoI18n } from './views';
 import I18nHome from './components/I18nHome';
 import I18nAbout from './components/I18nAbout';
 import VuexTransitionLayoutExpect from './components/VuexTransitionLayoutExpect';
@@ -10,6 +10,7 @@ import VuexTransitionExpectAsc from './components/VuexTransitionExpectAsc';
 import VuexTransitionExpectDesc from './components/VuexTransitionExpectDesc';
 import VuexTransitionProblemAsc from './components/VuexTransitionProblemAsc';
 import VuexTransitionProblemDesc from './components/VuexTransitionProblemDesc';
+import ContactForm from './components/ContactForm'
 
 const i18nBasePath = '/demo/i18n';
 const i18nOriginRoutes = [
@@ -123,4 +124,17 @@ const vuexTransitionRoutes = [
   },
 ];
 
-export default [...i18nRoutes, ...vuexTransitionRoutes];
+const formRoutes = [
+  {
+    path: '/demo/form',
+    component: DemoForm,
+    children: [
+      {
+        path: '',
+        component: ContactForm,
+      }
+    ],
+  },
+];
+
+export default [...formRoutes, ...i18nRoutes, ...vuexTransitionRoutes];
