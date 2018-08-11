@@ -63,7 +63,11 @@ export const copyFileWithReplacer = (
   let data = readFile(pathname);
 
   if (typeof replacer === 'function') {
-    data = replacer(data);
+    data = replacer({
+      code: data,
+      pathname,
+      fileName: extractFileName(pathname),
+    });
   }
 
   writeFile(distPathname, data);

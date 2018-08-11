@@ -96,7 +96,11 @@ export const buildComponents = (
     let componentsCode = readFile(pathname);
 
     if (typeof replacer === 'function') {
-      componentsCode = replacer(componentsCode);
+      componentsCode = replacer({
+        code: componentsCode,
+        pathname,
+        fileName,
+      });
     }
 
     // import components

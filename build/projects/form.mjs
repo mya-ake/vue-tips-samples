@@ -8,11 +8,11 @@ import {
   buildComponents,
 } from './../lib/builder';
 
-const mixinReplacer = code => {
+const mixinReplacer = ({ code }) => {
   return code.replace(`from '@/lib'`, `from './../lib/BaseFormItem'`);
 };
 
-const formsReplacer = code => {
+const formsReplacer = ({ code, fileName }) => {
   const items = splitImport(code, './items');
   if (items !== null) {
     const importString = items
@@ -20,12 +20,13 @@ const formsReplacer = code => {
       .join('\n');
     code = replaceImport(code, './items', importString);
   }
-  if (/ContactForm/.test(code)) {
+  if (fileName === 'ContactForm.js') {
     code = code.replace(
       `from '@/helpers/validators'`,
       `from './../helpers/validators'`,
     );
-  } else {
+  }
+  if (/FormItem\.js$/.test) {
     code = code.replace(
       `from '@/helpers/validators'`,
       `from './../../helpers/validators'`,
@@ -47,7 +48,7 @@ const formsReplacer = code => {
     );
 };
 
-const componentReplacer = code => {
+const componentReplacer = ({ code }) => {
   return code
     .replace(
       `import { formItemMixin } from '@/mixins';`,
@@ -59,7 +60,7 @@ const componentReplacer = code => {
     );
 };
 
-const viewComponentReplacer = code => {
+const viewComponentReplacer = ({ code }) => {
   return code.replace(
     `import { ContactForm } from '@/forms'`,
     `import { ContactForm } from './../forms/ContactForm'`,

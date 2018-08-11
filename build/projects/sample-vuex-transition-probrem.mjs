@@ -1,7 +1,7 @@
 import path from 'path';
 import { copyFiles, buildStore, buildComponents } from './../lib/builder';
 
-const replaceRouterLinkTo = code => {
+const replaceRouterLinkTo = ({ code }) => {
   return code.replace(
     /<router-link to="\//g,
     '<router-link to="/demo/vuex_transition_problem/',
