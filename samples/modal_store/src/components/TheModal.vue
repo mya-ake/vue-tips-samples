@@ -1,8 +1,8 @@
 <template>
   <div
     v-bind:aria-hidden="!show"
-    v-on:click.self="handleClickOverlay"
     class="overlay"
+    v-on:click.self="handleClickOverlay"
   >
     <div class="modal">
       <header class="header">
@@ -19,25 +19,20 @@
 </template>
 
 <script>
-import { BaseButton } from "@/components";
-import { MODAL_ACTION_TYPES } from "@/store/modal";
+import { BaseButton } from '@/components';
+import { MODAL_ACTION_TYPES } from '@/store/modal';
 
 const stopScroll = () => {
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow = 'hidden';
 };
 
 const releaseScroll = () => {
-  document.body.style.overflow = "";
+  document.body.style.overflow = '';
 };
 
 export default {
-  mounted() {
-    window.addEventListener("popstate", this.handlePopstate);
-  },
-
-  beforeDestroy() {
-    this.close();
-    window.removeEventListener("popstate", this.handlePopstate);
+  components: {
+    BaseButton,
   },
 
   computed: {
@@ -51,7 +46,7 @@ export default {
 
     message() {
       return this.$store.state.modal.message;
-    }
+    },
   },
 
   watch: {
@@ -61,7 +56,15 @@ export default {
       } else {
         releaseScroll();
       }
-    }
+    },
+  },
+  mounted() {
+    window.addEventListener('popstate', this.handlePopstate);
+  },
+
+  beforeDestroy() {
+    this.close();
+    window.removeEventListener('popstate', this.handlePopstate);
   },
 
   methods: {
@@ -79,12 +82,8 @@ export default {
 
     close() {
       this.$store.dispatch(MODAL_ACTION_TYPES.CLOSE);
-    }
+    },
   },
-
-  components: {
-    BaseButton
-  }
 };
 </script>
 
@@ -105,7 +104,7 @@ export default {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   z-index: 100;
-  &[aria-hidden="true"] {
+  &[aria-hidden='true'] {
     visibility: hidden;
   }
 }

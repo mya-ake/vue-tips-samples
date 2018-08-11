@@ -1,7 +1,7 @@
 <template>
   <button
-    class="base-button"
     v-bind:class="`base-button--${kind}`"
+    class="base-button"
     v-on:click="handleClick"
   >
     <slot/>
@@ -13,18 +13,18 @@ export default {
   props: {
     kind: {
       type: String,
-      default: "default",
+      default: 'default',
       validator(value) {
-        return ["primary", "default"].includes(value);
-      }
-    }
+        return ['primary', 'default'].includes(value);
+      },
+    },
   },
 
   methods: {
     handleClick(evt) {
-      this.$emit("click", evt);
-    }
-  }
+      this.$emit('click', evt);
+    },
+  },
 };
 </script>
 

@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import { TheModal } from "@/components";
+import { TheModal } from '@/components';
 
 export default {
   components: {
-    TheModal
-  }
+    TheModal,
+  },
 };
 </script>
 
