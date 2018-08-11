@@ -11,17 +11,17 @@
 </template>
 
 <script>
-import { SECTION_ACTION_TYPES } from "@/store/section";
-import { SORT_ORDERS } from "@/constants/api";
-import store from "@/store";
+import { SECTION_ACTION_TYPES } from '@/store/section';
+import { SORT_ORDERS } from '@/constants/api';
+import store from '@/store';
 
 export default {
   async beforeRouteEnter(to, from, next) {
     const response = await store.dispatch(
       SECTION_ACTION_TYPES.REQUEST_SECTIONS,
       {
-        order: SORT_ORDERS.ASC
-      }
+        order: SORT_ORDERS.ASC,
+      },
     );
     if (response.status !== 200) {
       // なにかエラー処理すべき
@@ -32,7 +32,7 @@ export default {
   computed: {
     sections() {
       return this.$store.state.section.sections;
-    }
-  }
+    },
+  },
 };
 </script>
