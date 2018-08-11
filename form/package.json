@@ -15,15 +15,15 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-rc.5",
-    "@vue/cli-plugin-eslint": "^3.0.0-rc.5",
-    "@vue/cli-plugin-unit-jest": "^3.0.0-rc.5",
-    "@vue/cli-service": "^3.0.0-rc.5",
-    "@vue/eslint-config-prettier": "^3.0.0-rc.5",
+    "@vue/cli-plugin-babel": "^3.0.0",
+    "@vue/cli-plugin-eslint": "^3.0.0",
+    "@vue/cli-plugin-unit-jest": "^3.0.0",
+    "@vue/cli-service": "^3.0.0",
+    "@vue/eslint-config-prettier": "^3.0.0",
     "@vue/test-utils": "^1.0.0-beta.24",
     "babel-core": "^7.0.0-0",
     "babel-jest": "^22.0.4",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.9.3",
     "sass-loader": "^6.0.6",
     "vue-template-compiler": "^2.5.17"
   },
