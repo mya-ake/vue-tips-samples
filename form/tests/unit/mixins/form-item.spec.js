@@ -114,8 +114,8 @@ describe('mixins/form-item', () => {
     it('blur されると validate が呼ばれる', () => {
       const validate = formItem.validate;
       const mockValidate = jest.fn();
-      formItem.validate = function() {
-        validate.call(this);
+      formItem.validate = () => {
+        validate.call(formItem);
         mockValidate();
       };
 
