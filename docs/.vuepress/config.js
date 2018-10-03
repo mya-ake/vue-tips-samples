@@ -13,5 +13,7 @@ module.exports = {
       { text: 'Demo', link: '/demo/' },
     ],
     sidebar: [],
+    repo: 'mya-ake/vue-tips-samples',
+    repoLabel: 'GitHub',
   },
 }
