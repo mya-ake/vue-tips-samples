@@ -1,19 +1,14 @@
-# 章の中の一部のサンプルコードなどをまとめて入れているフォルダ
+# 章の中の一部のサンプルコードなどをまとめて入れているフォルダー
 
-## 章と対象フォルダ
-
-### 2章 フォーム基礎編
-
-[simple_form](https://github.com/mya-ake/vue-tips-samples/tree/master/samples/simple_form)
-
+## 章と対象フォルダー
 
 ### 4章 Vuexのtips
 
 Vuexを使ったモーダルの表示のサンプルコードです。
 
-[modal_store](https://github.com/mya-ake/vue-tips-samples/tree/master/samples/modal_store)
+[modal_store](https://vue-tips-support-page.mya-ake.org/demo/modal_store/)
 
 
-Vuexとtransitionコンポーネントを使った場合の問題となる動作のサンプルコードです（58Pの遷移前に表示が変わる問題）。
+Vuexとtransitionコンポーネントを使った場合の問題となる動作のサンプルコードです。
 
-[vuex_transition_problem](https://github.com/mya-ake/vue-tips-samples/tree/master/samples/vuex_transition_problem)
+[vuex_transition_problem](https://vue-tips-support-page.mya-ake.org/demo/vuex_transition_problem/)

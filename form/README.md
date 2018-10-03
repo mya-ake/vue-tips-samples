@@ -2,7 +2,7 @@
 
 ## デモ
 
-[https://mya-ake.github.io/vue-tips-sample-demos/form](https://mya-ake.github.io/vue-tips-sample-demos/form)
+https://vue-tips-support-page.mya-ake.org/demo/form/
 
 ### バリデーション属性のデモ
 
@@ -10,15 +10,15 @@ dirtyやtouchedなどバリデーションのタイミングを決める属性�
 [https://mya-ake.github.io/vue-tips-sample-demos/form/samples/validation-attr](https://mya-ake.github.io/vue-tips-sample-demos/form/samples/validation-attr)
 
 
-## 章と対象フォルダ
+## 章と対象フォルダー
 
 ### 3章 フォーム実践編
 
-srcフォルダ以下が主な対象になります。
+srcフォルダー以下が主な対象になります。
 
 ### 4章 Vuexのtips
 
-srcフォルダ以下の次のものが対象になります。
+srcフォルダー以下の次のものが対象になります。
 
 - [store.js](https://github.com/mya-ake/vue-tips-samples/blob/master/form/src/store.js)
 - [store/form.js](https://github.com/mya-ake/vue-tips-samples/blob/master/form/src/store/form.js)
@@ -26,7 +26,7 @@ srcフォルダ以下の次のものが対象になります。
 
 ### 5章 vue-test-utilsでなにをテストするか
 
-tests/unitフォルダ以下が主な対象になります
+tests/unitフォルダー以下が主な対象になります
 
 ## commands
 

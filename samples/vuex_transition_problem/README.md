@@ -1,10 +1,10 @@
 # 4章 Vuexのtips
 
-Vuexとtransitionコンポーネントを使った場合の問題となる動作のサンプルコードです（58Pの遷移前に表示が変わる問題）。
+Vuexとtransitionコンポーネントを使った場合の問題となる動作のサンプルコードです。
 
 ## デモ
 
-[https://mya-ake.github.io/vue-tips-sample-demos/samples/vuex_transition_problem/](https://mya-ake.github.io/vue-tips-sample-demos/samples/vuex_transition_problem/)
+https://vue-tips-support-page.mya-ake.org/demo/vuex_transition_problem/
 
 ## commands
 

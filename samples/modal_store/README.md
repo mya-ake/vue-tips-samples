@@ -4,7 +4,7 @@ Vuexを使ったモーダルの表示のサンプルコードです。
 
 ## デモ
 
-[https://mya-ake.github.io/vue-tips-sample-demos/samples/modal_store/](https://mya-ake.github.io/vue-tips-sample-demos/samples/modal_store/)
+https://vue-tips-support-page.mya-ake.org/demo/modal_store/
 
 ## commands
 
