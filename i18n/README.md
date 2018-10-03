@@ -1,12 +1,11 @@
-# 6章 vue-i18nのLazy loadingとvue-router
+# 6 章 vue-i18n の Lazy loading と vue-router
 
-vue-i18nのLazy loadingの実装をしている章のサンプルコードです。
-またLazy loadingする際にvue-routerのナビゲーションガードが深く関わったのでその実装もあります。
+vue-i18n の Lazy loading の実装をしている章のサンプルコードです。
+また Lazy loading する際に vue-router のナビゲーションガードが深く関わったのでその実装もあります。
 
 ## デモ
 
 https://vue-tips-support-page.mya-ake.org/demo/i18n/
-
 
 ## commands
 

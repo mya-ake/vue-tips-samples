@@ -1,11 +1,10 @@
-# 1章 computedとfilter 
+# 1 章 computed と filter
 
-computedとfilterの使い分けに関する章のサンプルコードです。
+computed と filter の使い分けに関する章のサンプルコードです。
 
 ## デモ
 
 https://vue-tips-support-page.mya-ake.org/demo/computed_filter/
-
 
 ## commands
 

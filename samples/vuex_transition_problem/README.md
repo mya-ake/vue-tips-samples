@@ -1,6 +1,6 @@
-# 4章 Vuexのtips
+# 4 章 Vuex の tips
 
-Vuexとtransitionコンポーネントを使った場合の問題となる動作のサンプルコードです。
+Vuex と transition コンポーネントを使った場合の問題となる動作のサンプルコードです。
 
 ## デモ
 
