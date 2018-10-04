@@ -48,11 +48,12 @@ export default ({ Vue, router, options }) => {
   // demo router
   router.addRoutes(routes);
   router.beforeEach((to, from, next) => {
-    console.log('before', to);
-    if (to.path === '/demo/form/') {
-      console.log('next');
-      next(to.path);
-      return
+    console.log('before', to, from);
+    if ('r' in to.query) {
+      const redirect = to.query.r;
+      const nextPath = `/${redirect.split('-').join('/')}/`;
+      next(nextPath);
+      return;
     }
     next();
   });
