@@ -47,6 +47,13 @@ export default ({ Vue, router, options }) => {
 
   // demo router
   router.addRoutes(routes);
+  router.beforeEach((to, from, next) => {
+    console.log('before', to);
+    next();
+  });
+  router.afterEach((to, from) => {
+    console.log('after', to);
+  })
 
   // axios
   Vue.use(VueAxios, axios);
