@@ -1,5 +1,7 @@
 # Demo
 
+一部無理やり拡張して表示しているデモもあるため、リロードすると 404 になる場合があります。
+
 ## 1章 computedとfilter
 
 - [computedとfilterの例](/demo/computed_filter/)
