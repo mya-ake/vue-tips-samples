@@ -52,6 +52,7 @@ export default ({ Vue, router, options }) => {
     if ('r' in to.query) {
       const redirect = to.query.r;
       const nextPath = `/${redirect.split('-').join('/')}/`;
+      console.log(nextPath);
       next(nextPath);
       return;
     }
