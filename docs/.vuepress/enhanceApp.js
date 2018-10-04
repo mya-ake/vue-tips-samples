@@ -51,7 +51,7 @@ export default ({ Vue, router, options }) => {
     console.log('before', to);
     if (to.path === '/demo/form/') {
       console.log('next');
-      next(tp.path);
+      next(to.path);
       return
     }
     next();
