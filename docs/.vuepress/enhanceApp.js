@@ -47,19 +47,17 @@ export default ({ Vue, router, options }) => {
 
   // demo router
   router.addRoutes(routes);
-  router.beforeEach((to, from, next) => {
-    console.log('before', to, from);
+  // router.beforeEach((to, from, next) => {
+  //   next();
+  // });
+  router.afterEach((to, from) => {
     if ('r' in to.query) {
       const redirect = to.query.r;
       const nextPath = `/${redirect.split('-').join('/')}/`;
       console.log(nextPath);
-      next(nextPath);
+      router.push(nextPath);
       return;
     }
-    next();
-  });
-  router.afterEach((to, from) => {
-    console.log('after', to);
   })
 
   // axios
