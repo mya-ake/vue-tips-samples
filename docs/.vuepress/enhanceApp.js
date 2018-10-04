@@ -47,18 +47,13 @@ export default ({ Vue, router, options }) => {
 
   // demo router
   router.addRoutes(routes);
-  router.beforeEach((to, from, next) => {
-    next();
-  });
   router.afterEach((to, from) => {
     if ('r' in to.query) {
       const redirect = to.query.r;
       const nextPath = `/${redirect.split('-').join('/')}/`;
-      console.log(nextPath);
       Vue.nextTick().then(() => {
         router.push(nextPath);
       })
-      return;
     }
   })
 
