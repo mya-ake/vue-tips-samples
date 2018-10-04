@@ -49,6 +49,11 @@ export default ({ Vue, router, options }) => {
   router.addRoutes(routes);
   router.beforeEach((to, from, next) => {
     console.log('before', to);
+    if (to.path === '/demo/form/') {
+      console.log('next');
+      next(tp.path);
+      return
+    }
     next();
   });
   router.afterEach((to, from) => {
