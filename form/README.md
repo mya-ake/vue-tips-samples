@@ -2,7 +2,7 @@
 
 ## デモ
 
-https://vue-tips-support-page.mya-ake.org/demo/form/
+https://vue-tips-support-page.mya-ake.org/demo/?r=demo-form
 
 ## 章と対象フォルダー
 

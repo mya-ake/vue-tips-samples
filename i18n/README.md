@@ -5,7 +5,7 @@ vue-i18n の Lazy loading の実装をしている章のサンプルコードで
 
 ## デモ
 
-https://vue-tips-support-page.mya-ake.org/demo/i18n/
+https://vue-tips-support-page.mya-ake.org/demo/?r=demo-i18n
 
 ## commands
 

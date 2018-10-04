@@ -4,7 +4,7 @@ Vuex と transition コンポーネントを使った場合の問題となる動
 
 ## デモ
 
-https://vue-tips-support-page.mya-ake.org/demo/vuex_transition_problem/
+https://vue-tips-support-page.mya-ake.org/demo/?r=demo-vuex_transition_problem
 
 ## commands
 
